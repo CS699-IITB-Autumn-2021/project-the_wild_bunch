@@ -123,7 +123,7 @@
                                         </div>
                                         <div class="card-body">
                                             <h3 class="card-title"><?php echo $post['title']; ?></h3>
-                                            <h5 class="card-subtitle text-white"><?php echo $post['created_at']; ?></h5>
+                                            <h5 class="card-subtitle text-primary"><?php echo $post['created_at']; ?></h5>
                                             <p class="card-text"><?php echo $post['body']; ?></p>
                                             <p class="text-muted">Author : <?php echo $post['author']; ?></p>
                                         </div>
