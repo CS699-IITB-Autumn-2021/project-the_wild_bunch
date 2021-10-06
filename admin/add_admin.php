@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $uemail = trim($_POST['userEmail']);
     $upass = trim($_POST['passwd']);
     $cpass = trim($_POST['confirm']);
-
+    
     if($uname == "") {
       $err = "Please Enter User Name.";
     } else if(strpos($uname, " ")) {
@@ -39,16 +39,31 @@ if (isset($_POST['submit'])) {
       $err = "Password & Confirm Password doesn't match.";
     } else {
       if($_GET["eid"]) {
-        $sql = "UPDATE ".$adminTable." SET ".$admin_name." = '".$uname."', ".$admin_email." = '".$uemail."', ".$admin_pass." = '".$upass."' WHERE ".$admin_id." = ".$_GET["eid"];
+        $sql = "SELECT * FROM ".$adminTable." WHERE `".$admin_name."` = '".$uname."' AND ".$admin_id." != ".$_GET["eid"];
+        if(mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
+          $sql = "UPDATE ".$adminTable." SET ".$admin_name." = '".$uname."', ".$admin_email." = '".$uemail."', ".$admin_pass." = '".$upass."' WHERE ".$admin_id." = ".$_GET["eid"];
+          if (mysqli_query($conn, $sql)) {
+            ?> <script type="text/javascript">window.location="index.php"</script> <?php
+          } else {
+            $err = "Something Goes Wrong. Please Try Agian.";
+          }
+        } else {
+          $err = "Admin name alreday registered.";
+        }
       } else {
-        $sql = "INSERT INTO ".$adminTable." (`".$admin_name."`, `".$admin_email."`, `".$admin_pass."`) VALUES ('".$uname."','".$uemail."','".$upass."')";
+        $sql = "SELECT * FROM ".$adminTable." WHERE `".$admin_name."` = '".$uname."'";
+        if(mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
+          $sql = "INSERT INTO ".$adminTable." (`".$admin_name."`, `".$admin_email."`, `".$admin_pass."`) VALUES ('".$uname."','".$uemail."','".$upass."')";
+          if (mysqli_query($conn, $sql)) {
+            ?> <script type="text/javascript">window.location="index.php"</script> <?php
+          } else {
+            $err = "Something Goes Wrong. Please Try Agian.";
+          }
+        } else {
+          $err = "Admin name alreday registered.";
+        }
       }
       // $err =  $sql;
-      if (mysqli_query($conn, $sql)) {
-        ?> <script type="text/javascript">window.location="index.php"</script> <?php
-      } else {
-        $err = "Something Goes Wrong. Please Try Agian.";
-      }
     }
 }
 
