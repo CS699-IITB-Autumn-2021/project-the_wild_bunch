@@ -36,9 +36,6 @@
     $article_img2 = "article_img2";
     $article_img3 = "article_img3";
     $article_status = "article_status";
-    $article_visit = "article_visit";
-    $article_like = "article_like";
-    $article_dislike = "article_dislike";
 
     $commentTable = "comment";
     $comment_id = "comment_id";

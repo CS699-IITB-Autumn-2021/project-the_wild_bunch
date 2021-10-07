@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
 
       if($img1 != "") {
         $img1 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img1);
-        if(move_uploaded_file($_FILES['title_img']['tmp_name'], $path.$img1) && $old_img1) {
+        if(move_uploaded_file($_FILES['img1']['tmp_name'], $path.$img1) && $old_img1) {
           unlink($path.$old_img1);
         }
       } else {
@@ -107,7 +107,7 @@ if (isset($_POST['submit'])) {
 
       if($img2 != "") {
         $img2 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img2);
-        if(move_uploaded_file($_FILES['title_img']['tmp_name'], $path.$img2) && $old_img2) {
+        if(move_uploaded_file($_FILES['img2']['tmp_name'], $path.$img2) && $old_img2) {
           unlink($path.$old_img2);
         }
       } else {
@@ -116,7 +116,7 @@ if (isset($_POST['submit'])) {
 
       if($img3 != "") {
         $img3 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img3);
-        if(move_uploaded_file($_FILES['title_img']['tmp_name'], $path.$img3) && $old_img3) {
+        if(move_uploaded_file($_FILES['img3']['tmp_name'], $path.$img3) && $old_img3) {
           unlink($path.$old_img3);
         }
       } else {

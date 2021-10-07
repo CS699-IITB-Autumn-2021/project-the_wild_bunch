@@ -14,17 +14,17 @@ for content in soup.body.article.find_all("p",class_=lambda x: x and x.startswit
     description = description + content.text.strip() + "<br>"
 description = description + "<a href='" + url + "'>Read More</a>"
 
-# data = {
-#     'title' : str(soup.body.h1.text.strip()),
-#     'description' : str(description),
-# }
+data = {
+    'title' : str(soup.body.h1.text.strip()),
+    'description' : str(description),
+}
 
-connection = pymysql.connect(host="localhost",user="root",passwd="",database="cs699proj" )
-cursor = connection.cursor()
-sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
-cursor.execute(sql, (url, str(soup.body.h1.text.strip()), sys.argv[2], str(description), (2)))
-connection.commit()
-connection.close()
+# connection = pymysql.connect(host="localhost",user="root",passwd="",database="cs699proj" )
+# cursor = connection.cursor()
+# sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
+# cursor.execute(sql, (url, str(soup.body.h1.text.strip()), sys.argv[2], str(description), (2)))
+# connection.commit()
+# connection.close()
 
 
 # print(sys.argv[1])
