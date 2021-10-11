@@ -44,7 +44,15 @@ class param_matcher:
 			else:
 				to_construct = to_construct + self.curr[i]
 			if 	self.curr[i] == '"':
-				quotes_open = 1-quotes_open
+				count_back_slash = 0
+				index = i-1
+				while(index!=0 and self.curr[index]=="\\"):
+					
+					count_back_slash = count_back_slash+1
+					index = index - 1
+				# if self.curr[i-1] !='\\':
+				if count_back_slash%2==0:
+					quotes_open = 1-quotes_open
 
 					
 		with open(file_name, "w") as f:
@@ -82,7 +90,15 @@ class param_matcher:
 							to_construct = to_construct + " "
 						to_construct = to_construct + self.curr[i]
 			if self.curr[i] == '"':
-				quotes_open = 1-quotes_open
+				count_back_slash = 0
+				index = i-1
+				while(index!=0 and self.curr[index]=="\\"):
+					
+					count_back_slash = count_back_slash+1
+					index = index - 1
+				# if self.curr[i-1] !='\\':
+				if count_back_slash%2==0:
+					quotes_open = 1-quotes_open
 
 					
 		with open(file_name, "w") as f:
