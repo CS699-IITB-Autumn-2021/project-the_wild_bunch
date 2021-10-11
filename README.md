@@ -1,4 +1,4 @@
-# News-Portal-project-webscraping-php
+# News-Portal-Project-WebScraping-PHP
 Template repository for CS699 course project.  
 Aniruddha Branch
 
