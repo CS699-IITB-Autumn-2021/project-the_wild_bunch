@@ -3,7 +3,8 @@ Template repository for CS699 course project.\\
 Aniruddha Branch
 
 There are two directories here:  
-	1. upload\_php: this folder mainly contains the basic programs to upload images, and run programs through php.
+  
+	1. upload_php: this folder mainly contains the basic programs to upload images, and run programs through php.
 		* upload.html: this file is a form to upload an image in database
 		* upload_php: there should be a target directory uploads/ in the server. this code contains the program of uploading an image file on the server and also making the changes in the database.
 		* tmp.php: this php file runs a shell script from php.
