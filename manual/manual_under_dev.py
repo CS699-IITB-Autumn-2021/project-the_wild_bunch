@@ -16,7 +16,7 @@ if len(sys.argv)>1:
 root = "https://www.google.com/"
 
 #the search link with keyword
-link = "https://www.google.com/search?source=lnms&tbm=nws&sa=X&ved=2ahUKEwjzl-DcvKzzAhXT7HMBHauVCjAQ_AUoAXoECAEQAw&q="+key_word+"&biw=1183&bih=611&dpr=1.1"
+link = "https://news.google.com/search?q="+key_word+"&hl=en-IN&gl=IN&ceid=IN:en"
 
 #request for the link
 req = Request(link, headers={'User-Agent': 'Mozilla/5.0'})
