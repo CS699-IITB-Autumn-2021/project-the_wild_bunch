@@ -11,6 +11,7 @@ class param_matcher:
 			new_child=param_matcher(list_str[i[0]:i[1]+1])
 			self.children_l.append(new_child)
 	
+
 	def pretty_print(self, file_name):
 		to_construct = ""
 		tab_chars = 0
@@ -89,7 +90,7 @@ class param_matcher:
 						for tabs in range(0,(tab_chars)):
 							to_construct = to_construct + " "
 						to_construct = to_construct + self.curr[i]
-			if self.curr[i] == '"':
+			if 	self.curr[i] == '"':
 				count_back_slash = 0
 				index = i-1
 				while(index!=0 and self.curr[index]=="\\"):
@@ -113,30 +114,42 @@ class param_matcher:
 		opening_closing_brackets = []
 		children_location = []
 
+		quotes_open = 0
+		
 		for i in range(0,len(str_curr)):
 			#print(i, str_curr[i], len(str_curr), count_bracket)
-			if str_curr[i]=="[":
-				count_bracket = count_bracket+1
-				opening_closing_brackets.append(i+1)
-			
-			elif str_curr[i] == "]":
+			if quotes_open==0:
+				if str_curr[i]=="[":
+					count_bracket = count_bracket+1
+					opening_closing_brackets.append(i+1)
 				
-				count_bracket = count_bracket-1
-				opening_last_loc = opening_closing_brackets.pop()
-				closing_last_loc = i-1
+				elif str_curr[i] == "]":
+					
+					count_bracket = count_bracket-1
+					opening_last_loc = opening_closing_brackets.pop()
+					closing_last_loc = i-1
 
-				bracket_loc_indices.append((opening_last_loc,closing_last_loc))
+					bracket_loc_indices.append((opening_last_loc,closing_last_loc))
 
 
 
-				if count_bracket<0:
-					print("ERROR")
-					exit()
+					if count_bracket<0:
+						print("ERROR")
+						exit()
 
-				if count_bracket == 0:
-					children = children + 1
-					children_location.append((opening_last_loc,closing_last_loc))
-		#if count_bracket<0:
-			
+					if count_bracket == 0:
+						children = children + 1
+						children_location.append((opening_last_loc,closing_last_loc))
+			#if count_bracket<0:
+			if 	self.curr[i] == '"':
+				count_back_slash = 0
+				index = i-1
+				while(index!=0 and self.curr[index]=="\\"):
+					
+					count_back_slash = count_back_slash+1
+					index = index - 1
+				# if self.curr[i-1] !='\\':
+				if count_back_slash%2==0:
+					quotes_open = 1-quotes_open
 		return children_location
 
