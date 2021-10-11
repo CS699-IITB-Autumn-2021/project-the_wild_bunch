@@ -13,4 +13,6 @@ There are two directories here:
 		a: "GoogleNews" api. The image functionality is not working here.
 		b: "newsapi" api. This is a paid api. Free version have restrictions and gives restricted number of responses.
 		c: "pygooglenews" api. This api does not give the image link and description of the news article
+		
+	3: manual: wrote own webscraping program for extracting articles from google news.
 	
