@@ -9,10 +9,26 @@ import time
 
 def parser_to_print(tmp):
 	for i in range(0,len(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l)):
-		if i==0:
-			print("***************************************")
-			print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(","))
-			print("***************************************")
+		x = 3
+		if i>2:##better	
+			while tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x][-1]!='"':
+				print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x], end="")
+				x = x+1
+			print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x],end="\t")
+			x = x+1
+			
+			while tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x][-1]!='"':
+				print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x], end="")
+				x = x+1
+			print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x],end="\t")
+			x = x+3
+			print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x],end="\t")
+			x = x+2
+			print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[x][3:],end="\t")
+			
+			print()
+			print()
+			print()
 
 #default keyword is Trump
 key_word = "Trump"
