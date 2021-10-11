@@ -21,8 +21,17 @@ link = "https://news.google.com/search?q="+key_word+"&hl=en-IN&gl=IN&ceid=IN:en"
 #request for the link
 req = Request(link, headers={'User-Agent': 'Mozilla/5.0'})
 
+#add a print statement to have more interaction
+print("opening url...", link)
+
+
 #read the webpage
 webpage = urlopen(req).read()
+
+#add a print statement to have more interaction
+print("opened url...complete")
+
+
 # print(webpage)
 
 #start session
