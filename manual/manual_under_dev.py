@@ -42,16 +42,8 @@ print("opened url...complete")
 soup = BeautifulSoup(webpage, 'lxml')
 
 #print formatted output
-print(soup.prettify())
-print("-----------------------------------")
-
-#use class DY5T1d RZIKme to get the title and link
-for i in (soup.find_all('a',class_="DY5T1d RZIKme")):
-
- 	#print the text and the url with tab separator
- 	print(i.text,root+i['href'][2:],sep="\t")
- 	# print(i)
- 	print()
+#print(soup.prettify())
+#print("-----------------------------------")
 
 #there are always 20 elements in the script tag
 print(len(soup.find_all('script')))
