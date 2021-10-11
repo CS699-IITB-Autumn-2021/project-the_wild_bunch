@@ -53,3 +53,10 @@ print(soup.find_all('script')[17].text)
 
 #create a temporary object of the parse class
 tmp = ps.param_matcher(str(soup.find_all('script')[17].text))
+
+#print only the nested [] in the tmp file name
+tmp.rem_brackets("tmp_"+key_word+"_rm_brackets_data.txt")
+
+#print all the textual data prettily in the file
+tmp.pretty_print("tmp_"+key_word+"_rm_pretty.txt")
+
