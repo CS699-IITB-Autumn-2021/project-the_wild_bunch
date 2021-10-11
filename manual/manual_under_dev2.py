@@ -35,6 +35,25 @@ with requests.Session() as c:
 	print(soup.prettify())
 	print("-----------------------------------")
 	
+	#This div class kCrYT contains the title and the link of article
+	for item in soup.find_all('div',class_='kCrYT'):
+		#start a try block as there may be no entity <a> in the class
+		try:
+			
+			#print the url whole tag
+	 		print(item.a)
+	 		
+	 		#print the url link in the whole tag and the title of the article separated by tab
+	 		print(item.a['href'],item.a.find('div',class_="BNeawe vvjwJb AP7Wnd").text,sep='\t')
+	 		
+	 		
+		except:
+	 		#if there is no div class or url then just print the tag
+	 		print(":::",item.a,(item.a.text),sep='\t')
+	 		print("~~~",item)
+	 		pass
+	
+	print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 	
 	#This div class kCrYT contains the title and the link of article
 	for i in soup.find_all('div',class_='kCrYT'):
