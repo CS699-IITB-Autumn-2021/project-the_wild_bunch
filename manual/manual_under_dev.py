@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import sys
+import parse_class as ps
+import time
+
 
 #default keyword is Trump
 key_word = "Trump"
@@ -55,3 +58,6 @@ print(len(soup.find_all('script')))
 
 #the 17th item in the script contains all the article related info
 print(soup.find_all('script')[17].text)
+
+#create a temporary object of the parse class
+tmp = ps.param_matcher(str(soup.find_all('script')[17].text))
