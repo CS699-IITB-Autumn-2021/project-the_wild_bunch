@@ -8,25 +8,11 @@ import parse_class as ps
 import time
 
 def parser_to_print(tmp):
-	# result = text_data.split('"')[1::2]
-	for i in soup.find_all('script')[17].text.split("["):
-		print(i.split("]"))
-	# for item in len(result):
-	# tmp = ps.param_matcher(text_data)
-	
-	
-	children_1 = tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l
-	for i in range(0,len(children_1)):
-		children_2 = children_1[i].children_l[0].children_l[1].children_l
-		for j in range(0,len(children_2)):
-			img_link = children_2[j].children_l[0].children_l[2].children_l[0].curr.split(",")[0][1:-1]
-			url = children_2[j].children_l[0].curr.split(",")[7]
-			title = children_2[j].children_l[0].curr.split(",")[3]
-			title_desc = children_2[j].children_l[0].curr.split(",")[4]
-			print(title, title_desc, img_link, url, sep="\t")
-			print()
-			print()
-			print()
+	for i in range(0,len(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l)):
+		if i==0:
+			print("***************************************")
+			print(tmp.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(","))
+			print("***************************************")
 
 #default keyword is Trump
 key_word = "Trump"
