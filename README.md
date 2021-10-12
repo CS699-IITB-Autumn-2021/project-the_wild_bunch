@@ -1,6 +1,5 @@
 # News-Portal-Project-WebScraping-PHP
-Template repository for CS699 course project.  
-Aniruddha Branch
+Branch :**Aniruddha**
 
 These are the following directories here:  
   
