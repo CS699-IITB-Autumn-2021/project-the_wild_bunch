@@ -26,7 +26,9 @@
     <div class="col-12">
       <!-- <div class="card">
         <div class="card-body"> -->
-          <h3 class="card-title">View Article</h3>
+
+          <!-- View Comment Table -->
+          <h3 class="card-title">View Comment</h3>
           <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
@@ -56,11 +58,13 @@
                     <td><?php echo $arr[$admin_id]; ?></td>
                   <?php } ?>
                   <td> 
+                    <!-- Delete Comment -->
                     <a href="./view_comment.php?ddid=<?php echo $row[$comment_id]; ?>">
                         <button type="button" class="btn btn-danger text-white"><i class="fa fa-trash"></i> Delete </button>
                     </a>
                   </td>
                   <td>
+                    <!-- Status of comment(active or deactive) -->
                     <?php if($row[$comment_status] != 1) { ?>
                       <a href="./view_comment.php?aid=<?php echo $row[$comment_id]; ?>">
                         <button type="button" class="btn btn-primary" > Active </button>

@@ -2,13 +2,13 @@
 
 <?php
   $pass = $name = $err = "";
+
+  // Verify user's credentials
   if (isset($_POST['submit'])) {
     $pass = $_POST['upass'];
     $name = $_POST['uname'];
 
     $sql = "SELECT * FROM ".$adminTable." WHERE ".$admin_name." = '".$name."' AND ".$admin_status." = 1 AND ".$admin_pass." = '".$pass."'";
-    // echo $sql;
-    // exit();
     $result = mysqli_query($conn, $sql);
     
     if(mysqli_num_rows($result) != 0) {
@@ -34,6 +34,7 @@
 		<div class="login">
 			<div class="content">
 					<h1>Log In</h1>
+        <!-- Login form -->
 				<form action="login.php" method="post">
 					<input type="text" name="uname" placeholder="Email Address">
 					<input type="password" name="upass" placeholder="Enter Password">
@@ -56,18 +57,15 @@
 
 <script>
     const registerButton = document.getElementById('register')
-const loginButton = document.getElementById('login')
-const container = document.getElementById('container')
+  const loginButton = document.getElementById('login')
+  const container = document.getElementById('container')
 
-registerButton.onclick = function(){
-	 container.className = 'active'
-}
-loginButton.onclick = function(){
-		container.className = 'close'
-}
- 
-
-
+  registerButton.onclick = function(){
+    container.className = 'active'
+  }
+  loginButton.onclick = function(){
+      container.className = 'close'
+  }
 </script>
 </body>
 </html>

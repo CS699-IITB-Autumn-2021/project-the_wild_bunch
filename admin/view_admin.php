@@ -5,14 +5,19 @@
 
   $i = 0;
 
+  // Activate the admin whose id is aid.
   if($_GET["aid"]) {
     $sql = "UPDATE ".$adminTable." SET ".$admin_status." = 1 WHERE ".$admin_id." = ".$_GET["aid"];
     mysqli_query($conn, $sql);
   }
+
+  // De-Activate the admin whose id is did.
   if($_GET["did"]) {
     $sql = "UPDATE ".$adminTable." SET ".$admin_status." = 0 WHERE ".$admin_id." = ".$_GET["did"];
     mysqli_query($conn, $sql);
   }
+
+  // Delete the admin whose id is ddid.
   if($_GET["ddid"]) {
     $sql = "DELETE FROM ".$adminTable." WHERE ".$admin_id." = ".$_GET["ddid"];
     mysqli_query($conn, $sql);
@@ -26,6 +31,8 @@
     <div class="col-12">
       <!-- <div class="card">
         <div class="card-body"> -->
+
+          <!-- Admin Table -->
           <h3 class="card-title">View Admin</h3>
           <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
@@ -50,6 +57,7 @@
                   <td><?php if($_SESSION['id'] == 1) echo $row[$admin_pass]; else echo "*******"?></td>
                   <td>
                     <!-- <a href="./add_admin.php?eid=<?php //echo $row[$admin_id]; ?>"> -->
+                    <!-- Edit Admin -->
                     <a <?php if(!($_SESSION['id'] != $row[$admin_id] && $_SESSION['id'] != 1)) echo "href=./add_admin.php?eid=".$row[$admin_id]; ?>>
                       <button type="button" class="btn btn-primary" <?php if($_SESSION['id'] != $row[$admin_id] && $_SESSION['id'] != 1) echo "disabled"; ?> ><i class="fa fa-edit"></i> Edit </button>
                     </a>
@@ -57,6 +65,7 @@
                   <?php if($_SESSION['id'] == "1") { ?>
                     <td> 
                       <!-- <a href="./view_admin.php?ddid=<?php echo $row[$admin_id]; ?>"> -->
+                      <!-- Delete Admin -->
                       <a <?php if($row[$admin_id] != "1") echo "href=./view_admin.php?ddid=".$row[$admin_id]; ?>>
                         <!-- <button type="button" class="btn btn-danger text-white" <?php if($_SESSION['id'] != "1" || $row[$admin_id] == "1") echo "disabled"; ?> ><i class="fa fa-trash"></i> Delete</button> -->
                         <button type="button" class="btn btn-danger text-white" <?php if($row[$admin_id] == "1") echo "disabled"; ?> ><i class="fa fa-trash"></i> Delete</button>
@@ -64,6 +73,7 @@
                     </td>
                   <?php } ?>
                   <td>
+                    <!-- Active/Deactive Admin -->
                     <?php if($row[$admin_status] != 1) { ?>
                       <!-- <a href="./view_admin.php?aid=<?php //echo $row[$admin_id]; ?>"> -->
                       <a <?php if(!($_SESSION['id'] != "1" || $row[$admin_id] == "1")) echo "href=./view_admin.php?aid=".$row[$admin_id]; ?>>

@@ -4,14 +4,19 @@
 <?php
   $path="assets/upload/article/";
 
+  // Activate article whose id is aid
   if($_GET["aid"]) {
     $sql = "UPDATE ".$articleTable." SET ".$article_status." = 1 WHERE ".$article_id." = ".$_GET["aid"];
     mysqli_query($conn, $sql);
   }
+
+  // De-Activate article whose id is did
   if($_GET["did"]) {
     $sql = "UPDATE ".$articleTable." SET ".$article_status." = 0 WHERE ".$article_id." = ".$_GET["did"];
     mysqli_query($conn, $sql);
   }
+
+  // Delete article whose id is ddid
   if($_GET["ddid"]) {
     $sql = "DELETE FROM ".$articleTable." WHERE ".$article_id." = ".$_GET["ddid"];
     mysqli_query($conn, $sql);
@@ -29,6 +34,7 @@
     <div class="col-12">
       <!-- <div class="card">
         <div class="card-body"> -->
+        <!-- View Article Table -->
           <h3 class="card-title">View Article</h3>
           <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
@@ -64,16 +70,19 @@
                     ?></td>
                   <td><?php echo $row[$admin_id]; ?></td>
                   <td>
+                    <!-- Edit article -->
                     <a href="./add_article.php?eid=<?php echo $row[$article_id]; ?>">
                       <button type="button" class="btn btn-primary" ><i class="fa fa-edit"></i> Edit </button>
                     </a>
                   </td>
                   <td> 
+                    <!-- Delete article -->
                     <a href="./view_article.php?ddid=<?php echo $row[$article_id]; ?>">
                         <button type="button" class="btn btn-danger text-white"><i class="fa fa-trash"></i> Delete</button>
                     </a>
                   </td>
                   <td>
+                    <!-- Status of article -->
                     <?php if($row[$article_status] != 1) { ?>
                       <a href="./view_article.php?aid=<?php echo $row[$article_id]; ?>">
                         <button type="button" class="btn btn-primary" > Active </button>

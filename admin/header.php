@@ -13,14 +13,15 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='./css/sidebar.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- CSS only -->
+    <!-- CSS -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" /> -->
     <!-- <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" /> -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
-    <!-- JavaScript Bundle with Popper -->
+    
+    <!-- JavaScript -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src='js/sidebar.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -39,10 +40,14 @@
       data-header-position="absolute"
       data-boxed-layout="full"
     >
+
+    <!-- Header -->
     <header class="header navbar" id="header"  style="margin-bottom:20px; padding-left: calc(var(--nav-width) + -50px);">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"> News Portal | Admin </i></div>
         <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
     </header>
+
+    <!-- Navbar -->
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="index.php" class="nav_logo" style="text-decoration: none;"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">News Portal</span> </a>

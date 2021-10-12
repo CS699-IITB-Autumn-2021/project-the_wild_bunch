@@ -3,9 +3,19 @@
 
 <?php
 
+//Include required PHPMailer files
+require_once 'includes/PHPMailer.php';
+require_once 'includes/SMTP.php';
+require_once 'includes/Exception.php';
+//Define name spaces
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 $err = $title = $category = $title_img = $description = $img1 = $img2 = $img3 = "";
 $path="assets/upload/article/";
 
+// Handle edit article flow
 if(!isset($_POST['submit']) && $_GET['eid']) {
   $sql = "SELECT * FROM ".$articleTable." WHERE ".$article_id." = ".$_GET["eid"];
   $result = mysqli_query($conn, $sql);
@@ -21,10 +31,12 @@ if(!isset($_POST['submit']) && $_GET['eid']) {
   }
 }
 
+// Submit details
 if (isset($_POST['submit'])) {
   // $err = "Please select article category";
   // echo trim($_POST['category']) == "0";
   
+  // data fetch
   $title = trim($_POST['title']);
   $category = trim($_POST['category']);
   $title_img = $_FILES['title_img']['name'];
@@ -37,6 +49,7 @@ if (isset($_POST['submit'])) {
   $old_img2 = $_POST['old_img2'];
   $old_img3 = $_POST['old_img3'];
 
+  // Validation
   if($title == "") {
     $err = "Please enter article title";
   } else if(!$_GET['eid'] && $title_img == "") {
@@ -47,8 +60,12 @@ if (isset($_POST['submit'])) {
     $err = "Please enter article description";
   } else {
     $milliseconds = round(microtime(true) * 1000);
+    $title = str_replace('"', '\"', $title);
     $description = str_replace('"', '\"', $description);
+    
+    // Add new article flow
     if(!$_GET['eid']) {
+      // Update image name
       $title_img = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $title_img);
       $img1 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img1);
       $img2 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img2);
@@ -73,8 +90,6 @@ if (isset($_POST['submit'])) {
           }
         } else { $img3 = ""; }
   
-        // $msg = "Image uploaded successfully";
-        // echo $description."<br>";
         $sql = 'INSERT INTO '.$articleTable.' (`'.$article_title_img.'`,`'.$article_title.'`,`'.$article_category.'`,`'.$article_desc.'`,`'.$article_img1.'`,`'.$article_img2.'`,`'.$article_img3.'`,`'.$admin_id.'`) VALUES ("'.$title_img.'","'.$title.'","'.$category.'","'.$description.'","'.$img1.'","'.$img2.'","'.$img3.'","'.$_SESSION['id'].'")';
         if (mysqli_query($conn, $sql)) {
           ?> <script type="text/javascript">window.location="index.php"</script> <?php
@@ -86,7 +101,7 @@ if (isset($_POST['submit'])) {
       }
 
     } else {
-
+      // Edit artilce flow handle
       if($title_img != "") {
         $title_img = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $title_img);
         if(move_uploaded_file($_FILES['title_img']['tmp_name'], $path.$title_img) && $old_title_img) {
@@ -139,9 +154,11 @@ if (isset($_POST['submit'])) {
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                  <!-- Form -->
                     <form class="form-horizontal" method="post" action="./add_article.php<?php if($_GET["eid"]) echo "?eid=".$_GET["eid"]; ?>" enctype="multipart/form-data">
                     <div class="card-body">
                     <h3 class="card-title">Add News Article</h3>
+                    <!-- Article Title -->
                     <div class="form-group row">
                       <label
                         for="title"
@@ -163,7 +180,8 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div style="height:15px"> </div>
-
+                    
+                    <!-- Article Image -->
                     <div class="form-group row">
                         <label
                             for="title_img"
@@ -178,7 +196,8 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div style="height:15px"> </div>
-
+                    
+                    <!-- Article Category -->
                     <div class="form-group row">
                       <label
                         for="category"
@@ -202,6 +221,7 @@ if (isset($_POST['submit'])) {
 
                     <div style="height:15px"> </div>
 
+                    <!-- Article Description -->
                     <div class="form-group row">
                       <label
                         for="description"
@@ -220,6 +240,7 @@ if (isset($_POST['submit'])) {
                     
                     <div style="height:15px"> </div>
 
+                    <!-- Extra image -->
                     <div class="form-group row">
                         <label for="title_img1"class="col-sm-4 control-label col-form-label">Article Image 1</label>
                         <div class="col-sm-8">
@@ -252,7 +273,8 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div style="height:15px"> </div>
-
+                    
+                    <!-- Error message -->
                     <?php
                         if($err != "") { 
                     ?>
@@ -262,6 +284,7 @@ if (isset($_POST['submit'])) {
                     <?php
                         }
                     ?>
+                    <!-- Submit button -->
                     <div class="border-top" style="margin-bottom: -23px;">
                         <div class="card-body">
                             <center><input type="submit" name="submit" value="Submit" class="btn btn-primary"></center>

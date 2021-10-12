@@ -4,6 +4,8 @@
 <?php
 
 $err = $uname = $uemail = $upass = $cpass = "";
+
+//Handle edit admin flow
 if($_GET["eid"]) {
   $sql = "SELECT * FROM ".$adminTable." WHERE ".$admin_id." = ".$_GET["eid"];
   $result = mysqli_query($conn, $sql);
@@ -16,13 +18,14 @@ if($_GET["eid"]) {
   }
 }
 
-
+//Update or Insert admin details
 if (isset($_POST['submit'])) {
     $uname = trim($_POST['userName']);
     $uemail = trim($_POST['userEmail']);
     $upass = trim($_POST['passwd']);
     $cpass = trim($_POST['confirm']);
     
+    //Validation
     if($uname == "") {
       $err = "Please Enter User Name.";
     } else if(strpos($uname, " ")) {
@@ -38,6 +41,7 @@ if (isset($_POST['submit'])) {
     }  else if($cpass != $upass) {
       $err = "Password & Confirm Password doesn't match.";
     } else {
+      // Insert new admin's data in admin table & Check admin with same username alredy exist or not
       if($_GET["eid"]) {
         $sql = "SELECT * FROM ".$adminTable." WHERE `".$admin_name."` = '".$uname."' AND ".$admin_id." != ".$_GET["eid"];
         if(mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
@@ -51,6 +55,7 @@ if (isset($_POST['submit'])) {
           $err = "Admin name alreday registered.";
         }
       } else {
+        // Update admin's data in admin table
         $sql = "SELECT * FROM ".$adminTable." WHERE `".$admin_name."` = '".$uname."'";
         if(mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
           $sql = "INSERT INTO ".$adminTable." (`".$admin_name."`, `".$admin_email."`, `".$admin_pass."`) VALUES ('".$uname."','".$uemail."','".$upass."')";
@@ -63,7 +68,6 @@ if (isset($_POST['submit'])) {
           $err = "Admin name alreday registered.";
         }
       }
-      // $err =  $sql;
     }
 }
 
@@ -74,9 +78,11 @@ if (isset($_POST['submit'])) {
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                  <!-- Add admin Form -->
                     <form class="form-horizontal" method="post" action="./add_admin.php<?php if($_GET["eid"]) echo "?eid=".$_GET["eid"]; ?>">
                     <div class="card-body">
                     <h3 class="card-title">Personal Info</h3>
+                    <!-- User name -->
                     <div class="form-group row">
                       <label
                         for="uname"
@@ -98,7 +104,7 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div style="height:15px"> </div>
-
+                    <!-- Email Id -->
                     <div class="form-group row">
                       <label
                         for="uemail"
@@ -120,7 +126,8 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div style="height:15px"> </div>
-
+                    
+                    <!-- Password -->
                     <div class="form-group row">
                       <label for="passwd" class="col-sm-4 control-label col-form-label">Password</label>
                       <div class="col-sm-6">
@@ -138,7 +145,8 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div style="height:15px"> </div>
-
+                    
+                    <!-- Confirm Password -->
                     <div class="form-group row">
                       <label
                         for="confirm"
@@ -159,6 +167,7 @@ if (isset($_POST['submit'])) {
                       </div>
                     </div>
                     <div style="height:15px"> </div>
+                    <!-- Error message -->
                     <?php
                         if($err != "") { 
                     ?>
@@ -172,8 +181,10 @@ if (isset($_POST['submit'])) {
                         <div class="card-body">
                             <center>
                               <?php if($_GET["eid"] || $_SESSION['id'] == 1) { ?>
+                                <!-- Submit button (If current user's id is 1 or admin want to update the his/her details) -->
                                 <input type="submit" name="submit" value="Submit" class="btn btn-primary">
                               <?php } else { ?>
+                                <!-- Submit button for unauthorized user -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                   Submit
                                 </button>
