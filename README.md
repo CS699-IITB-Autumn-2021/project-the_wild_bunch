@@ -1,7 +1,7 @@
 # News-Portal-Project-WebScraping-PHP
-Branch :**Aniruddha**
+Branch: **Aniruddha**
 
-These are the following directories here:  
+There are following directories here:  
   
 	1. upload_php: this folder mainly contains the basic programs to upload images, and run programs through php.
 		* upload.html: This file is a form to upload an image in database
