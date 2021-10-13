@@ -30,7 +30,7 @@ def main():
 
 	#use the keyword passed in commandline argument if any
 	if len(sys.argv)>1:
-		key_word=sys.argv[0]
+		key_word=sys.argv[1]
 
 	#the root link
 	root = "https://www.google.com/"
