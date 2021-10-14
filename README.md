@@ -18,3 +18,12 @@ There are following directories here:
 		 * parse_class.py: This file contains the parser class created to parse and extract required data from the fetched google news page.
 		 * typical_parse_data.py: This is a sample file showing the fetched google news data. Note that this is the unparsed data. This contains only one line with about 4lac characters. This has to be opened with vim. Gedit may crash on opening it.
 		 * docs: This is a directory which contains documentation of the parser and main. Open the page _build/html/index.html to see documentation.
+	
+	4. merge_info: this directory contains information of merging with the backend/front end.
+	See the following steps to follow to run this on your machine.See Readme.txt in this directory.
+	* Download this merge_info directory in www/html/
+	* Open terminal inside this directory
+	* run the command "$chmod +x setup.sh" if setup.sh does not have executable permissions.
+	* run "$./setup.sh" on terminal. This makes a python virtual environment in a directory named virt_env and then install the required packages
+	* Then open index.html and enter a keyword in the text box.
+	* Wait for few minutes. It will print a pretty table in html. Note that tmp.php uses the python libs and command from the virtual environment.
