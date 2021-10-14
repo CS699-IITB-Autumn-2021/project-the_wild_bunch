@@ -92,6 +92,62 @@ if (isset($_POST['submit'])) {
   
         $sql = 'INSERT INTO '.$articleTable.' (`'.$article_title_img.'`,`'.$article_title.'`,`'.$article_category.'`,`'.$article_desc.'`,`'.$article_img1.'`,`'.$article_img2.'`,`'.$article_img3.'`,`'.$admin_id.'`) VALUES ("'.$title_img.'","'.$title.'","'.$category.'","'.$description.'","'.$img1.'","'.$img2.'","'.$img3.'","'.$_SESSION['id'].'")';
         if (mysqli_query($conn, $sql)) {
+          //send emails
+          //Fetch all email id
+          $sql_ = "SELECT * FROM ".$subscriberTable;
+          $result_ = mysqli_query($conn, $sql_);
+
+          //Create instance of PHPMailer
+          $mail = new PHPMailer();
+          
+          //Set mailer to use smtp
+          $mail->isSMTP();
+          
+          //Define smtp host
+          $mail->Host = "smtp.gmail.com";
+          
+          //Enable smtp authentication
+          $mail->SMTPAuth = true;
+          
+          //Set smtp encryption type (ssl/tls)
+          $mail->SMTPSecure = "tls";
+          
+          //Port to connect smtp
+          $mail->Port = "587";
+          
+          //Set gmail username
+          $mail->Username = $email_id;
+          
+          //Set gmail password
+          $mail->Password = $email_pass;
+          
+          //Email subject
+          $mail->Subject = "New article published : '".$title."'";
+          
+          //Set sender email
+          $mail->setFrom($email_id);
+          
+          //Enable HTML
+          $mail->isHTML(true);
+          
+          //Email body
+          $mail->Body = "<h1>".$title."</h1></br><p>".$description."</p>";
+          
+          //Add recipient
+          while($row = mysqli_fetch_assoc($result_)) {
+            $mail->addAddress($row[$emails_email]);
+          }
+          
+          //Finally send email
+          if ( $mail->send() ) {
+            $msg = "Email Sent..!";
+          }else{
+            $msg = "Message could not be sent.";
+          }
+          
+          //Closing smtp connection
+          $mail->smtpClose();
+          
           ?> <script type="text/javascript">window.location="index.php"</script> <?php
         } else {
           $err = "Something Goes Wrong. Please Try Agian.";
@@ -233,7 +289,7 @@ if (isset($_POST['submit'])) {
                             class="required form-control" 
                             id="description" 
                             name="description"
-                            placeholder="Enter Article Description Here(in preformatted text i.e. use \n, \r)"
+                            placeholder="Enter Article Description Here (In preformatted text i.e. use <br> for new-line)"
                             rows="5"><?php if($description != "") echo "$description"; ?></textarea>
                       </div>
                     </div>
