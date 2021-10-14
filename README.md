@@ -1,6 +1,6 @@
 # course-project-template
 
-Branch : ##Kamal##
+Branch : Kamal
 
 Admin website
   - add admin
