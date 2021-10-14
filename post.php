@@ -19,7 +19,9 @@
     $post = mysqli_fetch_assoc($results);
     $titles = mysqli_fetch_all($results_titles,MYSQLI_ASSOC);
     $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
-
+    
+    //increasing the post view count
+    mysqli_query($conn,"update article set article_visit = article_visit + 1 where article_id=$id");
     //free results
     mysqli_free_result($results);
     mysqli_free_result($results_allCategories);
@@ -50,7 +52,7 @@
             <div class="container-md">
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Latest</a>
+                    <a class="nav-link" href="index.php">Latest</a>
                     </li>
                     <?php foreach($allCategories as $cat): ?>
                         <li class="nav-item">
@@ -64,6 +66,14 @@
     <div class="main-content container-lg-12 mx-0">
         <h1 class="mx-2 pt-3"> <?php echo $post['article_title']; ?></h1>
         <div class="container-lg-12 main-container mx-0">
+            <div class="row my-3">
+                <div class="col-sm-6">
+                    <span class="mx-2 badge bg-success">News story added on : dd/mm/yyyy</span>
+                </div>
+                <div class="col-sm-6">
+                    <span style="float:right;" class="mx -2 badge bg-warning">Views : <?php echo $post['article_visit'];?></span>
+                </div>
+            </div>
             <div class="row mx-0 my-3">
                 <!-- Div for News articles display -->
                 <div class="col-lg-8 my-2">
