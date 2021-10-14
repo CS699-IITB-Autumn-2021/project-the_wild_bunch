@@ -13,3 +13,4 @@ Web scraping
   - news18
   - economictimes
   - thehindu
+  - India.com
