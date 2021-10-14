@@ -130,4 +130,4 @@ dmypy.json
 
 # tmp files in manual
 manual/tmp_*
-tmp_
+tmp_*
