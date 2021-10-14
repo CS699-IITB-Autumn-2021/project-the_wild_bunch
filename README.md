@@ -21,9 +21,9 @@ There are following directories here:
 	
 	4. merge_info: this directory contains information of merging with the backend/front end.
 	See the following steps to follow to run this on your machine.See Readme.txt in this directory.
-	* Download this merge_info directory in www/html/
-	* Open terminal inside this directory
-	* run the command "$chmod +x setup.sh" if setup.sh does not have executable permissions.
-	* run "$./setup.sh" on terminal. This makes a python virtual environment in a directory named virt_env and then install the required packages
-	* Then open index.html and enter a keyword in the text box.
-	* Wait for few minutes. It will print a pretty table in html. Note that tmp.php uses the python libs and command from the virtual environment.
+		* Download this merge_info directory in www/html/
+		* Open terminal inside this directory
+		* run the command "$chmod +x setup.sh" if setup.sh does not have executable permissions.
+		* run "$./setup.sh" on terminal. This makes a python virtual environment in a directory named virt_env and then install the required packages
+		* Then open index.html and enter a keyword in the text box.
+		* Wait for few minutes. It will print a pretty table in html. Note that tmp.php uses the python libs and command from the virtual environment.
