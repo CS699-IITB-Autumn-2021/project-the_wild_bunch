@@ -1,5 +1,6 @@
 <?php
     require('./config/db.php');
+    $category = mysqli_real_escape_string($conn, $_GET['category']);
     require('./config/insert.php');
     //get page number
     if (!isset ($_GET['page']) ) {  
@@ -12,10 +13,13 @@
 
     $page_first_result = ($page-1) * $posts_per_page;
 
+    //get category
+    $category = mysqli_real_escape_string($conn, $_GET['category']);
     //Create query
-    $query_allPosts = 'select count(*) from article where article_status = 1';
-    $query_paginatedPosts = 'select * from article where article_status = 1 order by article_id desc limit '.$page_first_result.','.$posts_per_page;
+    $query_allPosts = "select count(*) from article where article_category="."'".$category."' and article_status = 1";
+    $query_paginatedPosts = "select * from article where article_category="."'".$category."' and article_status = 1"." order by article_id desc limit ".$page_first_result.",".$posts_per_page;
     $query_allCategories = "select distinct article_category from article order by article_category";
+    
 
     //get results
     $results_all = mysqli_query($conn,$query_allPosts);
@@ -25,10 +29,11 @@
     //finding number of pages
     $num_posts = mysqli_fetch_assoc($results_all);
     $num_pages = ceil($num_posts["count(*)"] / $posts_per_page);
-    // var_dump($num_pages);
+    
     //fetch data
     $posts = mysqli_fetch_all($results_paginated,MYSQLI_ASSOC);
     $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
+    
     //free results
     mysqli_free_result($results_all);
     mysqli_free_result($results_paginated);
@@ -59,19 +64,26 @@
             <div class="container-md">
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Latest</a>
+                    <a class="nav-link" href="index.php">Latest</a>
                     </li>
                     <?php foreach($allCategories as $cat): ?>
+                    <?php if($category==$cat['article_category']) :?>
+                        <li class="nav-item">
+                        <a class="nav-link active" href="categorizedPosts.php?category=<?php echo $cat['article_category']; ?>"><?php echo $cat['article_category']; ?></a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if($category!=$cat['article_category']) :?>
                         <li class="nav-item">
                         <a class="nav-link" href="categorizedPosts.php?category=<?php echo $cat['article_category']; ?>"><?php echo $cat['article_category']; ?></a>
                         </li>
-                    <?php endforeach; ?> 
+                    <?php endif; ?>
+                    <?php endforeach; ?>     
                 </ul>
             </div>
         </div>
     </div>
     <div class="main-content container-lg-12 mx-0">
-        <h1 class="mx-2 pt-3">Latest News articles</h1>
+        <h1 class="mx-2 pt-3">Latest <?php echo $category; ?> News articles</h1>
         <div class="container-lg-12 main-container mx-0">
             <div class="row mx-0 my-3">
                 <!-- Div for News articles display -->
@@ -135,7 +147,7 @@
                             </div>
                         </div>
                         <?php endif; ?>
-                        <?php endforeach; ?>    
+                        <?php endforeach; ?>     
                     </div>
                 </div>
                 <!-- Side panel -->

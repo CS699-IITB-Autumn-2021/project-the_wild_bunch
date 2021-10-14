@@ -4,20 +4,26 @@
     //get id
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     //Create query
-    $query = 'select * from Posts where id='.$id;
+    $query = 'select * from article where article_id='.$id;
     // for all posts titles(for side panel)
-    $query_titles = "SELECT * FROM Posts ORDER BY id DESC LIMIT 10";
+    $query_titles = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_id DESC LIMIT 10";
+    //for all categories
+    $query_allCategories = "select distinct article_category from article order by article_category";
+
     //get results
     $results = mysqli_query($conn,$query);
     $results_titles = mysqli_query($conn,$query_titles);
+    $results_allCategories = mysqli_query($conn,$query_allCategories);
+
     //fetch data
     $post = mysqli_fetch_assoc($results);
     $titles = mysqli_fetch_all($results_titles,MYSQLI_ASSOC);
+    $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
+
     //free results
     mysqli_free_result($results);
+    mysqli_free_result($results_allCategories);
 
-    //close connection
-    mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,53 +50,36 @@
             <div class="container-md">
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item">
-                    <a class="nav-link active" href="#">Latest</a>
+                    <a class="nav-link active" href="index.php">Latest</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">National</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">World</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Business</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Sports</a>
-                    </li>     
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Entertainment</a>
-                    </li>                  
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Extras</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
-                    </li>
+                    <?php foreach($allCategories as $cat): ?>
+                        <li class="nav-item">
+                        <a class="nav-link" href="categorizedPosts.php?category=<?php echo $cat['article_category']; ?>"><?php echo $cat['article_category']; ?></a>
+                        </li>
+                    <?php endforeach; ?> 
                 </ul>
             </div>
         </div>
     </div>
     <div class="main-content container-lg-12 mx-0">
-        <h1 class="mx-2 pt-3"> <?php echo $post['title']; ?></h1>
+        <h1 class="mx-2 pt-3"> <?php echo $post['article_title']; ?></h1>
         <div class="container-lg-12 main-container mx-0">
             <div class="row mx-0 my-3">
                 <!-- Div for News articles display -->
                 <div class="col-lg-8 my-2">
-                    <p><?php echo $post['body'] ; ?></p>
+                    <!-- News Article Image -->
+                    <div class="text-center mb-5"><img src="./assets/upload/article/<?php echo $post['article_title_img']?>" alt="" class="img-fluid"></div>
+                    <!-- News article full text -->
+                    <p><?php echo $post['article_desc'] ; ?></p>
                 </div>
                 <!-- Side panel -->
                 <div class="col-lg-4 mx-auto">
                     <div class=" border border-secondary search-box p-2">
                         <h4 class="text-center">Fresh News headlines</h4>
                         <!-- Recent news links -->
-                        <div class="list-group mx-5">
+                        <div class="list-group mx-2">
                         <?php foreach($titles as $title) : ?>
-                        <a href="post.php?id=<?php echo $title['id']; ?>" class="list-group-item list-group-item-action news-headline-links"><?php echo $title['title'];?></a>
+                        <a href="post.php?id=<?php echo $title['article_id']; ?>" class="list-group-item list-group-item-action news-headline-links"><?php echo $title['article_title'];?></a>
                         <?php endforeach; ?>
                         </div>
                     </div>
