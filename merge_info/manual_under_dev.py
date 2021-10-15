@@ -42,7 +42,7 @@ def key_word_process(keyword, file_mapping):
 			n_keyword = n_keyword + words_mapping[keyword[i]]
 		else:
 			n_keyword = n_keyword + keyword[i]
-	#print("KEYWORD", keyword, n_keyword)
+	#print("KEYWORD: ", keyword, ":::n_KEYWORD:", n_keyword)
 	return n_keyword
 
 def main():
