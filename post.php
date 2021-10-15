@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="https://kit.fontawesome.com/dce8876dde.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.css">
+    <link rel="stylesheet" href="./css/post.css">
 
     <title>XYZ News Portal</title>
 </head>
