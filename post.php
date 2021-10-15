@@ -114,16 +114,16 @@
                     <?php $N++; ?> 
                     <?php if($N % 2 == 0) : ?>  
                     <div class="card my-2 border-danger">
-                        <div class="card-body"  id="card-1" style="text-align:right;">
-                            <h5 class="card-title"><span class="text-info" id="commenter-name1"><?php echo $comment['comment_auther'];?></span> said</h5>
+                        <div class="card-body card-1" style="text-align:right;">
+                            <h5 class="card-title"><span class="text-info commenter-name1"><?php echo $comment['comment_auther'];?></span> said</h5>
                             <p class="card-text"><?php echo $comment['comment_desc'];?></p>
                         </div>
                     </div>
                     <?php endif;?>
                     <?php if($N % 2) : ?> 
                     <div class="card my-2 border-info">
-                        <div class="card-body" id="card-2">
-                            <h5 class="card-title"><span class="text-danger" id="commenter-name2"><?php echo $comment['comment_auther'];?></span> said</h5>
+                        <div class="card-body card-2">
+                            <h5 class="card-title"><span class="text-danger commenter-name2"><?php echo $comment['comment_auther'];?></span> said</h5>
                             <p class="card-text"><?php echo $comment['comment_desc'];?></p>
                         </div>
                     </div>
@@ -153,6 +153,5 @@
 
         </div> 
     </div>
-    <script src="./scripts/post.js"></script>
 </body>
 </html>
