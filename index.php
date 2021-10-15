@@ -101,7 +101,7 @@
                                             echo '...';
                                             ?>
                                             </p></div>
-                                            <div class="col-lg-4 ml-1"><div id="card-thumb"><img class="img-thumbnail" src="../project_kamal/assets/upload/article/<?php echo $post['article_title_img']?>" alt=""></div></div>
+                                            <div class="col-lg-4 ml-1"><div id="card-thumb"><img class="img-thumbnail" src="../project-kamal/assets/upload/article/<?php echo $post['article_title_img']?>" alt=""></div></div>
                                         </div>
                                         <div class="btn btn-secondary"><a style="text-decoration:none;" href="post.php?id=<?php echo $post['article_id']; ?>">Read More</a></div>
                                     </div>
@@ -128,7 +128,7 @@
                                             }
                                             echo '...';
                                             ?></p></div>
-                                            <div class="col-lg-4 ml-1"><div id="card-thumb"><img class="img-thumbnail" src="../project_kamal/assets/upload/article/<?php echo $post['article_title_img']?>" alt=""></div></div>
+                                            <div class="col-lg-4 ml-1"><div id="card-thumb"><img class="img-thumbnail" src="../project-kamal/assets/upload/article/<?php echo $post['article_title_img']?>" alt=""></div></div>
                                         </div>
                                         <div class="btn btn-primary"><a style="text-decoration:none; color:white;" href="post.php?id=<?php echo $post['article_id']; ?>">Read More</a></div>
                                     </div>
