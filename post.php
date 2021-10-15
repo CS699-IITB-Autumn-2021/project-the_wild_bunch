@@ -78,7 +78,7 @@
                 <!-- Div for News articles display -->
                 <div class="col-lg-8 my-2">
                     <!-- News Article Image -->
-                    <div class="text-center mb-5"><img src="./assets/upload/article/<?php echo $post['article_title_img']?>" alt="" class="img-fluid"></div>
+                    <div class="text-center mb-5"><img src="../project_kamal/assets/upload/article/<?php echo $post['article_title_img']?>" alt="" class="img-fluid"></div>
                     <!-- News article full text -->
                     <p><?php echo $post['article_desc'] ; ?></p>
                 </div>
