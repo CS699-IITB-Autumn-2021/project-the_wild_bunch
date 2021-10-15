@@ -23,8 +23,8 @@ $keyword = escapeshellarg($_POST["keyword"]);
 echo "<br>Keyword after processing: ".$keyword;
 
 $command = escapeshellcmd('./virt_env/bin/python ./manual_under_dev.py -k '.$keyword);
-echo "<br>".$keyword;
-echo "<br>command".$command;
+//echo "<br>".$keyword;
+echo "<br>Command Executed: ".$command;
 $output = shell_exec($command);
 echo $output;
 echo "</body>
