@@ -19,8 +19,8 @@ function parse_keyform($str) {
 
 echo "<html>
 <body>";
-$output=null;
-$retval=null;
+//$output=null;
+//$retval=null;
 //echo shell_exec("whoami");
 //echo "Keyword Searched for: ".$_POST["keyword"];
 //$keyword = parse_keyform($_POST["keyword"]);
@@ -32,7 +32,7 @@ $command = shell_exec($command_exec);
 //echo "<br>".$keyword;
 echo "<br>Command Executed: ".$command."<br>";
 //$output = shell_exec($command);
-echo $output;
+//echo $output;
 echo "</body>
 </html>";
 ?>
