@@ -107,7 +107,7 @@
             <div class="row mx-0 my-3">
                 <div class="col-md-8">
                     <hr>
-                    <h3>Comments</h3>
+                    <h3>Comments : <?php echo count($comments);?></h3>
                     <!-- Comment cards -->
                     <?php $N = 0;?>
                     <?php foreach($comments as $comment):?>
@@ -115,7 +115,7 @@
                     <?php if($N % 2 == 0) : ?>  
                     <div class="card my-2 border-danger">
                         <div class="card-body card-1" style="text-align:right;">
-                            <h5 class="card-title"><span class="text-info commenter-name1"><?php echo $comment['comment_auther'];?></span> said</h5>
+                            <h5 class="card-title"><span class="text-info commenter-name1"><?php echo $comment['comment_auther'];?></span> said:</h5>
                             <p class="card-text"><?php echo $comment['comment_desc'];?></p>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                     <?php if($N % 2) : ?> 
                     <div class="card my-2 border-info">
                         <div class="card-body card-2">
-                            <h5 class="card-title"><span class="text-danger commenter-name2"><?php echo $comment['comment_auther'];?></span> said</h5>
+                            <h5 class="card-title"><span class="text-danger commenter-name2"><?php echo $comment['comment_auther'];?></span> said:</h5>
                             <p class="card-text"><?php echo $comment['comment_desc'];?></p>
                         </div>
                     </div>
