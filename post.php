@@ -1,6 +1,7 @@
 <?php
     require('./config/db.php');
-    
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+    require('./config/insert_comments.php');
     //get id
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     //Create query
@@ -9,19 +10,24 @@
     $query_titles = "SELECT * FROM article WHERE article_status = 1 ORDER BY article_id DESC LIMIT 10";
     //for all categories
     $query_allCategories = "select distinct article_category from article order by article_category";
+    //for fetching comments
+    $query_comments = "select * from comment where (article_id = '$id' and comment_status = '1') order by comment_id desc";
 
     //get results
     $results = mysqli_query($conn,$query);
     $results_titles = mysqli_query($conn,$query_titles);
     $results_allCategories = mysqli_query($conn,$query_allCategories);
+    $results_comments = mysqli_query($conn,$query_comments);
 
     //fetch data
     $post = mysqli_fetch_assoc($results);
     $titles = mysqli_fetch_all($results_titles,MYSQLI_ASSOC);
     $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
+    $comments = mysqli_fetch_all($results_comments,MYSQLI_ASSOC);
     
     //increasing the post view count
     mysqli_query($conn,"update article set article_visit = article_visit + 1 where article_id=$id");
+
     //free results
     mysqli_free_result($results);
     mysqli_free_result($results_allCategories);
@@ -69,7 +75,7 @@
         <div class="container-lg-12 main-container mx-0">
             <div class="row my-3">
                 <div class="col-sm-6">
-                    <span class="mx-2 badge bg-success">News story added on : dd/mm/yyyy</span>
+                    <span class="mx-2 badge bg-success">Story added on : dd/mm/yyyy</span>
                 </div>
                 <div class="col-sm-6">
                     <span style="float:right;" class="mx -2 badge bg-warning">Views : <?php echo $post['article_visit'];?></span>
@@ -95,10 +101,58 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <!-- Comments Section -->
+            <div class="row mx-0 my-3">
+                <div class="col-md-8">
+                    <hr>
+                    <h3>Comments</h3>
+                    <!-- Comment cards -->
+                    <?php $N = 0;?>
+                    <?php foreach($comments as $comment):?>
+                    <?php $N++; ?> 
+                    <?php if($N % 2 == 0) : ?>  
+                    <div class="card my-2 border-danger">
+                        <div class="card-body"  id="card-1" style="text-align:right;">
+                            <h5 class="card-title"><span class="text-info" id="commenter-name1"><?php echo $comment['comment_auther'];?></span> said</h5>
+                            <p class="card-text"><?php echo $comment['comment_desc'];?></p>
+                        </div>
+                    </div>
+                    <?php endif;?>
+                    <?php if($N % 2) : ?> 
+                    <div class="card my-2 border-info">
+                        <div class="card-body" id="card-2">
+                            <h5 class="card-title"><span class="text-danger" id="commenter-name2"><?php echo $comment['comment_auther'];?></span> said</h5>
+                            <p class="card-text"><?php echo $comment['comment_desc'];?></p>
+                        </div>
+                    </div>
+                    <?php endif;?>
+                    <?php endforeach; ?>   
+                     <!--adding new comments  -->
+                     <hr>
+                     <h3>Have your say</h3>
+                     <div class="card">
+                        <div class="card-body text-white bg-dark">
+                            <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
+                                <div class="mb-3">
+                                    <label for="inputName" class="form-label">Enter your name</label>
+                                    <input type="text" class="form-control" name="commenter_name" id="inputName" aria-describedby="emailHelp">
+                                    <div id="emailHelp" class="form-text">Your name will be shown along with your comment in the comments section.</div>
+                                </div>
+                                <div class=" mb-3 form-group">
+                                <label for="exampleTextarea" class="form-label mt-4">Enter your comment</label>
+                                <textarea class="form-control" name="comment" id="exampleTextarea" rows="3"></textarea>
+                                </div>
+                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
         </div> 
     </div>
-    <script src="scripts/post.js"></script>
+    <script src="./scripts/post.js"></script>
 </body>
 </html>
