@@ -151,7 +151,7 @@
                     </div>
                 </div>
                 <!-- Side panel -->
-                <div class="col-lg-4 mx-auto">
+                <div class="col-sm-4 mx-auto">
                     <div class=" border border-secondary p-2 my-5">
                         <h4 class="text-center">Subscribe to our updates</h4>
                         <form action="<?php $_SERVER['PHP_SELF'];?>" class="form-group mx-5" method="post">
