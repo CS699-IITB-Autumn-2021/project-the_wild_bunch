@@ -43,7 +43,6 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="https://kit.fontawesome.com/dce8876dde.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.css">
-
     <title>XYZ News Portal</title>
 </head>
 <body>
@@ -150,6 +149,32 @@
                             <button type="submit" class="btn btn-success" name="submit">Submit</button>
                             </div>
                         </form>
+                        <?php if(isset($_REQUEST['submit'])):?>
+                        <?php if($emailErr):?>
+                            <div class="alert alert-dismissible alert-danger">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Heads up!</strong> Entered email is not valid Email.
+                            </div>
+                        <?php endif;?>
+                        <?php if($emailErr==0):?>
+                        <?php if($email_counts['count(*)']==0):?>
+                            <?php 
+                                $query = "insert into emails(email) values('$email')";
+                                mysqli_query($conn,$query);
+                            ?>
+                            <div class="alert alert-dismissible alert-success">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Well done!</strong> You successfully subscribed to our news updates.
+                            </div>
+                        <?php endif;?>
+                        <?php if($email_counts['count(*)']!=0):?>
+                            <div class="alert alert-dismissible alert-warning">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Oh snap!</strong> The email you entered is already in the database.
+                            </div>
+                        <?php endif;?>
+                        <?php endif;?>
+                        <?php endif;?>
                     </div>
                     <div class=" border border-secondary search-box p-2 my-5">
                         <h4 class="text-center">Search for news articles</h4>
@@ -209,5 +234,7 @@
             </div>
         </div> 
     </div>
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
