@@ -25,6 +25,10 @@
     $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
     $comments = mysqli_fetch_all($results_comments,MYSQLI_ASSOC);
     
+    //finding next and previous post id
+    $next = mysqli_fetch_assoc(mysqli_query($conn,"select min(article_id) from article where article_id>$id"));
+    $previous = mysqli_fetch_assoc(mysqli_query($conn,"select max(article_id) from article where article_id<$id"));
+
     //increasing the post view count
     mysqli_query($conn,"update article set article_visit = article_visit + 1 where article_id=$id");
 
@@ -70,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div class="main-content container-lg-12 mx-0">
+    <div class="main-content container-lg-12 mx-3">
         <h1 class="mx-2 pt-3"> <?php echo $post['article_title']; ?></h1>
         <div class="container-lg-12 main-container mx-0">
             <div class="row my-3">
@@ -102,11 +106,52 @@
                     </div>
                 </div>
             </div>
+            <div class="row mx-0 my-3">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <?php if($previous['max(article_id)'] == NULL):?>
+                                <a href="post.php?id=<?php echo $previous['max(article_id)'];?>"><button type="button" class="btn btn-primary disabled" id="previous-btn"><i class="fas fa-2x fa-arrow-alt-circle-left"></i></button></a>
+                            <?php endif;?>
+                            <?php if($previous['max(article_id)'] != NULL):?>
+                                <a href="post.php?id=<?php echo $previous['max(article_id)'];?>"><button type="button" class="btn btn-primary" id="previous-btn"><i class="fas fa-2x fa-arrow-alt-circle-left"></i></button></a>
+                            <?php endif;?>
+                        </div>
+                        <div class="col-sm-6">
+                            <?php if($next['min(article_id)'] == NULL):?>
+                                <a href="post.php?id=<?php echo $next['min(article_id)'];?>"><button style="float:right;" type="button" class="btn btn-primary disabled" id="previous-btn"><i class="fas fa-2x fa-arrow-alt-circle-right"></i></button></a>
+                            <?php endif;?>
+                            <?php if($next['min(article_id)'] != NULL):?>
+                                <a href="post.php?id=<?php echo $next['min(article_id)'];?>"><button style="float:right;" type="button" class="btn btn-primary" id="previous-btn"><i class="fas fa-2x fa-arrow-alt-circle-right"></i></button></a>
+                            <?php endif;?>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Comments Section -->
             <div class="row mx-0 my-3">
                 <div class="col-md-8">
                     <hr>
+                    <!--adding new comments  -->
+                    <h3>Have your say</h3>
+                     <div class="card">
+                        <div class="card-body text-white bg-dark">
+                            <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
+                                <div class="mb-3">
+                                    <label for="inputName" class="form-label">Enter your name</label>
+                                    <input type="text" class="form-control" name="commenter_name" id="inputName" aria-describedby="emailHelp">
+                                    <div id="emailHelp" class="form-text">Your name will be shown along with your comment in the comments section.</div>
+                                </div>
+                                <div class=" mb-3 form-group">
+                                <label for="exampleTextarea" class="form-label mt-4">Enter your comment</label>
+                                <textarea class="form-control" name="comment" id="exampleTextarea" rows="3"></textarea>
+                                </div>
+                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                     </div>
+                     <hr>
                     <h3>Comments : <?php echo count($comments);?></h3>
                     <!-- Comment cards -->
                     <?php $N = 0;?>
@@ -129,29 +174,11 @@
                     </div>
                     <?php endif;?>
                     <?php endforeach; ?>   
-                     <!--adding new comments  -->
-                     <hr>
-                     <h3>Have your say</h3>
-                     <div class="card">
-                        <div class="card-body text-white bg-dark">
-                            <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
-                                <div class="mb-3">
-                                    <label for="inputName" class="form-label">Enter your name</label>
-                                    <input type="text" class="form-control" name="commenter_name" id="inputName" aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">Your name will be shown along with your comment in the comments section.</div>
-                                </div>
-                                <div class=" mb-3 form-group">
-                                <label for="exampleTextarea" class="form-label mt-4">Enter your comment</label>
-                                <textarea class="form-control" name="comment" id="exampleTextarea" rows="3"></textarea>
-                                </div>
-                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                     </div>
                 </div>
             </div>
 
         </div> 
     </div>
+    <script src="./scripts/post.js"></script>
 </body>
 </html>
