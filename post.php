@@ -79,7 +79,7 @@
         <div class="container-lg-12 main-container mx-0">
             <div class="row my-3">
                 <div class="col-sm-6">
-                    <span class="mx-2 badge bg-success">Story added on : dd/mm/yyyy</span>
+                    <span class="mx-2 badge bg-success">Story added on : <?php echo $post['article_date'];?></span>
                 </div>
                 <div class="col-sm-6">
                     <span style="float:right;" class="mx -2 badge bg-warning">Views : <?php echo $post['article_visit'];?></span>

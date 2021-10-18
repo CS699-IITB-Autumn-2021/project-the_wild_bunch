@@ -83,7 +83,7 @@
                         <div class="col-lg-12 my-2">
                             <div class="card text-white bg-primary">
                                     <div class="card-header">
-                                        Story Date : dd/mm/yyyy
+                                        Story Date : <?php echo $post['article_date'];?>
                                         <span class="badge rounded-pill bg-light" style="float:right;"><?php echo $post['article_category'];?></span>
                                     </div>
                                     <div class="card-body">
@@ -111,7 +111,7 @@
                         <div class="col-lg-12 my-2">
                             <div class="card bg-secondary">
                                     <div class="card-header">
-                                    Story Date : dd/mm/yyyy
+                                    Story Date : <?php echo $post['article_date'];?>
                                         <span class="badge rounded-pill bg-dark" style="float:right;"><?php echo $post['article_category'];?></span>
                                     </div>
                                     <div class="card-body">
