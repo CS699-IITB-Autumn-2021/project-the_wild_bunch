@@ -192,7 +192,7 @@
                                 $search_query = "Select * from article where article_title like 'xxxx'";
                             // if search box is filled then use that value to match the news articles titles
                             else{
-                                $search_query = "Select * from article where (article_title like '%".$_POST['search']."%' or article_category like '%".$_POST['search']."%' and article_status = 1) order by article_id desc";   
+                                $search_query = "Select * from article where (article_title like '%".$_POST['search']."%' or article_category like '%".$_POST['search']."%' or article_desc like '%".$_POST['search']."%' and article_status = 1) order by article_id desc";   
                             }
                             $search_result = mysqli_query($conn,$search_query);
                             $matched_news = mysqli_fetch_all($search_result,MYSQLI_ASSOC);
