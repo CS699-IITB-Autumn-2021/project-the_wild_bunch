@@ -17,7 +17,7 @@
   }
   $sql = "SELECT * FROM ".$commentTable;
   if($_SESSION['id'] != "1")
-    $sql = $sql." WHERE `".$article_id."` = ( SELECT `".$article_id."` FROM  ".$articleTable." WHERE `".$admin_id."` = '".$_SESSION['id']."')";
+    $sql = $sql." WHERE `".$article_id."` IN ( SELECT `".$article_id."` FROM  ".$articleTable." WHERE `".$admin_id."` = '".$_SESSION['id']."')";
   $result = mysqli_query($conn, $sql);
 ?>
 

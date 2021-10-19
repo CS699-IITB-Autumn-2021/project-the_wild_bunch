@@ -5,18 +5,22 @@
     $errEconomictimes = $errNews18 = $errHindu = $errIndia = "";
     $urlNews18 = $categoryNews18 = $urlEconomictimes = $categoryEconomictimes = "";
     $urlHindu = $categoryHindu = $urlIndia = $categoryIndia = "";
+    session_start();
+    $auther_id = $_SESSION['id'];
 
     if (isset($_POST['submitNews18'])) {
         $urlNews18 = trim($_POST['urlNews18']);
         $categoryNews18 = trim($_POST['categoryNews18']);
+       
 
         if($urlNews18 == "" || !filter_var($urlNews18, FILTER_VALIDATE_URL)) {
             $errNews18 = "Enter valid News18 url";
         } else if($categoryNews18 == "0") {
             $errNews18 = "Please select article category";
         } else {
-            // scrap code calling & show popup to indicate status
-
+            $command_exec = "python3 ./web_scraping/news18.py $urlNews18 $categoryNews18 $auther_id";
+            $command = shell_exec($command_exec);
+            echo "Command Executed";
         }
         
     } else if (isset($_POST['submitEconomictimes'])) {
@@ -27,9 +31,11 @@
             $errEconomictimes = "Enter valid Economic Times url";
         } else if($categoryEconomictimes == "0") {
             $errEconomictimes = "Please select article category";
-        } else {
+        } else {  
             // scrap code calling & show popup to indicate status
-
+            $command_exec = "python3 ./web_scraping/economictimes.py $urlEconomictimes $categoryEconomictimes $auther_id";
+            $command = shell_exec($command_exec);
+            echo "Command Executed";
         }
     } else if (isset($_POST['submitHindu'])) {
         $urlHindu = trim($_POST['urlHindu']);
@@ -41,6 +47,9 @@
             $errHindu = "Please select article category";
         } else {
             // scrap code calling & show popup to indicate status
+            $command_exec = "python3 ./web_scraping/thehindu.py $urlHindu $categoryHindu $auther_id";
+            $command = shell_exec($command_exec);
+            echo "Command Executed";
 
         }
     } else if (isset($_POST['submitIndia'])) {
@@ -53,7 +62,9 @@
             $errIndia = "Please select article category";
         } else {
             // scrap code calling & show popup to indicate status
-
+            $command_exec = "python3 ./web_scraping/india_com.py $urlIndia $categoryIndia $auther_id";
+            $command = shell_exec($command_exec);
+            echo "Command Executed";
         }
     }
 ?>

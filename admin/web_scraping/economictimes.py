@@ -19,13 +19,13 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text,'html.parser')
 
 #fetching the news article description using web scrapping
-description = ""
-for content in soup.body.article.find_all("p",class_=lambda x: x and x.startswith('story_para_'))[0:-1] :
-    description = description + content.text.strip() + "<br><br>"
-description = description + "<a href='" + url + "'>Read More</a>"
+extradiv = soup.find("div", {"class": "artText"}).find_all('div')
+for i in extradiv:
+    i.decompose()
+description = soup.find("div", {"class": "artText"}).text.replace('\n','<br>') + "<br><a href='"+url+"'>Read More...</a>"
 
 #fetching news article image and storing in local directory
-image = soup.body.figure.find_all("img")[1]['src']
+image = soup.figure.img['src']
 response = requests.get(image)
 image = str(time.time()) + '.' + image.split('.')[-1].split('?')[0]
 file = open("assets/upload/article/"+image, "wb")
@@ -66,6 +66,6 @@ smtpserver.close()
 
 #storing news article in database
 sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
-cursor.execute(sql, (image, str(soup.body.h1.text.strip()), category, str(description), str(id)))
+cursor.execute(sql, (image, subject, category, str(description), str(id)))
 connection.commit()
 connection.close()

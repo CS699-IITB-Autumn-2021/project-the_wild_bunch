@@ -11,14 +11,12 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Admin</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- CSS -->
     <link rel='stylesheet' type='text/css' media='screen' href='./css/sidebar.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" /> -->
-    <!-- <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" /> -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
     
     <!-- JavaScript -->
@@ -28,6 +26,7 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <!-- <script src="js/jquery.dataTables.min.js" type="text/javascript"></script> -->
 </head>
 <body id="body-pd">
