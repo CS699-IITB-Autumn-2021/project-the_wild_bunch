@@ -51,14 +51,14 @@ smtpserver.ehlo
 smtpserver.login(gmail_user, gmail_pwd)
 
 #setting up the mail content
-msg = subject + '\n\n' + description
+msg = '<h1>'+subject+'</h1>' + '<br>' + description
 
 #Setup the MIME and sending the mail
 message = MIMEMultipart()
 message['From'] = gmail_user
 message['To'] = ",".join(to)
 message['Subject'] = 'New news article added to XYZ news portal. Have a look.'
-message.attach(MIMEText(msg, 'plain'))
+message.attach(MIMEText(msg, 'html'))
 text = message.as_string()
 smtpserver.sendmail(gmail_user, to, text)
 smtpserver.close()
