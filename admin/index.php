@@ -4,9 +4,10 @@
 <?php include_once 'db.php';?>
 
 <?php
-    $errEconomictimes = $errNews18 = $errHindu = $errIndia = "";
+    $errEconomictimes = $errNews18 = $errHindu = $errIndia = $errGoogle = "";
     $urlNews18 = $categoryNews18 = $urlEconomictimes = $categoryEconomictimes = "";
     $urlHindu = $categoryHindu = $urlIndia = $categoryIndia = "";
+    $keywordGoogle = $categoryGoogle = $numArticle = "";
     session_start();
     $auther_id = $_SESSION['id'];
 
@@ -88,7 +89,30 @@
             else
             	echo '<script>alert("Something went wrong")</script>';
         }
-    }
+    } else if (isset($_POST['submitGoogle'])) {
+      $keywordGoogle = trim($_POST['keywordGoogle']);
+      $categoryGoogle = trim($_POST['categoryGoogle']);
+      $numArticle = trim($_POST['numArticle']);
+      $tempNum = (int)$numArticle;
+
+      if($keywordGoogle == "") {
+          $errGoogle = "Enter valid keyword";
+      } else if($categoryGoogle == "0") {
+          $errGoogle = "Please select article category";
+      } else if($numArticle == "" || $tempNum <= 0) {
+          $errGoogle = "Please enter valid number of Articles";
+      } else {
+          // scrap code calling & show popup to indicate status
+          $command_exec ="python3 ./web_scraping/manual_under_dev.py -k \"".$keywordGoogle."\""." -c \"".$categoryGoogle."\" -n \"".$tempNum."\" -a \"".$auther_id."\""." -f \"./web_scraping/map.txt\"";
+          $output = null;
+          $retValue = null;
+          exec($command_exec,$output,$retValue);
+          if($retValue==0) 
+            echo '<script>alert("News article scrapped successfully")</script>';
+          else
+            echo '<script>alert("Something went wrong")</script>';
+      }
+  }
 ?>
 
 <div class="container-fluid">
@@ -407,6 +431,113 @@
                     <div class="border-top" style="margin-bottom: -23px;">
                         <div class="card-body">
                             <center><input type="submit" name="submitIndia" value="Submit" class="btn btn-primary"></center>
+                        </div>
+                    </div>
+                  </div>
+                    </form>
+                </div>    
+            </div>
+        </div>
+
+        <div style="height:35px"> </div>
+
+        <!-- Google News -->
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <!-- Form -->
+                    <form class="form-horizontal" method="post" action="./index.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                    <h3 class="card-title">Google News Automatic Fetch</h3>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article Keyword -->
+                    <div class="form-group row">
+                      <label
+                        for="keywordGoogle"
+                        class="col-sm-4 control-label col-form-label"
+                        >Keyword</label
+                      >
+                      <div class="col-sm-8">
+                        <input
+                          name="keywordGoogle"
+                          type="text"
+                          class="required form-control"
+                          id="title"
+                          <?php if($keywordGoogle != "") { ?>
+                            value = "<?php echo ($keywordGoogle); ?>"
+                          <?php } ?>
+                          placeholder="Enter The Keyword For News Articles"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article Category -->
+                    <div class="form-group row">
+                      <label
+                        for="categoryGoogle"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Category</label
+                      >
+                      <div class="col-sm-8">
+                        <select class="form-select" name="categoryGoogle" aria-label="Default select example">
+                            <option selected value="0">Please Select Article Category</option>
+                            <option value="India" <?php if($categoryGoogle == "India") echo "selected"; ?> >India</option>
+                            <option value="World" <?php if($categoryGoogle == "World") echo "selected"; ?> >World</option>
+                            <option value="Tech" <?php if($categoryGoogle == "Tech") echo "selected"; ?> >Tech</option>
+                            <option value="Sports" <?php if($categoryGoogle == "Sports") echo "selected"; ?> >Sports</option>
+                            <option value="Entertainment" <?php if($categoryGoogle == "Entertainment") echo "selected"; ?> >Entertainment</option>
+                            <option value="Business" <?php if($categoryGoogle == "Business") echo "selected"; ?> >Business</option>
+                            <option value="Health" <?php if($categoryGoogle == "Health") echo "selected"; ?> >Health</option>
+                            <option value="Life & Style" <?php if($categoryGoogle == "Life & Style") echo "selected"; ?> >Life & Style</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Number of articles to fetch -->
+                    <div class="form-group row">
+                      <label
+                        for="numArticle"
+                        class="col-sm-4 control-label col-form-label"
+                        >Number Of Articles</label
+                      >
+                      <div class="col-sm-8">
+                        <input
+                          name="numArticle"
+                          type="text"
+                          class="required form-control"
+                          id="title"
+                          <?php if($numArticle != "") { ?>
+                            value = "<?php echo ($numArticle); ?>"
+                          <?php } ?>
+                          placeholder="Enter The Number Of Articles"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Error message -->
+                    <?php
+                        if($errGoogle != "") { 
+                    ?>
+                        <center>
+                            <p style="color: red;"><?php echo $errGoogle; ?></p>
+                        </center>
+                    <?php
+                        }
+                    ?>
+                    <!-- Submit button -->
+                    <div class="border-top" style="margin-bottom: -23px;">
+                        <div class="card-body">
+                            <center><input type="submit" name="submitGoogle" value="Submit" class="btn btn-primary"></center>
                         </div>
                     </div>
                   </div>
