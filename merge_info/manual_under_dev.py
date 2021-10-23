@@ -17,12 +17,10 @@ def key_word_process(keyword, file_mapping):
 	which contains mapping from character into special
 	characters. This function substitutes those characters
 	with special characters with the same mapping.
-
 	Parameters
 	----------
 	keyword: String
 	file_mapping: String.
-
 	Returns
 	-------
 	n_keyword: String
@@ -57,7 +55,6 @@ def main():
 	----------
 	keyword (optional): Command line
 	input parameter.
-
 	Returns
 	-------
 	None

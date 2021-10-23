@@ -8,12 +8,9 @@ import parse_class as ps
 import time
 import argparse
 import json
-import pymysql
-import smtplib
 import os
 import imghdr
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import sql_fill as sql_f
 
 class param_matcher:
 	"""
@@ -24,13 +21,11 @@ class param_matcher:
 	def __init__(self, list_str):
 		"""Constructor of the class.
 			Populates the articles in the tree
-
 			Parameters
 			----------
 				list_str: This is the string made of
 				nested brackets of [] with textual
 				entries in the nested brackets
-
 			Returns
 			-------
 			None
@@ -137,87 +132,112 @@ class param_matcher:
 			print("\t</tr>")
 		print("<table>")
 	
-	def populate_sql(self, num, category, author):
-		print("populate_sql_calling category"+str(num)+str( category)+str(author))
-		print("THE FOLLOWING ARTICLES ADDED")
+	def populate_sql(self, num, category, author,print_html=0):
+		
 		all_articles = self.articles
+		id = author
+		if print_html==1:
+			print("<table>")
+			print("\t<tr>")
+			print("\t\t<th>Title</th>")
+			print("\t\t<th>Title Description</th>")
+			print("\t\t<th>URL</th>")
+			print("\t\t<th>Image URL</th>")
+			print("\t\t<th>Actual_image</th>")
+			print("\t</tr>")
 		
-		print("<table>")
-		print("\t<tr>")
-		print("\t\t<th>Title</th>")
-		print("\t\t<th>Title Description</th>")
-		print("\t\t<th>URL</th>")
-		print("\t\t<th>Image URL</th>")
-		print("\t\t<th>Actual_image</th>")
-		
-		print("\t</tr>")
-		for i in range(0,min(num,len(all_articles))):
-			#"UPLOAD IMAGE"
-			subject = all_articles[i][0]
-			description = str(all_articles[i][1])+"<a href= \""+str(all_articles[i][2])+"\">Read More</a>"
-			response = requests.get(all_articles[i][3])
+		iter_article=0
+		while iter_article < min(num,len(all_articles)):
+			
+			subject = all_articles[iter_article][0]
+			description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
+			try:
+				response = requests.get(all_articles[iter_article][3])
+			except:
+				# print("HERE RESPONSE PROBLEM")
+				iter_article = iter_article + 1
+				num = num+1
+				continue
+			
 			soup1 = BeautifulSoup(response.text,'html.parser')
 			image = str(time.time())
+			
 			file = open("assets/upload/article/"+image, "wb")
 			file.write(response.content)
 			file.close()
-			img_type = imghdr.what("assets/upload/article/"+image)
-			os.rename("assets/upload/article/"+image,"assets/upload/article/"+image+"."+str(img_type))
-			print("\t<tr>")
-			print("\t\t<td>",subject,"</td>")
-			print("\t\t<td>",all_articles[i][1],"</td>")
-			print("\t\t<td>",description,"</td>")
-			print("\t\t<td>",all_articles[i][3],"</td>")
-			print("\t\t<td><img src=assets/upload/article/",image,".",str(img_type), " style=\"width:500px;height:600px;\">","</td>",sep="")
 			
-			print("\t</tr>")
-		print("</table>")
-		print("</html>")
+			img_type = imghdr.what("assets/upload/article/"+image)
+			img_final_name = "assets/upload/article/"+image+"."+str(img_type)
+			os.rename("assets/upload/article/"+image,img_final_name)
+			# img_loc.append(img_final_name)
+			
+			if print_html==1:
+				print("\t<tr>")
+				print("\t\t<td>",subject,"</td>")
+				print("\t\t<td>",all_articles[iter_article][1],"</td>")
+				print("\t\t<td>",description,"</td>")
+				print("\t\t<td>",all_articles[iter_article][3],"</td>")
+				print("\t\t<td><img src=",img_final_name, " style=\"width:500px;height:600px;\">","</td>",sep="")
+				print("\t</tr>")
+			
+			subject = all_articles[iter_article][0]
+			description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
+			# image =img_loc[i].split("/")[-1]
+			print("Trying to upload on database", img_final_name)
+			try:
+				swl_obj = sql_f("Animesh@98","cs699proj")
+				swl_obj.send_email(subject,description)
+				swl_obj.store_article(img_final_name, subject, category, description, id)
+			except:
+				print("UNABLE TO UPLOAD IN DATABASE")
+			iter_article = iter_article+1
+		
+		
+		if print_html==1:
+			print("</table>")
+			print("</html>")
 		#print("img_type:", img_type)
 		
-		return
-		id = author
-		for i in range(0,min(num,len(all_articles))):
-			subject = all_articles[i][0]
-			description = str(all_articles[i][1])+"<a href= \""+str(all_articles[i][2])+"\">Read More</a>"
+		#return
+		
+		
+			
+			# #establishing connection to database to fetch the emails to send updates
+			# connection = pymysql.connect(host="localhost",user="root",passwd="Animesh@98",database="cs699proj" )
+			# cursor = connection.cursor()
+			# cursor.execute("SELECT * FROM emails")
+			# to = ["cs699project2021@gmail.com"]
 
-	
-			#establishing connection to database to fetch the emails to send updates
-			connection = pymysql.connect(host="localhost",user="root",passwd="Animesh@98",database="cs699proj" )
-			cursor = connection.cursor()
-			cursor.execute("SELECT * FROM emails")
-			to = ["cs699project2021@gmail.com"]
+			# for row in cursor.fetchall():
+			# 	to.append(row[1])
 
-			for row in cursor.fetchall():
-				to.append(row[1])
+			# #setting variables for sending mail updates to users
+			# gmail_user = 'cs699project2021@gmail.com'
+			# gmail_pwd = 'Cs699@project2021'
+			# smtpserver = smtplib.SMTP("smtp.gmail.com", 587)
+			# smtpserver.ehlo()
+			# smtpserver.starttls()
+			# smtpserver.ehlo
+			# smtpserver.login(gmail_user, gmail_pwd)
 
-			#setting variables for sending mail updates to users
-			gmail_user = 'cs699project2021@gmail.com'
-			gmail_pwd = 'Cs699@project2021'
-			smtpserver = smtplib.SMTP("smtp.gmail.com", 587)
-			smtpserver.ehlo()
-			smtpserver.starttls()
-			smtpserver.ehlo
-			smtpserver.login(gmail_user, gmail_pwd)
+			# #setting up the mail content
+			# msg = '<h1>'+subject+'</h1>' + '<br>' + description
 
-			#setting up the mail content
-			msg = '<h1>'+subject+'</h1>' + '<br>' + description
-
-			#Setup the MIME and sending the mail
-			message = MIMEMultipart()
-			message['From'] = gmail_user
-			message['To'] = ",".join(to)
-			message['Subject'] = 'New news article added to XYZ news portal. Have a look.'
-			message.attach(MIMEText(msg, 'html'))
-			text = message.as_string()
-			smtpserver.sendmail(gmail_user, to, text)
-			smtpserver.close()
+			# #Setup the MIME and sending the mail
+			# message = MIMEMultipart()
+			# message['From'] = gmail_user
+			# message['To'] = ",".join(to)
+			# message['Subject'] = 'New news article added to XYZ news portal. Have a look.'
+			# message.attach(MIMEText(msg, 'html'))
+			# text = message.as_string()
+			# smtpserver.sendmail(gmail_user, to, text)
+			# smtpserver.close()
 
 			#storing news article in database
-			sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
-			cursor.execute(sql, (image, subject, category, str(description), str(id)))
-			connection.commit()
-			connection.close()
+			# sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
+			# cursor.execute(sql, (image, subject, category, str(description), str(id)))
+			# connection.commit()
+			# connection.close()
 
 
 		
@@ -226,11 +246,9 @@ class param_matcher:
 	def pretty_print(self, file_name):
 		"""Print pretty the textual contents as well
 			as the brackets in nested order.
-
 			Parameters
 			----------
 				file_name: the file name to write the pretty values
-
 			Returns
 			-------
 				string: the string which is the pretty print in 
@@ -311,11 +329,9 @@ class param_matcher:
 	def rem_brackets(self, file_name):
 		"""Print pretty only the
 			brackets in nested order.
-
 			Parameters
 			----------
 				file_name: the file name to write the pretty values
-
 			Returns
 			-------
 				string: the string which is the pretty print in 
@@ -386,11 +402,9 @@ class param_matcher:
 	def children(self, str_curr):
 		"""Populate the children of current
 			node
-
 			Parameters
 			----------
 				str_curr: the current string
-
 			Returns
 			-------
 				string: the list of locations
