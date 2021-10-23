@@ -1,3 +1,20 @@
+#import libraries
+from urllib.request import Request, urlopen
+from bs4 import BeautifulSoup
+import requests
+import re
+import sys
+import parse_class as ps
+import time
+import argparse
+import json
+import pymysql
+import smtplib
+import os
+import imghdr
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 class param_matcher:
 	"""
 	This class is the node of a tree.
@@ -105,7 +122,6 @@ class param_matcher:
 
 	def html_print(self):
 		print("<table>")
-		print("<style>table,th,td {padding: 10px;border: 1px solid black;border-collapse: collapse;}</style>")
 		print("\t<tr>")
 		print("\t\t<th>Title</th>")
 		print("\t\t<th>Title Description</th>")
@@ -114,12 +130,95 @@ class param_matcher:
 		print("\t</tr>")
 		for i in self.articles:
 			print("\t<tr>")
-			print("\t\t<td>","<a href= \"",i[2],"\">",i[0], "</td>")
+			print("\t\t<td>",i[0],"</td>")
 			print("\t\t<td>",i[1],"</td>")
 			print("\t\t<td>",i[2],"</td>")
-			print("\t\t<td>","<a href= \"",i[3],"\">","ImageURL","</td>")
+			print("\t\t<td>",i[3],"</td>")
 			print("\t</tr>")
 		print("<table>")
+	
+	def populate_sql(self, num, category):
+		print("populate_sql_calling category"+str(num)+str( category))
+		print("THE FOLLOWING ARTICLES ADDED")
+		all_articles = self.articles
+		
+		print("<table>")
+		print("\t<tr>")
+		print("\t\t<th>Title</th>")
+		print("\t\t<th>Title Description</th>")
+		print("\t\t<th>URL</th>")
+		print("\t\t<th>Image URL</th>")
+		print("\t\t<th>Actual_image</th>")
+		
+		print("\t</tr>")
+		for i in range(0,min(num,len(all_articles))):
+			#"UPLOAD IMAGE"
+			subject = all_articles[i][0]
+			description = str(all_articles[i][1])+"<a href= \""+str(all_articles[i][2])+"\">Read More</a>"
+			response = requests.get(all_articles[i][3])
+			soup1 = BeautifulSoup(response.text,'html.parser')
+			image = str(time.time())
+			file = open("assets/upload/article/"+image, "wb")
+			file.write(response.content)
+			file.close()
+			img_type = imghdr.what("assets/upload/article/"+image)
+			os.rename("assets/upload/article/"+image,"assets/upload/article/"+image+"."+str(img_type))
+			print("\t<tr>")
+			print("\t\t<td>",subject,"</td>")
+			print("\t\t<td>",all_articles[i][1],"</td>")
+			print("\t\t<td>",description,"</td>")
+			print("\t\t<td>",all_articles[i][3],"</td>")
+			print("\t\t<td><img src=assets/upload/article/",image,".",str(img_type), " style=\"width:500px;height:600px;\">","</td>",sep="")
+			
+			print("\t</tr>")
+		print("<table>")
+		#print("img_type:", img_type)
+		
+		return
+		
+		for i in range(0,min(num,len(all_articles))):
+			subject = all_articles[i][0]
+			description = str(all_articles[i][2])+"<a href= \""+i[2]+">Read More</a>"
+
+
+			#establishing connection to database to fetch the emails to send updates
+			connection = pymysql.connect(host="localhost",user="root",passwd="Animesh@98",database="cs699proj" )
+			cursor = connection.cursor()
+			cursor.execute("SELECT * FROM emails")
+			to = ["cs699project2021@gmail.com"]
+
+			for row in cursor.fetchall():
+				to.append(row[1])
+
+			#setting variables for sending mail updates to users
+			gmail_user = 'cs699project2021@gmail.com'
+			gmail_pwd = 'Cs699@project2021'
+			smtpserver = smtplib.SMTP("smtp.gmail.com", 587)
+			smtpserver.ehlo()
+			smtpserver.starttls()
+			smtpserver.ehlo
+			smtpserver.login(gmail_user, gmail_pwd)
+
+			#setting up the mail content
+			msg = '<h1>'+subject+'</h1>' + '<br>' + description
+
+			#Setup the MIME and sending the mail
+			message = MIMEMultipart()
+			message['From'] = gmail_user
+			message['To'] = ",".join(to)
+			message['Subject'] = 'New news article added to XYZ news portal. Have a look.'
+			message.attach(MIMEText(msg, 'html'))
+			text = message.as_string()
+			smtpserver.sendmail(gmail_user, to, text)
+			smtpserver.close()
+
+			#storing news article in database
+			sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
+			cursor.execute(sql, (image, subject, category, str(description), str(id)))
+			connection.commit()
+			connection.close()
+
+
 		
 
 		
@@ -201,8 +300,8 @@ class param_matcher:
 					quotes_open = 1-quotes_open
 
 		#write the textual data in the file
-		# with open(file_name, "w") as f:
-		# 	f.write(to_construct)
+		with open(file_name, "w") as f:
+			f.write(to_construct)
 		
 
 		return to_construct
@@ -278,8 +377,8 @@ class param_matcher:
 					quotes_open = 1-quotes_open
 
 		#write the brackets only in the file			
-		# with open(file_name, "w") as f:
-		# 	f.write(to_construct)
+		with open(file_name, "w") as f:
+			f.write(to_construct)
 		
 		return to_construct
 		

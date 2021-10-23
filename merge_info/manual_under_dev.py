@@ -42,7 +42,6 @@ def key_word_process(keyword, file_mapping):
 			n_keyword = n_keyword + words_mapping[keyword[i]]
 		else:
 			n_keyword = n_keyword + keyword[i]
-	#print("KEYWORD: ", keyword, ":::n_KEYWORD:", n_keyword)
 	return n_keyword
 
 def main():
@@ -72,6 +71,9 @@ def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-k","--keyword",metavar="", required=False, help="Keyword to search")
 	parser.add_argument("-f","--special_character_mapping",metavar="", required=False, help="File name of special characters")
+	parser.add_argument("-c","--category",metavar="", required=False, help="News category")
+	parser.add_argument("-n","--fetch_result",metavar="", required=False, help="Maximum number of results")
+	
 	args = parser.parse_args()
 
 	file_mapping = "map.txt"
@@ -92,17 +94,19 @@ def main():
 	link = "https://news.google.com/search?q="+key_word+"&hl=en-IN&gl=IN&ceid=IN:en"
 
 	#request for the link
-	req = Request(link, headers={'User-Agent': 'Mozilla/5.0'})
+	#req = Request(link, headers={'User-Agent': 'Mozilla/5.0'})
 
 	#add a print statement to have more interaction
-	# print("opening url...", link)
-
+	print("opening url...", link)
+	
+	source = requests.get(link).text
+	soup = BeautifulSoup(source, 'lxml')
 
 	#read the webpage
-	webpage = urlopen(req).read()
+	#webpage = urlopen(req).read()
 
 	#add a print statement to have more interaction
-	# print("opened url...complete")
+	print("opened url...complete")
 	# print()
 	# print()
 
@@ -110,7 +114,7 @@ def main():
 
 
 	#use beautiful soup
-	soup = BeautifulSoup(webpage, 'lxml')
+	#soup = BeautifulSoup(webpage, 'lxml')
 
 	#print formatted output
 	#print(soup.prettify())
@@ -133,9 +137,15 @@ def main():
 
 	#time.sleep(5)
 	article_obj.populate_data()
-	article_obj.html_print()
-
+	#article_obj.html_print()
+	
+	category = "Misc"
+	if args.category:
+		category = args.category
+	num = 10
+	if args.fetch_result:
+		num = int(args.fetch_result)
+	article_obj.populate_sql(num, category)
 
 if __name__ == "__main__":
 	main()
-
