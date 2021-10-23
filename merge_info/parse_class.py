@@ -171,7 +171,8 @@ class param_matcher:
 			print("\t\t<td><img src=assets/upload/article/",image,".",str(img_type), " style=\"width:500px;height:600px;\">","</td>",sep="")
 			
 			print("\t</tr>")
-		print("<table>")
+		print("</table>")
+		print("</html>")
 		#print("img_type:", img_type)
 		
 		return
