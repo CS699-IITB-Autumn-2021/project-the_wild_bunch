@@ -36,3 +36,6 @@ This is achieved by using "Web Scrapping" in Python, which is invoked using PHP.
 9. https://codepen.io/eminqasimov/pen/zXJVzJ
 10. https://codepen.io/fadzrinmadu/pen/NWpvLwb
 11. https://www.w3schools.com/php/php_sessions.asp
+12. https://stackoverflow.com/questions/166944/calling-python-in-php
+13. https://www.php.net/manual/en/function.exec.php
+14. https://getbootstrap.com/
