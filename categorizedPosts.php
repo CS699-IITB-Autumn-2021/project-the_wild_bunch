@@ -29,7 +29,7 @@
     //finding number of pages
     $num_posts = mysqli_fetch_assoc($results_all);
     $num_pages = ceil($num_posts["count(*)"] / $posts_per_page);
-    
+  
     //fetch data
     $posts = mysqli_fetch_all($results_paginated,MYSQLI_ASSOC);
     $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
@@ -221,23 +221,23 @@
                         <?php 
                         $prev = $page - 1;
                             if($page == 1)
-                                echo '<li class="page-item disabled"><a class="page-link" href="?page='.$prev.'">&laquo;</a></li>';
+                                echo '<li class="page-item disabled"><a class="page-link" href="?page='.$prev.'&category='.$category.'">&laquo;</a></li>';
                             else
-                                echo '<li class="page-item"><a class="page-link" href="?page='.$prev.'">&laquo;</a></li>';
+                                echo '<li class="page-item"><a class="page-link" href="?page='.$prev.'&category='.$category.'">&laquo;</a></li>';
 
                             for($i=1;$i<=$num_pages;$i++){
                                 if($i == $page){
-                                    echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                                    echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'&category='.$category.'">'.$i.'</a></li>';
                                 }
                                 else{
-                                    echo '<li class="page-item"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                                    echo '<li class="page-item"><a class="page-link" href="?page='.$i.'&category='.$category.'">'.$i.'</a></li>';
                                 }
                             }
                             $next = $page + 1;
                             if($page == $num_pages)
-                                echo '<li class="page-item disabled"><a class="page-link" href="?page='.$next.'">&raquo;</a></li>';
+                                echo '<li class="page-item disabled"><a class="page-link" href="?page='.$next.'&category='.$category.'">&raquo;</a></li>';
                             else
-                                echo '<li class="page-item"><a class="page-link" href="?page='.$next.'">&raquo;</a></li>';
+                                echo '<li class="page-item"><a class="page-link" href="?page='.$next.'&category='.$category.'">&raquo;</a></li>';
 
                         ?>
                     </ul>
