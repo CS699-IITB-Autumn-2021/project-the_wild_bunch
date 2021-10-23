@@ -132,7 +132,7 @@ def main():
 	#print all the textual data prettily in the file
 	# article_obj.pretty_print("tmp_"+key_word+"_rm_pretty.txt")
 
-	time.sleep(5)
+	#time.sleep(5)
 	article_obj.populate_data()
 	article_obj.html_print()
 
