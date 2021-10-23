@@ -74,7 +74,7 @@
                     <?php endif; ?>
                     <?php if($category!=$cat['article_category']) :?>
                         <li class="nav-item">
-                        <a class="nav-link" href="categorizedPosts.php?category=<?php echo $cat['article_category']; ?>"><?php echo $cat['article_category']; ?></a>
+                        <a class="nav-link" href="categorizedPosts.php?category=<?php echo str_replace(" & ","_",$cat['article_category']); ?>"><?php echo $cat['article_category']; ?></a>
                         </li>
                     <?php endif; ?>
                     <?php endforeach; ?>     
