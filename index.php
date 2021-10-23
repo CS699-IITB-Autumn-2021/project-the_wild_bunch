@@ -1,239 +1,433 @@
+<?php include_once 'header.php';?>
+<?php include_once 'db.php';?>
+
 <?php
-    require('./config/db.php');
-    require('./config/insert.php');
-    //get page number
-    if (!isset ($_GET['page']) ) {  
-        $page = 1;  
-    } else {  
-        $page = $_GET['page'];  
+    $errEconomictimes = $errNews18 = $errHindu = $errIndia = "";
+    $urlNews18 = $categoryNews18 = $urlEconomictimes = $categoryEconomictimes = "";
+    $urlHindu = $categoryHindu = $urlIndia = $categoryIndia = "";
+    session_start();
+    $auther_id = $_SESSION['id'];
+
+    if (isset($_POST['submitNews18'])) {
+        $urlNews18 = trim($_POST['urlNews18']);
+        $categoryNews18 = trim($_POST['categoryNews18']);
+       
+
+        if($urlNews18 == "" || !filter_var($urlNews18, FILTER_VALIDATE_URL)) {
+            $errNews18 = "Enter valid News18 url";
+        } else if($categoryNews18 == "0") {
+            $errNews18 = "Please select article category";
+        } else {
+            $command_exec = "python3 ./web_scraping/news18.py $urlNews18 $categoryNews18 $auther_id";
+            $output = null;
+            $retValue = null;
+            exec($command_exec,$output,$retValue);
+            if($retValue==0) 
+            	echo '<script>alert("News article scrapped successfully")</script>';
+            else
+            	echo '<script>alert("Something went wrong")</script>';
+        }
+        
+    } else if (isset($_POST['submitEconomictimes'])) {
+        $urlEconomictimes = trim($_POST['urlEconomictimes']);
+        $categoryEconomictimes = trim($_POST['categoryEconomictimes']);
+
+        if($urlEconomictimes == "" || !filter_var($urlEconomictimes, FILTER_VALIDATE_URL)) {
+            $errEconomictimes = "Enter valid Economic Times url";
+        } else if($categoryEconomictimes == "0") {
+            $errEconomictimes = "Please select article category";
+        } else {  
+            // scrap code calling & show popup to indicate status
+            $command_exec = "python3 ./web_scraping/economictimes.py $urlEconomictimes $categoryEconomictimes $auther_id";
+            $output = null;
+            $retValue = null;
+            exec($command_exec,$output,$retValue);
+            if($retValue==0) 
+            	echo '<script>alert("News article scrapped successfully")</script>';
+            else
+            	echo '<script>alert("Something went wrong")</script>';
+        }
+    } else if (isset($_POST['submitHindu'])) {
+        $urlHindu = trim($_POST['urlHindu']);
+        $categoryHindu = trim($_POST['categoryHindu']);
+
+        if($urlHindu == "" || !filter_var($urlHindu, FILTER_VALIDATE_URL)) {
+            $errHindu = "Enter valid The Hindu url";
+        } else if($categoryHindu == "0") {
+            $errHindu = "Please select article category";
+        } else {
+            // scrap code calling & show popup to indicate status
+            $command_exec = "python3 ./web_scraping/thehindu.py $urlHindu $categoryHindu $auther_id";
+            $output = null;
+            $retValue = null;
+            exec($command_exec,$output,$retValue);
+            if($retValue==0) 
+            	echo '<script>alert("News article scrapped successfully")</script>';
+            else
+            	echo '<script>alert("Something went wrong")</script>';
+
+        }
+    } else if (isset($_POST['submitIndia'])) {
+        $urlIndia = trim($_POST['urlIndia']);
+        $categoryIndia = trim($_POST['categoryIndia']);
+
+        if($urlIndia == "" || !filter_var($urlIndia, FILTER_VALIDATE_URL)) {
+            $errIndia = "Enter valid India.com url";
+        } else if($categoryIndia == "0") {
+            $errIndia = "Please select article category";
+        } else {
+            // scrap code calling & show popup to indicate status
+            $command_exec = "python3 ./web_scraping/india_com.py $urlIndia $categoryIndia $auther_id";
+            $output = null;
+            $retValue = null;
+            exec($command_exec,$output,$retValue);
+            if($retValue==0) 
+            	echo '<script>alert("News article scrapped successfully")</script>';
+            else
+            	echo '<script>alert("Something went wrong")</script>';
+        }
     }
-    //defining page variables
-    $posts_per_page = 8;
-
-    $page_first_result = ($page-1) * $posts_per_page;
-
-    //Create query
-    $query_allPosts = 'select count(*) from article where article_status = 1';
-    $query_paginatedPosts = 'select * from article where article_status = 1 order by article_id desc limit '.$page_first_result.','.$posts_per_page;
-    $query_allCategories = "select distinct article_category from article order by article_category";
-
-    //get results
-    $results_all = mysqli_query($conn,$query_allPosts);
-    $results_paginated = mysqli_query($conn,$query_paginatedPosts);
-    $results_allCategories = mysqli_query($conn,$query_allCategories);
-
-    //finding number of pages
-    $num_posts = mysqli_fetch_assoc($results_all);
-    $num_pages = ceil($num_posts["count(*)"] / $posts_per_page);
-    //fetch data
-    $posts = mysqli_fetch_all($results_paginated,MYSQLI_ASSOC);
-    $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
-    //free results
-    mysqli_free_result($results_all);
-    mysqli_free_result($results_paginated);
-    mysqli_free_result($results_allCategories);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="https://kit.fontawesome.com/dce8876dde.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.css">
-    <title>XYZ News Portal</title>
-</head>
-<body>
-    <div class="header">
-        <div class="container-fluid">
-            <a href="index.php" id="banner">
-                <div class="text-center py-3">
-                    <h1>XYZ News Portal</h1>
-                    <h4 class="text-muted">For those who read</h4>
-                </div>
-            </a>
 
-            <div class="container-md">
-                <ul class="nav nav-pills justify-content-center">
-                    <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Latest</a>
-                    </li>
-                    <?php foreach($allCategories as $cat): ?>
-                        <li class="nav-item">
-                        <a class="nav-link" href="categorizedPosts.php?category=<?php echo str_replace(" & ","_",$cat['article_category']); ?>"><?php echo $cat['article_category']; ?></a>
-                        </li>
-                    <?php endforeach; ?> 
-                </ul>
+<div class="container-fluid">
+    <div class="row">
+        <!-- News18 -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <!-- Form -->
+                    <form class="form-horizontal" method="post" action="./index.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                    <h3 class="card-title">Add News18 Article</h3>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article URL -->
+                    <div class="form-group row">
+                      <label
+                        for="urlNews18"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Url</label
+                      >
+                      <div class="col-sm-8">
+                        <input
+                          name="urlNews18"
+                          type="text"
+                          class="required form-control"
+                          id="title"
+                          <?php if($urlNews18 != "") { ?>
+                            value = "<?php echo ($urlNews18); ?>"
+                          <?php } ?>
+                          placeholder="Enter News18 Article URL"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article Category -->
+                    <div class="form-group row">
+                      <label
+                        for="categoryNews18"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Category</label
+                      >
+                      <div class="col-sm-8">
+                        <select class="form-select" name="categoryNews18" aria-label="Default select example">
+                            <option selected value="0">Please Select Article Category</option>
+                            <option value="India" <?php if($categoryNews18 == "India") echo "selected"; ?> >India</option>
+                            <option value="World" <?php if($categoryNews18 == "World") echo "selected"; ?> >World</option>
+                            <option value="Tech" <?php if($categoryNews18 == "Tech") echo "selected"; ?> >Tech</option>
+                            <option value="Sports" <?php if($categoryNews18 == "Sports") echo "selected"; ?> >Sports</option>
+                            <option value="Entertainment" <?php if($categoryNews18 == "Entertainment") echo "selected"; ?> >Entertainment</option>
+                            <option value="Education" <?php if($categoryNews18 == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Health" <?php if($categoryNews18 == "Health") echo "selected"; ?> >Health</option>
+                            <option value="Life & Style" <?php if($categoryNews18 == "Life & Style") echo "selected"; ?> >Life & Style</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+                    
+                    <!-- Error message -->
+                    <?php
+                        if($errNews18 != "") { 
+                    ?>
+                        <center>
+                            <p style="color: red;"><?php echo $errNews18; ?></p>
+                        </center>
+                    <?php
+                        }
+                    ?>
+                    <!-- Submit button -->
+                    <div class="border-top" style="margin-bottom: -23px;">
+                        <div class="card-body">
+                            <center><input type="submit" name="submitNews18" value="Submit" class="btn btn-primary"></center>
+                        </div>
+                    </div>
+                  </div>
+                    </form>
+                </div>    
+            </div>
+        </div>
+
+        <!-- Economic Times -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <!-- Form -->
+                    <form class="form-horizontal" method="post" action="./index.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                    <h3 class="card-title">Add The Economic Times Article</h3>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article URL -->
+                    <div class="form-group row">
+                      <label
+                        for="urlEconomictimes"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Url</label
+                      >
+                      <div class="col-sm-8">
+                        <input
+                          name="urlEconomictimes"
+                          type="text"
+                          class="required form-control"
+                          id="title"
+                          <?php if($urlEconomictimes != "") { ?>
+                            value = "<?php echo ($urlEconomictimes); ?>"
+                          <?php } ?>
+                          placeholder="Enter The Economic Times Article URL"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article Category -->
+                    <div class="form-group row">
+                      <label
+                        for="categoryEconomictimes"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Category</label
+                      >
+                      <div class="col-sm-8">
+                        <select class="form-select" name="categoryEconomictimes" aria-label="Default select example">
+                            <option selected value="0">Please Select Article Category</option>
+                            <option value="India" <?php if($categoryEconomictimes == "India") echo "selected"; ?> >India</option>
+                            <option value="World" <?php if($categoryEconomictimes == "World") echo "selected"; ?> >World</option>
+                            <option value="Tech" <?php if($categoryEconomictimes == "Tech") echo "selected"; ?> >Tech</option>
+                            <option value="Sports" <?php if($categoryEconomictimes == "Sports") echo "selected"; ?> >Sports</option>
+                            <option value="Entertainment" <?php if($categoryEconomictimes == "Entertainment") echo "selected"; ?> >Entertainment</option>
+                            <option value="Education" <?php if($categoryEconomictimes == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Health" <?php if($categoryEconomictimes == "Health") echo "selected"; ?> >Health</option>
+                            <option value="Life & Style" <?php if($categoryEconomictimes == "Life & Style") echo "selected"; ?> >Life & Style</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+                    
+                    <!-- Error message -->
+                    <?php
+                        if($errEconomictimes != "") { 
+                    ?>
+                        <center>
+                            <p style="color: red;"><?php echo $errEconomictimes; ?></p>
+                        </center>
+                    <?php
+                        }
+                    ?>
+                    <!-- Submit button -->
+                    <div class="border-top" style="margin-bottom: -23px;">
+                        <div class="card-body">
+                            <center><input type="submit" name="submitEconomictimes" value="Submit" class="btn btn-primary"></center>
+                        </div>
+                    </div>
+                  </div>
+                    </form>
+                </div>    
+            </div>
+        </div>
+
+        <div style="height:35px"> </div>
+
+        <!-- The Hindu -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <!-- Form -->
+                    <form class="form-horizontal" method="post" action="./index.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                    <h3 class="card-title">Add The Hindu Article</h3>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article URL -->
+                    <div class="form-group row">
+                      <label
+                        for="urlHindu"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Url</label
+                      >
+                      <div class="col-sm-8">
+                        <input
+                          name="urlHindu"
+                          type="text"
+                          class="required form-control"
+                          id="title"
+                          <?php if($urlHindu != "") { ?>
+                            value = "<?php echo ($urlHindu); ?>"
+                          <?php } ?>
+                          placeholder="Enter The Hindu Article URL"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article Category -->
+                    <div class="form-group row">
+                      <label
+                        for="categoryHindu"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Category</label
+                      >
+                      <div class="col-sm-8">
+                        <select class="form-select" name="categoryHindu" aria-label="Default select example">
+                            <option selected value="0">Please Select Article Category</option>
+                            <option value="India" <?php if($categoryHindu == "India") echo "selected"; ?> >India</option>
+                            <option value="World" <?php if($categoryHindu == "World") echo "selected"; ?> >World</option>
+                            <option value="Tech" <?php if($categoryHindu == "Tech") echo "selected"; ?> >Tech</option>
+                            <option value="Sports" <?php if($categoryHindu == "Sports") echo "selected"; ?> >Sports</option>
+                            <option value="Entertainment" <?php if($categoryHindu == "Entertainment") echo "selected"; ?> >Entertainment</option>
+                            <option value="Education" <?php if($categoryHindu == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Health" <?php if($categoryHindu == "Health") echo "selected"; ?> >Health</option>
+                            <option value="Life & Style" <?php if($categoryHindu == "Life & Style") echo "selected"; ?> >Life & Style</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+                    
+                    <!-- Error message -->
+                    <?php
+                        if($errHindu != "") { 
+                    ?>
+                        <center>
+                            <p style="color: red;"><?php echo $errHindu; ?></p>
+                        </center>
+                    <?php
+                        }
+                    ?>
+                    <!-- Submit button -->
+                    <div class="border-top" style="margin-bottom: -23px;">
+                        <div class="card-body">
+                            <center><input type="submit" name="submitHindu" value="Submit" class="btn btn-primary"></center>
+                        </div>
+                    </div>
+                  </div>
+                    </form>
+                </div>    
+            </div>
+        </div>
+
+        <!-- India.com -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <!-- Form -->
+                    <form class="form-horizontal" method="post" action="./index.php" enctype="multipart/form-data">
+                    <div class="card-body">
+                    <h3 class="card-title">Add India.com Article</h3>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article URL -->
+                    <div class="form-group row">
+                      <label
+                        for="urlIndia"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Url</label
+                      >
+                      <div class="col-sm-8">
+                        <input
+                          name="urlIndia"
+                          type="text"
+                          class="required form-control"
+                          id="title"
+                          <?php if($urlIndia != "") { ?>
+                            value = "<?php echo ($urlIndia); ?>"
+                          <?php } ?>
+                          placeholder="Enter The Economic Times Article URL"
+                        />
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+
+                    <!-- Article Category -->
+                    <div class="form-group row">
+                      <label
+                        for="categoryIndia"
+                        class="col-sm-4 control-label col-form-label"
+                        >Article Category</label
+                      >
+                      <div class="col-sm-8">
+                        <select class="form-select" name="categoryIndia" aria-label="Default select example">
+                            <option selected value="0">Please Select Article Category</option>
+                            <option value="India" <?php if($categoryIndia == "India") echo "selected"; ?> >India</option>
+                            <option value="World" <?php if($categoryIndia == "World") echo "selected"; ?> >World</option>
+                            <option value="Tech" <?php if($categoryIndia == "Tech") echo "selected"; ?> >Tech</option>
+                            <option value="Sports" <?php if($categoryIndia == "Sports") echo "selected"; ?> >Sports</option>
+                            <option value="Entertainment" <?php if($categoryIndia == "Entertainment") echo "selected"; ?> >Entertainment</option>
+                            <option value="Education" <?php if($categoryIndia == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Health" <?php if($categoryIndia == "Health") echo "selected"; ?> >Health</option>
+                            <option value="Life & Style" <?php if($categoryIndia == "Life & Style") echo "selected"; ?> >Life & Style</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style="height:15px"> </div>
+                    
+                    <!-- Error message -->
+                    <?php
+                        if($errIndia != "") { 
+                    ?>
+                        <center>
+                            <p style="color: red;"><?php echo $errIndia; ?></p>
+                        </center>
+                    <?php
+                        }
+                    ?>
+                    <!-- Submit button -->
+                    <div class="border-top" style="margin-bottom: -23px;">
+                        <div class="card-body">
+                            <center><input type="submit" name="submitIndia" value="Submit" class="btn btn-primary"></center>
+                        </div>
+                    </div>
+                  </div>
+                    </form>
+                </div>    
             </div>
         </div>
     </div>
-    <div class="main-content container-lg-12 mx-0">
-        <h1 class="mx-2 pt-3">Latest News articles</h1>
-        <div class="container-lg-12 main-container mx-0">
-            <div class="row mx-0 my-3">
-                <!-- Div for News articles display -->
-                <div class="col-lg-8 my-2">
-                    <div class="row my-3 mx-auto">
-                        <?php $N = 0;?>
-                        <?php foreach($posts as $post) : ?>
-                        <?php $N++; ?> 
-                        <?php if($N % 2 == 0) : ?>   
-                        <div class="col-lg-12 my-2">
-                            <div class="card text-white bg-primary">
-                                    <div class="card-header">
-                                        Story Date : <?php echo $post['article_date'];?>
-                                        <span class="badge rounded-pill bg-light" style="float:right;"><?php echo $post['article_category'];?></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title"><?php echo $post['article_title']; ?></h3>
-                                        <!-- article thumbnail and short description -->
-                                        <div class="row">
-                                            <?php
-                                                $words = explode(" ",$post['article_desc']);
-                                            ?>
-                                            <div class="col-lg-8 mr-1"><p class="card-text"><?php
-                                            for($i=0;$i<50;$i++){
-                                                echo $words[$i].' ';
-                                            }
-                                            echo '...';
-                                            ?>
-                                            </p></div>
-                                            <div class="col-lg-4 ml-1"><div id="card-thumb"><img class="img-thumbnail" src="admin/assets/upload/article/<?php echo $post['article_title_img']?>" alt=""></div></div>
-                                        </div>
-                                        <div class="btn btn-secondary"><a style="text-decoration:none;" href="post.php?id=<?php echo $post['article_id']; ?>">Read More</a></div>
-                                    </div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                        <?php if($N % 2) : ?>   
-                        <div class="col-lg-12 my-2">
-                            <div class="card bg-secondary">
-                                    <div class="card-header">
-                                    Story Date : <?php echo $post['article_date'];?>
-                                        <span class="badge rounded-pill bg-dark" style="float:right;"><?php echo $post['article_category'];?></span>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title"><?php echo $post['article_title']; ?></h3>
-                                        <!-- article thumbnail and short description -->
-                                        <div class="row">
-                                            <?php
-                                                $words = explode(" ",$post['article_desc']);
-                                            ?>
-                                            <div class="col-lg-8 mr-1"><p class="card-text"><?php
-                                            for($i=0;$i<50;$i++){
-                                                echo $words[$i].' ';
-                                            }
-                                            echo '...';
-                                            ?></p></div>
-                                            <div class="col-lg-4 ml-1"><div id="card-thumb"><img class="img-thumbnail bg-primary" src="admin/assets/upload/article/<?php echo $post['article_title_img']?>" alt=""></div></div>
-                                        </div>
-                                        <div class="btn btn-primary"><a style="text-decoration:none; color:white;" href="post.php?id=<?php echo $post['article_id']; ?>">Read More</a></div>
-                                    </div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                        <?php endforeach; ?>    
-                    </div>
-                </div>
-                <!-- Side panel -->
-                <div class="col-sm-4 mx-auto">
-                    <!-- textbox for subscribing to newsletters -->
-                    <div class=" border border-secondary p-2 my-5">
-                        <h4 class="text-center">Subscribe to our updates</h4>
-                        <form action="<?php $_SERVER['PHP_SELF'];?>" class="form-group mx-5" method="post">
-                            <div class="input-group mb-3">
-                            <span class="bg-primary text-white input-group-text">Email</i></span>
-                            <input type="text" class="form-control" aria-label="email" name='email' placeholder="abc@example.com">
-                            <button type="submit" class="btn btn-success" name="submit">Submit</button>
-                            </div>
-                        </form>
-                        <?php if(isset($_REQUEST['submit'])):?>
-                        <?php if($emailErr):?>
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                <strong>Heads up!</strong> Entered email is not valid Email.
-                            </div>
-                        <?php endif;?>
-                        <?php if($emailErr==0):?>
-                        <?php if($email_counts['count(*)']==0):?>
-                            <?php 
-                                $query = "insert into emails(email) values('$email')";
-                                mysqli_query($conn,$query);
-                            ?>
-                            <div class="alert alert-dismissible alert-success">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                <strong>Well done!</strong> You successfully subscribed to our news updates.
-                            </div>
-                        <?php endif;?>
-                        <?php if($email_counts['count(*)']!=0):?>
-                            <div class="alert alert-dismissible alert-warning">
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                <strong>Oh snap!</strong> The email you entered is already in the database.
-                            </div>
-                        <?php endif;?>
-                        <?php endif;?>
-                        <?php endif;?>
-                    </div>
-                    <div class=" border border-secondary search-box p-2 my-5">
-                        <h4 class="text-center">Search for news articles</h4>
-                        <form class="form-group mx-5" method="post">
-                            <div class="input-group mb-3">
-                            <span class="bg-primary text-white input-group-text"><i class="fas fa-search"></i></span>
-                            <input type="text" class="form-control" aria-label="Search box" name='search' placeholder="Search term...">
-                            </div>
-                        </form>
-                        <!-- Search Results -->
-                        <div class="list-group mx-5">
-                        <?php 
-                            // if nothing is in the search box then show no news articles titles
-                            if(!isset($_POST['search']))
-                                $search_query = "Select * from article where article_title like 'xxxx'";
-                            // if search box is filled then use that value to match the news articles titles
-                            else{
-                                $search_query = "Select * from article where (article_title like '%".$_POST['search']."%' or article_category like '%".$_POST['search']."%' or article_desc like '%".$_POST['search']."%' and article_status = 1) order by article_id desc";   
-                            }
-                            $search_result = mysqli_query($conn,$search_query);
-                            $matched_news = mysqli_fetch_all($search_result,MYSQLI_ASSOC);
-                            foreach($matched_news as $match){
-                                echo '<a href="post.php?id='.$match['article_id'].'" class="list-group-item list-group-item-action" style="text-decoration:none;">'.$match['article_title'].'</a>';
-                            }
-                        ?>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pagination -->
-                <div>
-                    <ul class="pagination">
-                        <?php 
-                        $prev = $page - 1;
-                            if($page == 1)
-                                echo '<li class="page-item disabled"><a class="page-link" href="?page='.$prev.'">&laquo;</a></li>';
-                            else
-                                echo '<li class="page-item"><a class="page-link" href="?page='.$prev.'">&laquo;</a></li>';
-
-                            for($i=1;$i<=$num_pages;$i++){
-                                if($i == $page){
-                                    echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
-                                }
-                                else{
-                                    echo '<li class="page-item"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
-                                }
-                            }
-                            $next = $page + 1;
-                            if($page == $num_pages)
-                                echo '<li class="page-item disabled"><a class="page-link" href="?page='.$next.'">&raquo;</a></li>';
-                            else
-                                echo '<li class="page-item"><a class="page-link" href="?page='.$next.'">&raquo;</a></li>';
-
-                        ?>
-                    </ul>
-                </div>
-
-            </div>
-        </div> 
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You are not authorised to add admin.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
-    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+  </div>
+</div>
+<?php include_once 'footer.php'; ?>
