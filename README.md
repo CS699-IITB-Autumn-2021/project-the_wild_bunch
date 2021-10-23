@@ -35,3 +35,4 @@ This is achieved by using "Web Scrapping" in Python, which is invoked using PHP.
 8. https://mdbootstrap.com/docs/b4/jquery/tables/pagination/
 9. https://codepen.io/eminqasimov/pen/zXJVzJ
 10. https://codepen.io/fadzrinmadu/pen/NWpvLwb
+11. https://www.w3schools.com/php/php_sessions.asp
