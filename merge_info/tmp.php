@@ -25,14 +25,22 @@ echo "<html>
 //echo "Keyword Searched for: ".$_POST["keyword"];
 //$keyword = parse_keyform($_POST["keyword"]);
 $keyword = parse_keyform($_POST["keyword"]);
+$category = parse_keyform($_POST["category"]);
+$number = parse_keyform($_POST["number"]);
+
 echo "<br>Keyword after processing: ".$keyword."<br>";
-$command_exec ="./virt_env/bin/python ./manual_under_dev.py -k \"".$keyword."\"";
-echo $command_exec;
-$command = shell_exec($command_exec);
+$command_exec ="./virt_env/bin/python ./manual_under_dev.py -k \"".$keyword."\""." -c \"".$category."\" -n \"".$number."\"";
+echo $command_exec."<br>";
+//$command = shell_exec($command_exec);
 //echo "<br>".$keyword;
-echo "<br>Command Executed: ".$command."<br>";
+exec($command_exec, $output, $result);
+echo "RESULT: ".$result."<br>";
+echo "<br>Command Executed: ".var_dump($output)."<br>";
 //$output = shell_exec($command);
 //echo $output;
+foreach($op as $output){
+		    echo $op;
+}
 echo "</body>
 </html>";
 ?>
