@@ -6,8 +6,6 @@ import re
 import sys
 import parse_class as ps
 import time
-import argparse
-import json
 import os
 import imghdr
 import sql_fill as sql_f
@@ -18,6 +16,7 @@ class param_matcher:
 	Each node stores textual content and
 	pointers to it's children.
 	"""
+
 	def __init__(self, list_str):
 		"""Constructor of the class.
 			Populates the articles in the tree
@@ -44,7 +43,22 @@ class param_matcher:
 			new_child=param_matcher(list_str[i[0]:i[1]+1])
 			self.children_l.append(new_child)
 
+
+
 	def populate_data(self):
+		"""This function parses the tree rooted at
+			current node and stores all the articles
+			which are the children of this node in
+			a list
+		
+			Parameters
+			----------
+			None
+
+			Returns
+			-------
+			None
+		"""
 		self.articles = []
 
 		article_list = self.children_l[0].children_l[0].children_l[0].children_l[1].children_l
@@ -109,33 +123,150 @@ class param_matcher:
 
 				self.articles.append([str_title, str_title_desc, str_url, str_img_url])
 				#pretty print
-				print()
-				print()
-				print()
+				# print()
+				# print()
+				# print()
 
 
 
-	def html_print(self):
-		print("<table>")
-		print("\t<tr>")
-		print("\t\t<th>Title</th>")
-		print("\t\t<th>Title Description</th>")
-		print("\t\t<th>URL</th>")
-		print("\t\t<th>Image URL</th>")
-		print("\t</tr>")
-		for i in self.articles:
-			print("\t<tr>")
-			print("\t\t<td>",i[0],"</td>")
-			print("\t\t<td>",i[1],"</td>")
-			print("\t\t<td>",i[2],"</td>")
-			print("\t\t<td>",i[3],"</td>")
-			print("\t</tr>")
-		print("<table>")
-	
-	def populate_sql(self, num, category, author,print_html=0):
+	def html_print(self,file_name=""):
+		"""This function prints a html table
+			of all the fetched articles. The
+			columns of the tables are Title,
+			Title Description, URL of the article,
+			Image URL respectively.
 		
+			Parameters
+			----------
+			file_name (Optional): String
+			If file name is passed, then instead of stdout,
+			print content in the file
+
+			Returns
+			-------
+			None
+		"""
+
+		#print on std out
+		if file_name =="":
+			
+			#print table block
+			print("<table>")
+
+			#start the header row
+			print("\t<tr>")
+
+			#print table headers as specified in doc string above
+			print("\t\t<th>Title</th>")
+			print("\t\t<th>Title Description</th>")
+			print("\t\t<th>URL</th>")
+			print("\t\t<th>Image URL</th>")
+			print("\t</tr>")
+			
+			#iterate through each article to print the article
+			for iter_article in self.articles:
+
+				#print article details in a row
+				print("\t<tr>")
+
+				#print article Title
+				print("\t\t<td>",iter_article[0],"</td>")
+				
+				#print article Title Description
+				print("\t\t<td>",iter_article[1],"</td>")
+				
+				#print article URL
+				print("\t\t<td>",iter_article[2],"</td>")
+				
+				#print article Image URL
+				print("\t\t<td>",iter_article[3],"</td>")
+
+				#end the row
+				print("\t</tr>")
+			
+			#end the table
+			print("</table>")
+		
+		#print in the file
+		else:
+			with open(file_name,"w") as file_write:
+				#print table block
+
+				file_write.write("<html>")
+				file_write.write("<body>")
+				
+				file_write.write("<table border>")
+
+				#start the header row
+				file_write.write("\t<tr>")
+
+				#print table headers as specified in doc string above
+				file_write.write("\t\t<th>Title</th>")
+				file_write.write("\t\t<th>Title Description</th>")
+				file_write.write("\t\t<th>URL</th>")
+				file_write.write("\t\t<th>Image URL</th>")
+				file_write.write("\t</tr>")
+				
+				#iterate through each article to print the article
+				for iter_article in self.articles:
+
+					#print article details in a row
+					file_write.write("\t<tr>")
+
+					#print article Title
+					file_write.write("\t\t<td>"+str(iter_article[0])+"</td>")
+					
+					#print article Title Description
+					file_write.write("\t\t<td>"+str(iter_article[1])+"</td>")
+					
+					#print article URL
+					file_write.write("\t\t<td>"+str(iter_article[2])+"</td>")
+					
+					#print article Image URL
+					file_write.write("\t\t<td>"+str(iter_article[3])+"</td>")
+
+					#end the row
+					file_write.write("\t</tr>")
+				
+				#end the table
+				file_write.write("</table>")
+				file_write.write("</body>")
+				file_write.write("</body>")
+
+
+	def populate_sql(self, num, category, author,print_html=0):
+		"""This function populates the admin side SQL tables and
+			also prints the new added articles if print_html argument
+			passed is 1
+			
+			Parameters
+			----------
+			num: Integer
+				This is the upper bound of number of articles to add in SQL tables.
+				The articles added are minimum of articles fetched and num.
+			
+			category: String
+				This is category of the fetched articles in the SQL table.
+			
+			author: String
+				This is the name of the author who is adding the news articles.
+			
+			print_html (Optional): Bool
+				This value specifies whether to print the html table of new added articles.
+				If this argument is 1, then print the table, otherwise do not print the table.
+
+			Returns
+			-------
+			None
+		"""
+		#get all articles
+
 		all_articles = self.articles
+		
+		#assign id
 		id = author
+
+		#print the initial heading of the table
 		if print_html==1:
 			print("<table>")
 			print("\t<tr>")
@@ -146,60 +277,105 @@ class param_matcher:
 			print("\t\t<th>Actual_image</th>")
 			print("\t</tr>")
 		
+		#iterate over articles to add in the SQL table
 		iter_article=0
+
+		#iterate until upper bound is not reached
 		while iter_article < min(num,len(all_articles)):
 			
+			#get the subject, or the title of the article
 			subject = all_articles[iter_article][0]
+
+			#get the title description of the article
 			description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
+			
+			#try to fetch the image of the article. If no image is provided
+			#in google news, then skip the article
 			try:
 				response = requests.get(all_articles[iter_article][3])
 			except:
-				# print("HERE RESPONSE PROBLEM")
+				#skip the article if no image link
 				iter_article = iter_article + 1
 				num = num+1
 				continue
 			
+			#create a soup for the image
 			soup1 = BeautifulSoup(response.text,'html.parser')
+			
+			#name the image according to system time for uniqueness
 			image = str(time.time())
 			
-			file = open("assets/upload/article/"+image, "wb")
-			file.write(response.content)
-			file.close()
+			#store the image in assets/upload/article/
+			try:
+				file = open("assets/upload/article/"+image, "wb")
+				file.write(response.content)
+				file.close()
+
+				#get the extension of the image
+				img_type = imghdr.what("assets/upload/article/"+image)
+				
+				#change the name of the image to include it's extension
+				img_final_name = "assets/upload/article/"+image+"."+str(img_type)
+
+				#rename the image with appropriate extension
+				os.rename("assets/upload/article/"+image,img_final_name)
+				
+			except:
+				#if there is a problem in uploading the image then raise an exception
+				print("IMAGE UPLOADING PROBLEM")
+				raise Exception("Image upload error.")
 			
-			img_type = imghdr.what("assets/upload/article/"+image)
-			img_final_name = "assets/upload/article/"+image+"."+str(img_type)
-			os.rename("assets/upload/article/"+image,img_final_name)
-			# img_loc.append(img_final_name)
-			
+			#print the uploaded article in the html file
 			if print_html==1:
+				
+				#print the current row
 				print("\t<tr>")
+				
+				#print the title of article
 				print("\t\t<td>",subject,"</td>")
+
+				#print the Description of the article
 				print("\t\t<td>",all_articles[iter_article][1],"</td>")
+				
+				#print the description with read more or URL
 				print("\t\t<td>",description,"</td>")
+
+				#print the URL of the image
 				print("\t\t<td>",all_articles[iter_article][3],"</td>")
+
+				#print the image
 				print("\t\t<td><img src=",img_final_name, " style=\"width:500px;height:600px;\">","</td>",sep="")
+				
+				#end the current row
 				print("\t</tr>")
 			
-			subject = all_articles[iter_article][0]
-			description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
+			# subject = all_articles[iter_article][0]
+			# description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
 			# image =img_loc[i].split("/")[-1]
-			print("Trying to upload on database", img_final_name)
+			# print("Trying to upload on database", img_final_name)
+			
+			#try to update the database, with contents of article, title, title description, image, and
+			# send email
 			try:
-				swl_obj = sql_f("Animesh@98","cs699proj")
+				#connect to database object
+				swl_obj = sql_f("root","Animesh@98","cs699proj")
+				
+				#send an email to subscribed users
 				swl_obj.send_email(subject,description)
+				
+				#store the article in the database
 				swl_obj.store_article(img_final_name, subject, category, description, id)
 			except:
+				#print Unable to upload in database if results in exception
 				print("UNABLE TO UPLOAD IN DATABASE")
+			
+			#go to the next article
 			iter_article = iter_article+1
 		
-		
+		#print the end of the html table
 		if print_html==1:
 			print("</table>")
-			print("</html>")
-		#print("img_type:", img_type)
-		
-		#return
-		
+			print("</html>")		
 		
 			
 			# #establishing connection to database to fetch the emails to send updates
@@ -246,9 +422,12 @@ class param_matcher:
 	def pretty_print(self, file_name):
 		"""Print pretty the textual contents as well
 			as the brackets in nested order.
+			
 			Parameters
 			----------
-				file_name: the file name to write the pretty values
+				file_name: String
+				the file name to write the pretty values
+			
 			Returns
 			-------
 				string: the string which is the pretty print in 
@@ -329,9 +508,12 @@ class param_matcher:
 	def rem_brackets(self, file_name):
 		"""Print pretty only the
 			brackets in nested order.
+			
 			Parameters
 			----------
-				file_name: the file name to write the pretty values
+				file_name: String
+				the file name to write the pretty values
+			
 			Returns
 			-------
 				string: the string which is the pretty print in 
@@ -402,9 +584,12 @@ class param_matcher:
 	def children(self, str_curr):
 		"""Populate the children of current
 			node
+			
 			Parameters
 			----------
-				str_curr: the current string
+				str_curr: String
+				the current string
+			
 			Returns
 			-------
 				string: the list of locations
@@ -449,10 +634,9 @@ class param_matcher:
 					closing_last_loc = i-1
 					bracket_loc_indices.append((opening_last_loc,closing_last_loc))
 
-					#EXCEPTION to be handled
+					#Raise EXCEPTION in case of parsing error
 					if count_bracket<0:
-						print("ERROR")
-						exit()
+						raise Exception("Count Bracket Parsing Error")
 					
 					#Nested bracket structure completed
 					if count_bracket == 0:
@@ -527,7 +711,7 @@ class param_matcher:
 				sibling = sibling+2
 
 				#print the url of the image of the news article
-				print(self.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[sibling][3:],end="\t")
+				print(self.children_l[0].children_l[0].children_l[0].children_l[1].children_l[i].children_l[0].curr.split(",")[sibling][3:-1],end="\t")
 				
 				#pretty print
 				print()
