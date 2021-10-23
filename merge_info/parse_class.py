@@ -137,8 +137,8 @@ class param_matcher:
 			print("\t</tr>")
 		print("<table>")
 	
-	def populate_sql(self, num, category):
-		print("populate_sql_calling category"+str(num)+str( category))
+	def populate_sql(self, num, category, author):
+		print("populate_sql_calling category"+str(num)+str( category)+str(author))
 		print("THE FOLLOWING ARTICLES ADDED")
 		all_articles = self.articles
 		
@@ -176,12 +176,12 @@ class param_matcher:
 		#print("img_type:", img_type)
 		
 		return
-		
+		id = author
 		for i in range(0,min(num,len(all_articles))):
 			subject = all_articles[i][0]
-			description = str(all_articles[i][2])+"<a href= \""+i[2]+">Read More</a>"
+			description = str(all_articles[i][1])+"<a href= \""+str(all_articles[i][2])+"\">Read More</a>"
 
-
+	
 			#establishing connection to database to fetch the emails to send updates
 			connection = pymysql.connect(host="localhost",user="root",passwd="Animesh@98",database="cs699proj" )
 			cursor = connection.cursor()

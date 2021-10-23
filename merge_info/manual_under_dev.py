@@ -73,6 +73,8 @@ def main():
 	parser.add_argument("-f","--special_character_mapping",metavar="", required=False, help="File name of special characters")
 	parser.add_argument("-c","--category",metavar="", required=False, help="News category")
 	parser.add_argument("-n","--fetch_result",metavar="", required=False, help="Maximum number of results")
+	parser.add_argument("-a","--author",metavar="", required=False, help="Author")
+	
 	
 	args = parser.parse_args()
 
@@ -145,7 +147,11 @@ def main():
 	num = 10
 	if args.fetch_result:
 		num = int(args.fetch_result)
-	article_obj.populate_sql(num, category)
-
+	
+	author = "root"
+	if args.author:
+		author = (args.author)
+	article_obj.populate_sql(num, category,author)
+	
 if __name__ == "__main__":
 	main()

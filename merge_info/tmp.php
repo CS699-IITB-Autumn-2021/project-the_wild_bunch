@@ -27,9 +27,9 @@ echo "<html>
 $keyword = parse_keyform($_POST["keyword"]);
 $category = parse_keyform($_POST["category"]);
 $number = parse_keyform($_POST["number"]);
-
+$author = parse_keyform($_POST["author"]);
 echo "<br>Keyword after processing: ".$keyword."<br>";
-$command_exec ="./virt_env/bin/python ./manual_under_dev.py -k \"".$keyword."\""." -c \"".$category."\" -n \"".$number."\"";
+$command_exec ="./virt_env/bin/python ./manual_under_dev.py -k \"".$keyword."\""." -c \"".$category."\" -n \"".$number."\" -a \"".$author."\"";
 echo $command_exec."<br>";
 //$command = shell_exec($command_exec);
 //echo "<br>".$keyword;
