@@ -5,19 +5,23 @@
 
   // Verify user's credentials
   if (isset($_POST['submit'])) {
+    // Fetch user name & password from the form
     $pass = $_POST['upass'];
     $name = $_POST['uname'];
 
+    // check user is valid or not
     $sql = "SELECT * FROM ".$adminTable." WHERE ".$admin_name." = '".$name."' AND ".$admin_status." = 1 AND ".$admin_pass." = '".$pass."'";
     $result = mysqli_query($conn, $sql);
     
     if(mysqli_num_rows($result) != 0) {
       $err = "";
       session_start();
+
+      // save user details in session
       $_SESSION['name']=$name;
       $singleRow = mysqli_fetch_row($result);
       $_SESSION['id'] = $singleRow[0];
-      ?> <script type="text/javascript">window.location="index.php"</script> <?php
+      ?> <script type="text/javascript">window.location="index.php"</script> <?php // if user is valid the navigate to the home page
     } else {
       $err = "Invalid Username & Password.";
     }

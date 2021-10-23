@@ -12,6 +12,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+// variables & image path
 $err = $title = $category = $title_img = $description = "";
 $path="assets/upload/article/";
 
@@ -20,6 +21,7 @@ if(!isset($_POST['submit']) && $_GET['eid']) {
   $sql = "SELECT * FROM ".$articleTable." WHERE ".$article_id." = ".$_GET["eid"];
   $result = mysqli_query($conn, $sql);
 
+  // Fetch articale data whose id is eid
   while($row = mysqli_fetch_array($result)) {
     $title = $row[$article_title];
     $category = $row[$article_category];
@@ -118,6 +120,7 @@ if (isset($_POST['submit'])) {
           //Closing smtp connection
           $mail->smtpClose();
           
+          // navigate to the home page if articale added sucessfully
           ?> <script type="text/javascript">window.location="index.php"</script> <?php
         } else {
           $err = "Something Goes Wrong. Please Try Agian.";
@@ -128,6 +131,7 @@ if (isset($_POST['submit'])) {
 
     } else {
       // Edit artilce flow handle
+      // upload new image and remove old image
       if($title_img != "") {
         $title_img = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $title_img);
         if(move_uploaded_file($_FILES['title_img']['tmp_name'], $path.$title_img) && $old_title_img) {
@@ -137,8 +141,9 @@ if (isset($_POST['submit'])) {
         $title_img = $old_title_img;
       }
 
+      // update articale data
       $sql = 'UPDATE '.$articleTable.' SET `'.$article_title.'` = "'.$title.'", `'.$article_title_img.'` = "'.$title_img.'", `'.$article_category.'` = "'.$category.'", `'.$article_desc.'` = "'.$description.'" WHERE `'.$article_id.'` = "'.$_GET["eid"].'"';
-      if (mysqli_query($conn, $sql)) {
+      if (mysqli_query($conn, $sql)) { // navigate to the home page if articale edited sucessfully
         ?> <script type="text/javascript">window.location="index.php"</script> <?php
       } else {
         $err = "Something Goes Wrong. Please Try Agian.";

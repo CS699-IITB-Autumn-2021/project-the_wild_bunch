@@ -3,19 +3,27 @@
 
 <?php
 
+  // activate comment whose id is aid
   if($_GET["aid"]) {
     $sql = "UPDATE ".$commentTable." SET ".$comment_status." = 1 WHERE ".$comment_id." = ".$_GET["aid"];
     mysqli_query($conn, $sql);
   }
+
+  // de-activate comment whose id is did
   if($_GET["did"]) {
     $sql = "UPDATE ".$commentTable." SET ".$comment_status." = 0 WHERE ".$comment_id." = ".$_GET["did"];
     mysqli_query($conn, $sql);
   }
+  
+  // delete comment whose id is ddid
   if($_GET["ddid"]) {
     $sql = "DELETE FROM ".$commentTable." WHERE ".$comment_id." = ".$_GET["ddid"];
     mysqli_query($conn, $sql);
   }
+
+  // Fetch comment
   $sql = "SELECT * FROM ".$commentTable;
+  // if current user is not high privileged admin
   if($_SESSION['id'] != "1")
     $sql = $sql." WHERE `".$article_id."` IN ( SELECT `".$article_id."` FROM  ".$articleTable." WHERE `".$admin_id."` = '".$_SESSION['id']."')";
   $result = mysqli_query($conn, $sql);
@@ -30,6 +38,7 @@
           <!-- View Comment Table -->
           <h3 class="card-title">View Comment</h3>
           <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <!-- Table header -->
             <thead>
               <tr>
                 <th class="col th-sm">ID</th>
@@ -46,10 +55,15 @@
             <tbody>
               <?php while($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
+                  <!-- comment id -->
                   <td><?php echo $row[$comment_id]; ?></td>
+                  <!-- commenter -->
                   <td><?php echo $row[$comment_auther]; ?></td>
+                  <!-- comment -->
                   <td><?php echo  $row[$comment_desc]; ?></td>
+                  <!-- article id -->
                   <td><?php echo $row[$article_id]; ?></td>
+                  <!-- article author id -->
                   <?php if($_SESSION['id'] == "1") {
                       $sql_ = "SELECT `".$admin_id."` FROM ".$articleTable." WHERE `".$article_id."` = '".$row[$article_id]."'";
                       $tmp=mysqli_query($conn, $sql_);
@@ -78,6 +92,7 @@
                 </tr>
               <?php } ?>
             </tbody>
+            <!-- Table footer -->
             <tfoot>
               <tr>
                 <th class="col th-sm">ID</th>

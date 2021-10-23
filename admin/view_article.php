@@ -22,11 +22,10 @@
     mysqli_query($conn, $sql);
   }
   $sql = "SELECT * FROM ".$articleTable;
+  // if current user is not high privileged admin
   if($_SESSION['id'] != "1")
     $sql = $sql." WHERE `".$admin_id."` = '".$_SESSION['id']."'";
   $result = mysqli_query($conn, $sql);
-//   echo $sql;
-//   exit();
 ?>
 
 <div class="container-fluid">
@@ -37,6 +36,7 @@
         <!-- View Article Table -->
           <h3 class="card-title">View Article</h3>
           <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <!-- Table header -->
             <thead>
               <tr>
                 <th class="col th-sm">Article ID</th>
@@ -53,21 +53,27 @@
             <tbody>
               <?php while($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
+                  <!-- article id -->
                   <td><?php echo $row[$article_id]; ?></td>
+                  <!-- article title -->
                   <td><?php 
                     if(strlen($row[$article_title]) < 25)
                        echo  $row[$article_title];
                     else
                       echo substr($row[$article_title], 0, 25)."..."; 
                   ?></td>
+                  <!-- article image -->
                   <td><img src ="<?php echo $path.$row[$article_title_img]; ?>" height="60px" width="60px"></td>
+                  <!-- article category -->
                   <td><?php echo $row[$article_category]; ?></td>
+                  <!-- article description -->
                   <td><?php 
                     if(strlen($row[$article_desc]) < 75)
                        echo  $row[$article_desc];
                     else
                       echo substr($row[$article_desc], 0, 75)."..."; 
                     ?></td>
+                  <!-- article auther id -->
                   <td><?php echo $row[$admin_id]; ?></td>
                   <td>
                     <!-- Edit article -->
@@ -96,6 +102,7 @@
                 </tr>
               <?php } ?>
             </tbody>
+            <!-- Table footer -->
             <tfoot>
               <tr>
                 <th class="col th-sm">Article ID</th>

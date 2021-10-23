@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: inherit;
 }
+/* For all content */
 html {
   height: 100%;
   font-size: 65.2%;
@@ -22,11 +23,13 @@ body {
   justify-content: center;
   perspective: 1500px;
 }
+/* For all the h1 tag */
 h1 {
   font-weight: 700;
   font-size: 3.5em;
   text-align: center;
 }
+/* Version control text */
 .version {
   position: absolute;
   bottom: 1em;
@@ -40,6 +43,7 @@ h1 {
   letter-spacing: 1px;
   transition: transform 80ms ease-in;
 }
+/* login form */
 form input {
   background: #eee;
   border: none;
@@ -96,6 +100,7 @@ span.copy {
   bottom: 0;
   font-size: 1em;
 }
+/* login button */
 button {
   display: block;
   margin: 1em auto;

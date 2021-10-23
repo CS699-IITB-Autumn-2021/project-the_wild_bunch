@@ -50,7 +50,8 @@
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="index.php" class="nav_logo" style="text-decoration: none;"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">News Portal</span> </a>
-                <div class="nav_list"> 
+                <div class="nav_list">
+                    <!-- Sidebar option -->
                     <a href="index.php" style="text-decoration: none;" class="nav_link <?php if(basename($_SERVER['PHP_SELF']) == "index.php") echo "active"; ?>"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a> 
                     <a href="add_admin.php" style="text-decoration: none;" class="nav_link <?php if(basename($_SERVER['PHP_SELF']) == "add_admin.php") echo "active"; ?>"> <i style="font-size:25px;" class='bx bx-user-plus nav_icon'></i> <span class="nav_name"> Add Admin</span> </a> 
                     <a href="view_admin.php" style="text-decoration: none;" class="nav_link <?php if(basename($_SERVER['PHP_SELF']) == "view_admin.php") echo "active"; ?>"> <i class='bx bx-user nav_icon'></i> <span class="nav_name"> View Admin</span> </a> 

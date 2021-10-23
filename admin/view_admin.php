@@ -35,6 +35,7 @@
           <!-- Admin Table -->
           <h3 class="card-title">View Admin</h3>
           <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <!-- Table header -->
             <thead>
               <tr>
                 <th class="col th-sm">ID</th>
@@ -51,8 +52,11 @@
             <tbody>
               <?php while($row = mysqli_fetch_assoc($result)) { $i = $i + 1; ?>
                 <tr>
+                  <!-- admin id -->
                   <td><?php echo $row[$admin_id]; ?></td>
+                  <!-- admin name -->
                   <td><?php echo $row[$admin_name]; ?></td>
+                  <!-- admin email -->
                   <td><?php echo $row[$admin_email]; ?></td>
                   <td><?php if($_SESSION['id'] == 1) echo $row[$admin_pass]; else echo "*******"?></td>
                   <td>
@@ -89,6 +93,7 @@
                 </tr>
               <?php } ?>
             </tbody>
+            <!-- Table footer -->
             <tfoot>
               <tr>
                 <th class="col th-sm">ID</th>

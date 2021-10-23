@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
         $sql = "SELECT * FROM ".$adminTable." WHERE `".$admin_name."` = '".$uname."' AND ".$admin_id." != ".$_GET["eid"];
         if(mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
           $sql = "UPDATE ".$adminTable." SET ".$admin_name." = '".$uname."', ".$admin_email." = '".$uemail."', ".$admin_pass." = '".$upass."' WHERE ".$admin_id." = ".$_GET["eid"];
-          if (mysqli_query($conn, $sql)) {
+          if (mysqli_query($conn, $sql)) { // navigate to the home page if admin created sucessfully
             ?> <script type="text/javascript">window.location="index.php"</script> <?php
           } else {
             $err = "Something Goes Wrong. Please Try Agian.";
@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
         $sql = "SELECT * FROM ".$adminTable." WHERE `".$admin_name."` = '".$uname."'";
         if(mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
           $sql = "INSERT INTO ".$adminTable." (`".$admin_name."`, `".$admin_email."`, `".$admin_pass."`) VALUES ('".$uname."','".$uemail."','".$upass."')";
-          if (mysqli_query($conn, $sql)) {
+          if (mysqli_query($conn, $sql)) { // navigate to the home page if admin details edited sucessfully
             ?> <script type="text/javascript">window.location="index.php"</script> <?php
           } else {
             $err = "Something Goes Wrong. Please Try Agian.";
