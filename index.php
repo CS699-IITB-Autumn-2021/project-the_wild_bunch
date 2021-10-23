@@ -25,7 +25,6 @@
     //finding number of pages
     $num_posts = mysqli_fetch_assoc($results_all);
     $num_pages = ceil($num_posts["count(*)"] / $posts_per_page);
-    // var_dump($num_pages);
     //fetch data
     $posts = mysqli_fetch_all($results_paginated,MYSQLI_ASSOC);
     $allCategories = mysqli_fetch_all($results_allCategories,MYSQLI_ASSOC);
