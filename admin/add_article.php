@@ -1,3 +1,4 @@
+<!-- Referance : https://getbootstrap.com/docs/4.0/components/input-group/ -->
 <?php include_once 'header.php';?>
 <?php include_once 'db.php';?>
 
@@ -216,7 +217,7 @@ if (isset($_POST['submit'])) {
                             <option value="Tech" <?php if($category == "Tech") echo "selected"; ?> >Tech</option>
                             <option value="Sports" <?php if($category == "Sports") echo "selected"; ?> >Sports</option>
                             <option value="Entertainment" <?php if($category == "Entertainment") echo "selected"; ?> >Entertainment</option>
-                            <option value="Education" <?php if($category == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Business" <?php if($category == "Business") echo "selected"; ?> >Business</option>
                             <option value="Health" <?php if($category == "Health") echo "selected"; ?> >Health</option>
                             <option value="Life & Style" <?php if($category == "Life & Style") echo "selected"; ?> >Life & Style</option>
                         </select>

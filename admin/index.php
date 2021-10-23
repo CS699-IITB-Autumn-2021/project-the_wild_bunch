@@ -1,3 +1,5 @@
+<!-- Referance : https://www.php.net/manual/en/function.exec.php -->
+<!-- Referance : https://stackoverflow.com/questions/166944/calling-python-in-php -->
 <?php include_once 'header.php';?>
 <?php include_once 'db.php';?>
 
@@ -140,7 +142,7 @@
                             <option value="Tech" <?php if($categoryNews18 == "Tech") echo "selected"; ?> >Tech</option>
                             <option value="Sports" <?php if($categoryNews18 == "Sports") echo "selected"; ?> >Sports</option>
                             <option value="Entertainment" <?php if($categoryNews18 == "Entertainment") echo "selected"; ?> >Entertainment</option>
-                            <option value="Education" <?php if($categoryNews18 == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Business" <?php if($categoryNews18 == "Business") echo "selected"; ?> >Business</option>
                             <option value="Health" <?php if($categoryNews18 == "Health") echo "selected"; ?> >Health</option>
                             <option value="Life & Style" <?php if($categoryNews18 == "Life & Style") echo "selected"; ?> >Life & Style</option>
                         </select>
@@ -220,7 +222,7 @@
                             <option value="Tech" <?php if($categoryEconomictimes == "Tech") echo "selected"; ?> >Tech</option>
                             <option value="Sports" <?php if($categoryEconomictimes == "Sports") echo "selected"; ?> >Sports</option>
                             <option value="Entertainment" <?php if($categoryEconomictimes == "Entertainment") echo "selected"; ?> >Entertainment</option>
-                            <option value="Education" <?php if($categoryEconomictimes == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Business" <?php if($categoryEconomictimes == "Business") echo "selected"; ?> >Business</option>
                             <option value="Health" <?php if($categoryEconomictimes == "Health") echo "selected"; ?> >Health</option>
                             <option value="Life & Style" <?php if($categoryEconomictimes == "Life & Style") echo "selected"; ?> >Life & Style</option>
                         </select>
@@ -302,7 +304,7 @@
                             <option value="Tech" <?php if($categoryHindu == "Tech") echo "selected"; ?> >Tech</option>
                             <option value="Sports" <?php if($categoryHindu == "Sports") echo "selected"; ?> >Sports</option>
                             <option value="Entertainment" <?php if($categoryHindu == "Entertainment") echo "selected"; ?> >Entertainment</option>
-                            <option value="Education" <?php if($categoryHindu == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Business" <?php if($categoryHindu == "Business") echo "selected"; ?> >Business</option>
                             <option value="Health" <?php if($categoryHindu == "Health") echo "selected"; ?> >Health</option>
                             <option value="Life & Style" <?php if($categoryHindu == "Life & Style") echo "selected"; ?> >Life & Style</option>
                         </select>
@@ -382,7 +384,7 @@
                             <option value="Tech" <?php if($categoryIndia == "Tech") echo "selected"; ?> >Tech</option>
                             <option value="Sports" <?php if($categoryIndia == "Sports") echo "selected"; ?> >Sports</option>
                             <option value="Entertainment" <?php if($categoryIndia == "Entertainment") echo "selected"; ?> >Entertainment</option>
-                            <option value="Education" <?php if($categoryIndia == "Education") echo "selected"; ?> >Education</option>
+                            <option value="Business" <?php if($categoryIndia == "Business") echo "selected"; ?> >Business</option>
                             <option value="Health" <?php if($categoryIndia == "Health") echo "selected"; ?> >Health</option>
                             <option value="Life & Style" <?php if($categoryIndia == "Life & Style") echo "selected"; ?> >Life & Style</option>
                         </select>
