@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$err = $title = $category = $title_img = $description = $img1 = $img2 = $img3 = "";
+$err = $title = $category = $title_img = $description = "";
 $path="assets/upload/article/";
 
 // Handle edit article flow
@@ -25,9 +25,6 @@ if(!isset($_POST['submit']) && $_GET['eid']) {
     $category = $row[$article_category];
     $old_title_img = $row[$article_title_img];
     $description = $row[$article_desc];
-    $old_img1 = $row[$article_img1];
-    $old_img2 = $row[$article_img2];
-    $old_img3 = $row[$article_img3];
   }
 }
 
@@ -41,13 +38,7 @@ if (isset($_POST['submit'])) {
   $category = trim($_POST['category']);
   $title_img = $_FILES['title_img']['name'];
   $description = $_POST['description'];
-  $img1 = $_FILES['img1']['name'];
-  $img2 = $_FILES['img2']['name'];
-  $img3 = $_FILES['img3']['name'];
   $old_title_img = $_POST['old_title_img'];
-  $old_img1 = $_POST['old_img1'];
-  $old_img2 = $_POST['old_img2'];
-  $old_img3 = $_POST['old_img3'];
 
   // Validation
   if($title == "") {
@@ -67,30 +58,9 @@ if (isset($_POST['submit'])) {
     if(!$_GET['eid']) {
       // Update image name
       $title_img = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $title_img);
-      $img1 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img1);
-      $img2 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img2);
-      $img3 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img3);
 
       if (move_uploaded_file($_FILES['title_img']['tmp_name'], $path.$title_img))  {
-        if($_FILES['img1']['name'] != "") {
-          if(!move_uploaded_file($_FILES['img1']['tmp_name'], $path.$img1)) {
-            $img1 = "";
-          }
-        } else { $img1 = "";}
-  
-        if($_FILES['img2']['name'] != "") {
-          if(!move_uploaded_file($_FILES['img2']['tmp_name'], $path.$img2)) {
-            $img2 = "";
-          }
-        } else { $img2 = ""; }
-  
-        if($_FILES['img3']['name'] != "") {
-          if(!move_uploaded_file($_FILES['img3']['tmp_name'], $path.$img3)) {
-            $img3 = "";
-          }
-        } else { $img3 = ""; }
-  
-        $sql = 'INSERT INTO '.$articleTable.' (`'.$article_title_img.'`,`'.$article_title.'`,`'.$article_category.'`,`'.$article_desc.'`,`'.$article_img1.'`,`'.$article_img2.'`,`'.$article_img3.'`,`'.$admin_id.'`) VALUES ("'.$title_img.'","'.$title.'","'.$category.'","'.$description.'","'.$img1.'","'.$img2.'","'.$img3.'","'.$_SESSION['id'].'")';
+        $sql = 'INSERT INTO '.$articleTable.' (`'.$article_title_img.'`,`'.$article_title.'`,`'.$article_category.'`,`'.$article_desc.'`,`'.$admin_id.'`) VALUES ("'.$title_img.'","'.$title.'","'.$category.'","'.$description.'","'.$_SESSION['id'].'")';
         if (mysqli_query($conn, $sql)) {
           //send emails
           //Fetch all email id
@@ -167,34 +137,7 @@ if (isset($_POST['submit'])) {
         $title_img = $old_title_img;
       }
 
-      if($img1 != "") {
-        $img1 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img1);
-        if(move_uploaded_file($_FILES['img1']['tmp_name'], $path.$img1) && $old_img1) {
-          unlink($path.$old_img1);
-        }
-      } else {
-        $img1 = $old_img1;
-      }
-
-      if($img2 != "") {
-        $img2 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img2);
-        if(move_uploaded_file($_FILES['img2']['tmp_name'], $path.$img2) && $old_img2) {
-          unlink($path.$old_img2);
-        }
-      } else {
-        $img2 = $old_img2;
-      }
-
-      if($img3 != "") {
-        $img3 = $milliseconds."_".rand(10,100)."_".str_replace(' ', '_', $img3);
-        if(move_uploaded_file($_FILES['img3']['tmp_name'], $path.$img3) && $old_img3) {
-          unlink($path.$old_img3);
-        }
-      } else {
-        $img3 = $old_img3;
-      }
-
-      $sql = 'UPDATE '.$articleTable.' SET `'.$article_title.'` = "'.$title.'", `'.$article_title_img.'` = "'.$title_img.'", `'.$article_category.'` = "'.$category.'", `'.$article_desc.'` = "'.$description.'", `'.$article_img1.'` = "'.$img1.'", `'.$article_img2.'` = "'.$img2.'", `'.$article_img3.'` = "'.$img3.'" WHERE `'.$article_id.'` = "'.$_GET["eid"].'"';
+      $sql = 'UPDATE '.$articleTable.' SET `'.$article_title.'` = "'.$title.'", `'.$article_title_img.'` = "'.$title_img.'", `'.$article_category.'` = "'.$category.'", `'.$article_desc.'` = "'.$description.'" WHERE `'.$article_id.'` = "'.$_GET["eid"].'"';
       if (mysqli_query($conn, $sql)) {
         ?> <script type="text/javascript">window.location="index.php"</script> <?php
       } else {
@@ -293,41 +236,7 @@ if (isset($_POST['submit'])) {
                             rows="5"><?php if($description != "") echo "$description"; ?></textarea>
                       </div>
                     </div>
-                    
-                    <div style="height:15px"> </div>
-
-                    <!-- Extra image -->
-                    <div class="form-group row">
-                        <label for="title_img1"class="col-sm-4 control-label col-form-label">Article Image 1</label>
-                        <div class="col-sm-8">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="img1" accept="image/*">
-                            <?php if($old_img1) { ?> <img src ="<?php echo $path.$old_img1; ?>" height="60px" width="60px"> <?php } ?>
-                            <input type='hidden' name='old_img1' value="<?php echo $old_img1; ?>">
-                        </div>
-                    </div>
-
-                    <div style="height:15px"> </div>
-
-                    <div class="form-group row">
-                        <label for="title_img2"class="col-sm-4 control-label col-form-label">Article Image 2</label>
-                        <div class="col-sm-8">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="img2" accept="image/*">
-                            <?php if($old_img2) { ?> <img src ="<?php echo $path.$old_img2; ?>" height="60px" width="60px"> <?php } ?>
-                            <input type='hidden' name='old_img2' value="<?php echo $old_img2; ?>">
-                        </div>
-                    </div>
-
-                    <div style="height:15px"> </div>
-
-                    <div class="form-group row">
-                        <label for="title_img3"class="col-sm-4 control-label col-form-label">Article Image 3</label>
-                        <div class="col-sm-8">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="img3" accept="image/*">
-                            <?php if($old_img3) { ?> <img src ="<?php echo $path.$old_img3; ?>" height="60px" width="60px"> <?php } ?>
-                            <input type='hidden' name='old_img3' value="<?php echo $old_img3; ?>">
-                        </div>
-                    </div>
-
+              
                     <div style="height:15px"> </div>
                     
                     <!-- Error message -->

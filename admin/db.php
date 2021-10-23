@@ -7,7 +7,7 @@
     // Database credentials
     $dbhost = "localhost";
     $dbuser = "root";
-    $dbpass = "Animesh@98";
+    $dbpass = "";
     $db = "cs699proj";
 
     $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$db);
@@ -35,12 +35,10 @@
     $article_title = "article_title";
     $article_category = "article_category";
     $article_desc = "article_desc";
-    $article_img1 = "article_img1";
-    $article_img2 = "article_img2";
-    $article_img3 = "article_img3";
     $article_status = "article_status";
     $article_visit = "article_visit";
-
+    $article_like = "article_like";
+    $article_dislike = "article_dislike";
 
     //Comment table & columns name
     $commentTable = "comment";
