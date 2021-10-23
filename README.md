@@ -30,3 +30,8 @@ This is achieved by using "Web Scrapping" in Python, which is invoked using PHP.
 3. [Bootstrap Elements](https://bootswatch.com/lux/)
 4. [PHP Pagination](https://www.javatpoint.com/php-pagination)
 5. [PHP dynamic data fetching](https://youtu.be/IYlDJ2K3MGk?list=PLillGF-Rfqbap2IB6ZS4BBBcYPagAjpjn)
+6. https://freefrontend.com/bootstrap-sidebars/
+7. https://getbootstrap.com/docs/4.0/components/input-group/
+8. https://mdbootstrap.com/docs/b4/jquery/tables/pagination/
+9. https://codepen.io/eminqasimov/pen/zXJVzJ
+10. https://codepen.io/fadzrinmadu/pen/NWpvLwb

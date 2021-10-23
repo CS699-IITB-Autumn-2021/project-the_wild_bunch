@@ -14,7 +14,7 @@
     $page_first_result = ($page-1) * $posts_per_page;
 
     //get category
-    $category = mysqli_real_escape_string($conn, $_GET['category']);
+    $category = str_replace("_"," & ",mysqli_real_escape_string($conn, $_GET['category']));
     //Create query
     $query_allPosts = "select count(*) from article where article_category="."'".$category."' and article_status = 1";
     $query_paginatedPosts = "select * from article where article_category="."'".$category."' and article_status = 1"." order by article_id desc limit ".$page_first_result.",".$posts_per_page;
