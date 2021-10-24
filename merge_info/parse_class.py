@@ -358,13 +358,11 @@ class param_matcher:
 			# send email
 			try:
 				#connect to database object
-				swl_obj = sql_f("root","Animesh@98","cs699proj")
-				
+				swl_obj = sql_f.sql_fill("root","Animesh@98","cs699proj")
 				#send an email to subscribed users
 				swl_obj.send_email(subject,description)
-				
 				#store the article in the database
-				swl_obj.store_article(img_final_name, subject, category, description, id)
+				swl_obj.store_article(img_final_name.split("/")[-1], subject, category, description, id)
 			except:
 				#print Unable to upload in database if results in exception
 				print("UNABLE TO UPLOAD IN DATABASE")
