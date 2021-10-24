@@ -47,7 +47,7 @@ class sql_fill:
 			-------
 			None
 		"""
-		connection.close()
+		self.connection.close()
 		return
 	
 	def send_email(self,subject, description):
@@ -68,13 +68,13 @@ class sql_fill:
 		"""
 		
 		# to fetch the emails to send updates
-		cursor.execute("SELECT * FROM emails")
+		self.cursor.execute("SELECT * FROM emails")
 		
 		#also send email to company's main email ID
 		to = ["cs699project2021@gmail.com"]
 
 		#fetch all the emails
-		for row in cursor.fetchall():
+		for row in self.cursor.fetchall():
 			to.append(row[1])
 
 		#setting variables for sending mail updates to users
@@ -125,5 +125,5 @@ class sql_fill:
 		"""
 		#storing news article in database
 		sql = """INSERT INTO article (`article_title_img`,`article_title`,`article_category`,`article_desc`,`admin_id`) VALUES (%s, %s, %s,%s, %s)"""
-		cursor.execute(sql, (image, subject, category, str(description), str(id)))
-		connection.commit()
+		self.cursor.execute(sql, (image, subject, category, str(description), str(id)))
+		self.connection.commit()
