@@ -8,7 +8,10 @@ A web application that helps users to read latest news articles from various rel
 
 Users can also subscribe to news updates notification mails.
 ## Admin Site
-Admin has option to add/update news articles either manually, or automatically.
+1.Admin login.
+2.Add/Update admin details.
+3.Admin has option to add/update news articles either manually, or automatically.
+4.Management of comments
 For automatically add the news articles:
 * Go to dashboard
 * Paste the url of news article in the respective box, also select the category of news article.
@@ -30,12 +33,12 @@ This is achieved by using "Web Scrapping" in Python, which is invoked using PHP.
 3. [Bootstrap Elements](https://bootswatch.com/lux/)
 4. [PHP Pagination](https://www.javatpoint.com/php-pagination)
 5. [PHP dynamic data fetching](https://youtu.be/IYlDJ2K3MGk?list=PLillGF-Rfqbap2IB6ZS4BBBcYPagAjpjn)
-6. https://freefrontend.com/bootstrap-sidebars/
-7. https://getbootstrap.com/docs/4.0/components/input-group/
-8. https://mdbootstrap.com/docs/b4/jquery/tables/pagination/
-9. https://codepen.io/eminqasimov/pen/zXJVzJ
-10. https://codepen.io/fadzrinmadu/pen/NWpvLwb
-11. https://www.w3schools.com/php/php_sessions.asp
-12. https://stackoverflow.com/questions/166944/calling-python-in-php
-13. https://www.php.net/manual/en/function.exec.php
-14. https://getbootstrap.com/
+6. [Bootstrap Sidebar](https://freefrontend.com/bootstrap-sidebars/)
+7. [Bootstrap form filed](https://getbootstrap.com/docs/4.0/components/input-group/)
+8. [Pagination](https://mdbootstrap.com/docs/b4/jquery/tables/pagination/)
+9. [Login card](https://codepen.io/eminqasimov/pen/zXJVzJ)
+10. [Bootstrap model](https://codepen.io/fadzrinmadu/pen/NWpvLwb)
+11. [PHP session managment](https://www.w3schools.com/php/php_sessions.asp)
+12. [python in php](https://stackoverflow.com/questions/166944/calling-python-in-php)
+13. [Function in php](https://www.php.net/manual/en/function.exec.php)
+14. [Bootstrap](https://getbootstrap.com/)
