@@ -1,6 +1,6 @@
 # XYZ NEWS PORTAL
 ## User Site
-A web application that helps users to read latest news articles from various reliable resources like : 
+A web application that helps users to read news articles from various reliable resources like : 
 1. News 18
 2. The Economic Times
 3. The Hindu
