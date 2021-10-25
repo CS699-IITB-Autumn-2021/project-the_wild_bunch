@@ -4,97 +4,126 @@
 <?php include_once 'db.php';?>
 
 <?php
+// function to format the entered data properly for keyword used while using Google web scrapper
+	function parse_keyform($str) {
+	    // echo "Hello world!";
+	    $chars = str_split($str);
+	    $big = "";
+	    foreach ($chars as $char) {
+		// echo $char;
+		if ($char == '"'){
+		    $big = $big.'\"';
+		}
+		else{
+			$big = $big.$char;
+		}
+		// echo "<br>";
+	    }
+	    return $big;
+	}
+	// Initializing all variable(url,categories) for each web scrapper i.e news18, economictimes, theHindu, India.com and (keyword, category and number of articles) for Google Parser
     $errEconomictimes = $errNews18 = $errHindu = $errIndia = $errGoogle = "";
     $urlNews18 = $categoryNews18 = $urlEconomictimes = $categoryEconomictimes = "";
     $urlHindu = $categoryHindu = $urlIndia = $categoryIndia = "";
     $keywordGoogle = $categoryGoogle = $numArticle = "";
+    
+    // Starting session to fetch author id
     session_start();
     $auther_id = $_SESSION['id'];
 
-    if (isset($_POST['submitNews18'])) {
-        $urlNews18 = trim($_POST['urlNews18']);
-        $categoryNews18 = trim($_POST['categoryNews18']);
+    if (isset($_POST['submitNews18'])) {    // if author is using News18 web scrapper to fetch articles
+        $urlNews18 = trim($_POST['urlNews18']);   // fetching URL of news article
+        $categoryNews18 = trim($_POST['categoryNews18']);   // fetching category of news article
        
-
+      //checking for ill-formatted entered data
         if($urlNews18 == "" || !filter_var($urlNews18, FILTER_VALIDATE_URL)) {
             $errNews18 = "Enter valid News18 url";
         } else if($categoryNews18 == "0") {
             $errNews18 = "Please select article category";
         } else {
-            $command_exec = "python3 ./web_scraping/news18.py $urlNews18 $categoryNews18 $auther_id";
+          // If data entered is correct
+            // scrap cpde calling & popup to indicate status
+            $command_exec = "python3 ./web_scraping/news18.py $urlNews18 $categoryNews18 $auther_id";   //defining the command to run python file in background
             $output = null;
             $retValue = null;
-            exec($command_exec,$output,$retValue);
+            exec($command_exec,$output,$retValue);    //executing the command to run python file in background
             if($retValue==0) 
             	echo '<script>alert("News article scrapped successfully")</script>';
             else
             	echo '<script>alert("Something went wrong")</script>';
         }
         
-    } else if (isset($_POST['submitEconomictimes'])) {
-        $urlEconomictimes = trim($_POST['urlEconomictimes']);
-        $categoryEconomictimes = trim($_POST['categoryEconomictimes']);
+    } else if (isset($_POST['submitEconomictimes'])) {    // if author is using economictimes web scrapper to fetch articles
+        $urlEconomictimes = trim($_POST['urlEconomictimes']);   // fetching URL of news article
+        $categoryEconomictimes = trim($_POST['categoryEconomictimes']);   // fetching category of news article
 
+        //checking for ill-formatted entered data
         if($urlEconomictimes == "" || !filter_var($urlEconomictimes, FILTER_VALIDATE_URL)) {
             $errEconomictimes = "Enter valid Economic Times url";
         } else if($categoryEconomictimes == "0") {
             $errEconomictimes = "Please select article category";
         } else {  
+          // If data entered is correct
             // scrap code calling & show popup to indicate status
-            $command_exec = "python3 ./web_scraping/economictimes.py $urlEconomictimes $categoryEconomictimes $auther_id";
+            $command_exec = "python3 ./web_scraping/economictimes.py $urlEconomictimes $categoryEconomictimes $auther_id";    //defining the command to run python file in background
             $output = null;
             $retValue = null;
-            exec($command_exec,$output,$retValue);
+            exec($command_exec,$output,$retValue);    //executing the command to run python file in background
             if($retValue==0) 
             	echo '<script>alert("News article scrapped successfully")</script>';
             else
             	echo '<script>alert("Something went wrong")</script>';
         }
-    } else if (isset($_POST['submitHindu'])) {
-        $urlHindu = trim($_POST['urlHindu']);
-        $categoryHindu = trim($_POST['categoryHindu']);
+    } else if (isset($_POST['submitHindu'])) {    // if author is using theHindu web scrapper to fetch articles
+        $urlHindu = trim($_POST['urlHindu']);   // fetching URL of news article
+        $categoryHindu = trim($_POST['categoryHindu']);   // fetching category of news article
 
+        //checking for ill-formatted entered data
         if($urlHindu == "" || !filter_var($urlHindu, FILTER_VALIDATE_URL)) {
             $errHindu = "Enter valid The Hindu url";
         } else if($categoryHindu == "0") {
             $errHindu = "Please select article category";
         } else {
+          // If data entered is correct
             // scrap code calling & show popup to indicate status
-            $command_exec = "python3 ./web_scraping/thehindu.py $urlHindu $categoryHindu $auther_id";
+            $command_exec = "python3 ./web_scraping/thehindu.py $urlHindu $categoryHindu $auther_id";   //defining the command to run python file in background
             $output = null;
             $retValue = null;
-            exec($command_exec,$output,$retValue);
+            exec($command_exec,$output,$retValue);    //executing the command to run python file in background
             if($retValue==0) 
             	echo '<script>alert("News article scrapped successfully")</script>';
             else
             	echo '<script>alert("Something went wrong")</script>';
 
         }
-    } else if (isset($_POST['submitIndia'])) {
-        $urlIndia = trim($_POST['urlIndia']);
-        $categoryIndia = trim($_POST['categoryIndia']);
+    } else if (isset($_POST['submitIndia'])) {  // if author is using India.com web scrapper to fetch articles
+        $urlIndia = trim($_POST['urlIndia']);   // fetching URL of news article
+        $categoryIndia = trim($_POST['categoryIndia']);   // fetching category of news article
 
+        //checking for ill-formatted entered data
         if($urlIndia == "" || !filter_var($urlIndia, FILTER_VALIDATE_URL)) {
             $errIndia = "Enter valid India.com url";
         } else if($categoryIndia == "0") {
             $errIndia = "Please select article category";
         } else {
+          // If data entered is correct
             // scrap code calling & show popup to indicate status
-            $command_exec = "python3 ./web_scraping/india_com.py $urlIndia $categoryIndia $auther_id";
+            $command_exec = "python3 ./web_scraping/india_com.py $urlIndia $categoryIndia $auther_id";    //defining the command to run python file in background
             $output = null;
             $retValue = null;
-            exec($command_exec,$output,$retValue);
+            exec($command_exec,$output,$retValue);    //executing the command to run python file in background
             if($retValue==0) 
             	echo '<script>alert("News article scrapped successfully")</script>';
             else
             	echo '<script>alert("Something went wrong")</script>';
         }
-    } else if (isset($_POST['submitGoogle'])) {
-      $keywordGoogle = trim($_POST['keywordGoogle']);
-      $categoryGoogle = trim($_POST['categoryGoogle']);
-      $numArticle = trim($_POST['numArticle']);
-      $tempNum = (int)$numArticle;
+    } else if (isset($_POST['submitGoogle'])) {   // if author is using Google web scrapper to fetch articles
+      $keywordGoogle = parse_keyform(trim($_POST['keywordGoogle']));      //fetching and formatting the keyword
+      $categoryGoogle = trim($_POST['categoryGoogle']);   //fetching the category of news article to scrape
+      $numArticle = trim($_POST['numArticle']);   //fetching the number of articles to be fetched using Google web scrapper
+      $tempNum = (int)$numArticle;    //typecasting entered num value to integer
 
+      //checking for ill-formatted entered data
       if($keywordGoogle == "") {
           $errGoogle = "Enter valid keyword";
       } else if($categoryGoogle == "0") {
@@ -102,11 +131,15 @@
       } else if($numArticle == "" || $tempNum <= 0) {
           $errGoogle = "Please enter valid number of Articles";
       } else {
+        // If data entered is correct
           // scrap code calling & show popup to indicate status
+
+          //defining the command to run python file in background
           $command_exec ="python3 ./web_scraping/manual_under_dev.py -k \"".$keywordGoogle."\""." -c \"".$categoryGoogle."\" -n \"".$tempNum."\" -a \"".$auther_id."\""." -f \"./web_scraping/map.txt\"";
+          
           $output = null;
           $retValue = null;
-          exec($command_exec,$output,$retValue);
+          exec($command_exec,$output,$retValue);    //executing the command to run python file in background
           if($retValue==0) 
             echo '<script>alert("News article scrapped successfully")</script>';
           else
@@ -547,5 +580,20 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You are not authorised to add admin.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <?php include_once 'footer.php'; ?>
