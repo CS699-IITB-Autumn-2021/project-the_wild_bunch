@@ -8,10 +8,10 @@ A web application that helps users to read latest news articles from various rel
 
 Users can also subscribe to news updates notification mails.
 ## Admin Site
-1.Admin login. /
-2.Add/Update admin details. /
-3.Admin has option to add/update news articles either manually, or automatically. /
-4.Management of comments /
+1.Admin login. \
+2.Add/Update admin details. \
+3.Admin has option to add/update news articles either manually, or automatically. \
+4.Management of comments \
 For automatically add the news articles:
 * Go to dashboard
 * Paste the url of news article in the respective box, also select the category of news article.
