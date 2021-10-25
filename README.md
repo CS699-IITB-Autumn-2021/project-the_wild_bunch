@@ -8,10 +8,10 @@ A web application that helps users to read latest news articles from various rel
 
 Users can also subscribe to news updates notification mails.
 ## Admin Site
-1.Admin login.
-2.Add/Update admin details.
-3.Admin has option to add/update news articles either manually, or automatically.
-4.Management of comments
+1.Admin login. /
+2.Add/Update admin details. /
+3.Admin has option to add/update news articles either manually, or automatically. /
+4.Management of comments /
 For automatically add the news articles:
 * Go to dashboard
 * Paste the url of news article in the respective box, also select the category of news article.
@@ -41,4 +41,4 @@ This is achieved by using "Web Scrapping" in Python, which is invoked using PHP.
 11. [PHP session managment](https://www.w3schools.com/php/php_sessions.asp)
 12. [python in php](https://stackoverflow.com/questions/166944/calling-python-in-php)
 13. [Function in php](https://www.php.net/manual/en/function.exec.php)
-14. [Bootstrap](https://getbootstrap.com/)
+14. [Bootstrap code](https://getbootstrap.com/)
