@@ -142,4 +142,3 @@ docs/_build/html/index.html
 14. [Bootstrap code](https://getbootstrap.com/)
 15. [Link Scraping](https://pythonprogramminglanguage.com/get-all-links-from-webpage/)
 16. [Image Type](https://docs.python.org/3/library/imghdr.html)
-17. [Google News Api](https://pypi.org/project/GoogleNews/)
