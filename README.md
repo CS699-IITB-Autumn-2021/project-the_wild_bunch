@@ -121,7 +121,7 @@ to users’ interests.
 * Team Members details :
     1. Aniruddha Joshi (213050043) - Web Scrapping Implementaion, Documentation, Database incorporation in Python.
     2. Kamal Kakadiya (213050001) - Admin Site, Database management, Email mechanism for newsletters.
-    3. Animesh (21Q050015) - User Site, Frontend UI.
+    3. Animesh (21Q050015) - User Site, fetching news articles to show on User Site.
 ## References
 1. [Sticky Divs](https://www.w3docs.com/snippets/css/how-to-make-a-div-stick-to-the-top-of-screen-when-scrolling-with-css-and-javascript.html)
 2. [Bootstrap Theme](https://bootswatch.com/5/lux/bootstrap.css)
