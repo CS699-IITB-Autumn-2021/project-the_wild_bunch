@@ -112,6 +112,9 @@ to users’ interests.
 6. View post page - This page is used to view and edit already added news artilces in the portal.
 7. View comment page - This page is used to view all the comments added by readers in the news articles, using this page, admin can Hide/Unhide or delete the comments.
 
+## Documentaion Path
+docs/_build/html/index.html
+
 ## Primary Stakeholders
 * All the individuals who want to read news
 * News editors and writers
