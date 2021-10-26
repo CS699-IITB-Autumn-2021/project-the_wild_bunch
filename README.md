@@ -114,7 +114,7 @@ to users’ interests.
 
 ## Primary Stakeholders
 * All the individuals who want to read news
-* --- YET TO ADD ---
+* News editors and writers
 
 ## Team Details & Contribution
 * Team Name : **The_Wild_Bunch**
