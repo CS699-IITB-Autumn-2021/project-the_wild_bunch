@@ -1,8 +1,9 @@
-manual
-======
+create_sphinx
+=============
 
 .. toctree::
    :maxdepth: 4
 
-   manual_under_dev
+   google_news_parser
    parse_class
+   sql_fill

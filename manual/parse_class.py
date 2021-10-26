@@ -11,8 +11,7 @@ import imghdr
 import sql_fill as sql_f
 
 class param_matcher:
-	"""
-	This class is the node of a tree.
+	"""This class is the node of a tree.
 	Each node stores textual content and
 	pointers to it's children.
 	"""
@@ -348,11 +347,6 @@ class param_matcher:
 				
 				#end the current row
 				print("\t</tr>")
-			
-			# subject = all_articles[iter_article][0]
-			# description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
-			# image =img_loc[i].split("/")[-1]
-			# print("Trying to upload on database", img_final_name)
 			
 			#try to update the database, with contents of article, title, title description, image, and
 			# send email

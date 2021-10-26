@@ -17,14 +17,15 @@ def key_word_process(keyword, file_mapping):
 	which contains mapping from character into special
 	characters. This function substitutes those characters
 	with special characters with the same mapping.
+	
 	Parameters
 	----------
-	keyword: String
-	file_mapping: String
+	keyword : String
+	file_mapping : String
 
 	Returns
 	-------
-	n_keyword: String
+	n_keyword : String
 	"""
 	words_mapping= {}
 	with open(file_mapping) as f:
@@ -54,12 +55,12 @@ def main():
 	
 	Parameters
 	----------
-	keyword (optional): Command line
+	keyword (optional) : Command line
 	
-	character mapping file (optional): Command line
+	character mapping file (optional) : Command line
 		This file specifies the special character mapping in the URL.
 	
-	category (optional): Commmand line.
+	category (optional) : Commmand line.
 		This the category to insert the news.
 	
 	fetch_result_number : Command line.
