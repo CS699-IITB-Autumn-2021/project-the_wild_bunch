@@ -1,7 +1,7 @@
 # XYZ NEWS PORTAL
 
 ## Motivation
-* In the world of rapid news and information accumulation, it is often easier to be distracted and lose the valuable news of one`s personal interest.
+* In the world of rapid news and information accumulation, it is often easier to be distracted and lose the valuable news of one's personal interest.
 * Many a times we are just bombarded with current breaking news or news which are not really catered towards our interest, and even for finding news from our domain, we need to google it manually. That can be tedious at times. 
 * So our project aims to solve this problem by creating a user centric news article portal, where users can find news articles of their personal taste, also they can subscribe to newsletters for updates.
 
