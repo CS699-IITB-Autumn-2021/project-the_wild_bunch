@@ -55,6 +55,7 @@ to users’ interests.
 1. Hardware - Any Windows/Linux/Mac based system.
 2. Software -
     * LAMP stack or XAMPP
+    * PHP 7.3 or higher
     * Python 3.6 or higher
     * Python Libraries -
             beautifulsoup4==4.10.0
