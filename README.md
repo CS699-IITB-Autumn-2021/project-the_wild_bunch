@@ -92,7 +92,7 @@ to users’ interests.
 3. News article webpage - 
     * Individual news article webpage has the complete news article where reader can read the news also they can see the accompanying image. At the end of the news description, there is a hyperlink for accessing the orignal news article.
     * *Next* & *Previous* buttons - Reader can go to next/previous news article by clicking it.
-    * Commenting - Below the news article, users can add commnents to by entering their name and the commnet in the comment box, also users can read comments left by others on the same article(if any).
+    * Commenting - Below the news article, users can add commnents by entering their name and the commnet in the comment box, also users can read comments left by others on the same article(if any).
     * Side bar - Side bar is having links to top 10 latest added news articles. 
 ### Admin Site
 1. Once you've opened "localhost/projectXYZ/admin" in the web browser, you'll see the admin login portal.
