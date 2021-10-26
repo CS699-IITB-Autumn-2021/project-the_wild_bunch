@@ -56,6 +56,19 @@ to users’ interests.
 2. Software -
     * LAMP stack or XAMPP
     * Python 3.6 or higher
+    * Python Libraries -
+            beautifulsoup4==4.10.0
+            | bs4==0.0.1
+            | certifi==2021.10.8
+            | charset-normalizer==2.0.7
+            | idna==3.3
+            | lxml==4.6.3
+            | requests==2.26.0
+            | six==1.16.0
+            | soupsieve==2.2.1
+            | urllib3==1.26.7
+            | webencodings==0.5.1
+            | PyMySQL==1.0.2
 
 ## How to run the project
 * Clone the repository and extract the files to 'htdocs' folder in php localhost folder in your system.
