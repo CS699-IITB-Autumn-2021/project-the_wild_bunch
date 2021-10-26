@@ -113,8 +113,7 @@ to users’ interests.
 7. View comment page - This page is used to view all the comments added by readers in the news articles, using this page, admin can Hide/Unhide or delete the comments.
 
 ## Primary Stakeholders
-* All the readers of the news portal.
-* The developers of the project.
+* All the individuals who want to read news
 * --- YET TO ADD ---
 
 ## Team Details & Contribution
