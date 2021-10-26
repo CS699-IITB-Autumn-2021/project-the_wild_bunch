@@ -25,10 +25,10 @@ Users can also subscribe to news updates notification mails.
 5. Commenting - Readers can also post comments on any news article.
 6. Other features - Readers can also see the *number of views* for each news article. Also the website is having *next* and *previous* buttons and *pagination* for easier navigation through the site.
 ## Admin Site
-1. Admin login. \
-2. Add/Update admin details. \
-3. Admin has option to add/update news articles either manually, or automatically. \
-4. Management of comments \
+1. Admin login
+2. Add/Update admin details
+3. Admin has option to add/update news articles either manually, or automatically
+4. Management of comments
 
 For automatically adding the news articles:
 * Go to dashboard
