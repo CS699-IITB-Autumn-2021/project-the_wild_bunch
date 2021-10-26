@@ -2,12 +2,14 @@
 Branch: **Aniruddha**
 
 There are following directories here:  
-  	
+
   	1. APIs: this folder contains the apis explored for news scraping.
 		* g_news.py: "GoogleNews" api. The image functionality is not working here.
 		https://pypi.org/project/GoogleNews/
+		
 		* news_api.py: "newsapi" api. This is a paid api. Free version have restrictions and gives restricted number of responses.
 		https://newsapi.org/docs/client-libraries/python
+		
 		* py_g_news.py: "pygooglenews" api. This api does not give the image link and description of the news article
 		https://pypi.org/project/pygooglenews/#usecase
 		https://feedparser.readthedocs.io/en/latest/
@@ -42,6 +44,6 @@ There are following directories here:
 		* tmp.php: This file runs the python program.
 		* Requirements.txt: This lists the requirements i.e. the python packages for the program to work.
 
-	5. Webpage: This directory is hosted on my webpage. To just give an interface for the subset of development in this branch.
+	5. Webpage: This directory can be hosted directly (in some machines with appropriate libs), without running setup.sh.
 
 	6.other_web_scraping_files: This directory contains the webscraping files specific for websites, Economic Times, India.com, News18 and The Hindu respectively. It also contains the whole webscraping documentation.
