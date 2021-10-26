@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sql_fill module &mdash; Google News Parser 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Google News Parser 1 documentation" href="index.html" />
+    <link rel="up" title="create_sphinx" href="modules.html" />
+    <link rel="next" title="thehindu module" href="thehindu.html" />
+    <link rel="prev" title="parse_class module" href="parse_class.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-sql_fill">
+<span id="sql-fill-module"></span><h1>sql_fill module<a class="headerlink" href="#module-sql_fill" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sql_fill.sql_fill">
+<em class="property">class </em><code class="descclassname">sql_fill.</code><code class="descname">sql_fill</code><span class="sig-paren">(</span><em>user_n</em>, <em>password</em>, <em>database_n</em><span class="sig-paren">)</span><a class="headerlink" href="#sql_fill.sql_fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class establishes SQL connection and 
+contains functions to upload and fetch data
+from SQL database</p>
+<dl class="method">
+<dt id="sql_fill.sql_fill.send_email">
+<code class="descname">send_email</code><span class="sig-paren">(</span><em>subject</em>, <em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#sql_fill.sql_fill.send_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sends email to all the
+subscribers</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>subject: String</dt>
+<dd>This is subject of the article/email</dd>
+<dt>description: String</dt>
+<dd>This is the description of the article</dd>
+</dl>
+</div></blockquote>
+<p>None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sql_fill.sql_fill.store_article">
+<code class="descname">store_article</code><span class="sig-paren">(</span><em>image</em>, <em>subject</em>, <em>category</em>, <em>description</em>, <em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#sql_fill.sql_fill.store_article" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function inserts new content into database</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>image: String</dt>
+<dd>This is the path to image in the article</dd>
+<dt>subject: String</dt>
+<dd>This is the title of the article</dd>
+<dt>category: String</dt>
+<dd>This is the category of the article</dd>
+<dt>description: String</dt>
+<dd>This is the desription of the article</dd>
+<dt>id: String</dt>
+<dd>This is the of the admin inserting the article</dd>
+</dl>
+</div></blockquote>
+<p>None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">create_sphinx</a><ul>
+      <li>Previous: <a href="parse_class.html" title="previous chapter">parse_class module</a></li>
+      <li>Next: <a href="thehindu.html" title="next chapter">thehindu module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/sql_fill.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Aniruddha Joshi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/sql_fill.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
