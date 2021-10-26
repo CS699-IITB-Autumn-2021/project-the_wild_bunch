@@ -101,7 +101,7 @@ to users’ interests.
     * Using News18/Economic Times/The Hindu/India.com Web scrapper -
         * Paste the respective news url in the Article Url box, also select the category of the news article to be added from the dropdown. 
         * Click on submit button, the news article will be fetched and added to the news database.
-        * If some error happens (this can be if the url entered is not valid for that web scrapper) - alert will be raised.  
+        * If some error happens (this can occur if the url entered is not valid for that web scrapper) - alert will be raised.  
     * Using Google Web scrapper - 
         * This web scrapper automatically fetches multiple news articles based on the keyword entered in the *Keyword* box.
         * Admin can specify the number of news articles to fetch by typing in the number in the *Number of articles* box. Also the category should be selected from the dropdown.
