@@ -8,7 +8,6 @@ import parse_class as ps
 import time
 import os
 import imghdr
-import sql_fill as sql_f
 
 class param_matcher:
 	"""
@@ -375,6 +374,111 @@ class param_matcher:
 			print("</table>")
 			print("</html>")
 
+	def store_imgs_and_print(self,num):
+		"""This function stores the article images and prints in html format
+			
+			Parameters
+			----------
+			None
+
+			Returns
+			-------
+			None
+		"""
+		#get all articles
+
+		all_articles = self.articles
+		
+		
+		#print the initial heading of the table
+		print("<table>")
+		print("\t<tr>")
+		print("\t\t<th>Title</th>")
+		print("\t\t<th>Title Description</th>")
+		print("\t\t<th>URL</th>")
+		print("\t\t<th>Image URL</th>")
+		print("\t\t<th>Actual_image</th>")
+		print("\t</tr>")
+		
+		#iterate over articles to add in the SQL table
+		iter_article=0
+
+		#clean the directory
+		os.system('rm ./assets/upload/article/*')
+		
+		#iterate until upper bound is not reached
+		while iter_article < min(num,len(all_articles)):
+			
+			#get the subject, or the title of the article
+			subject = all_articles[iter_article][0]
+
+			#get the title description of the article
+			description = str(all_articles[iter_article][1])+"<a href= \""+str(all_articles[iter_article][2])+"\">Read More</a>"
+			
+			#try to fetch the image of the article. If no image is provided
+			#in google news, then skip the article
+			try:
+				response = requests.get(all_articles[iter_article][3])
+			except:
+				#skip the article if no image link
+				iter_article = iter_article + 1
+				num = num+1
+				continue
+			
+			#create a soup for the image
+			soup1 = BeautifulSoup(response.text,'html.parser')
+			
+			#name the image according to system time for uniqueness
+			image = str(time.time())
+			
+			#store the image in assets/upload/article/
+			try:
+				file = open("assets/upload/article/"+image, "wb")
+				file.write(response.content)
+				file.close()
+
+				#get the extension of the image
+				img_type = imghdr.what("assets/upload/article/"+image)
+				
+				#change the name of the image to include it's extension
+				img_final_name = "assets/upload/article/"+image+"."+str(img_type)
+
+				#rename the image with appropriate extension
+				os.rename("assets/upload/article/"+image,img_final_name)
+				
+			except:
+				#if there is a problem in uploading the image then raise an exception
+				print("IMAGE UPLOADING PROBLEM")
+				raise Exception("Image upload error.")
+			
+				
+			#print the current row
+			print("\t<tr>")
+			
+			#print the title of article
+			print("\t\t<td>",subject,"</td>")
+
+			#print the Description of the article
+			print("\t\t<td>",all_articles[iter_article][1],"</td>")
+			
+			#print the description with read more or URL
+			print("\t\t<td>",description,"</td>")
+
+			#print the URL of the image
+			print("\t\t<td>",all_articles[iter_article][3],"</td>")
+
+			#print the image
+			print("\t\t<td><img src=",img_final_name, " style=\"width:500px;height:600px;\">","</td>",sep="")
+			
+			#end the current row
+			print("\t</tr>")
+				
+			#go to the next article
+			iter_article = iter_article+1
+		
+		print("</table>")
+
+		
 	def pretty_print(self, file_name):
 		"""Print pretty the textual contents as well
 			as the brackets in nested order.
