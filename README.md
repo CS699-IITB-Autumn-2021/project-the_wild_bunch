@@ -1,4 +1,14 @@
 # XYZ NEWS PORTAL
+
+## Motivation
+* In the world of rapid news and information accumulation, it is often easier to be distracted and lose the valuable news of one`s personal interest.
+* Many a times we are just bombarded with current breaking news or news which are not really catered towards our interest, and even for finding news from our domain, we need to google it manually. That can be tedious at times. 
+* So our project aims to solve this problem by creating a user centric news article portal, where users can find news articles of their personal taste, also they can subscribe to newsletters for updates.
+
+## Why you should consider our news portal?
+The answer is simple, our website provides one stop solution for news updates where you can easily read the news without being bombarded with adlinks and promotional messages which you never like.
+
+
 ## User Site
 A web application that helps users to read news articles from various reliable resources like : 
 1. News 18
@@ -7,6 +17,13 @@ A web application that helps users to read news articles from various reliable r
 4. India[dot]com
 
 Users can also subscribe to news updates notification mails.
+### User site features:
+1. Landing Page - Read latest added news articles by clicking on any news article from the landing page.
+2. Categorical News articles - Sort news by their categories by cliicking on any category from the navbar.
+3. Subscribe to Updates - Readers can subscribe for newly added articles by submitting their email.
+4. Search for news articles - Readers can search for any news article by any keyword.
+5. Commenting - Readers can also post comments on any news article.
+6. Other features - Readers can also see the *number of views* for each news article. Also the website is having *next* and *previous* buttons and *pagination* for easier navigation through the site.
 ## Admin Site
 1.Admin login. \
 2.Add/Update admin details. \
@@ -19,14 +36,78 @@ For automatically add the news articles:
 
 This is achieved by using "Web Scrapping" in Python, which is invoked using PHP.
 
+
+## Technology Stack
+1. PHP, HTML, CSS, Javascript
+2. Python, Webscrapping
+3. Database - Using Python and PHP
+4. Code Documenting - Using Sphinx
+5. Latex - For project presentations
+
+## List of deliverables
+
+- [X] Fully functioning website showing news articles according
+to users’ interests.
+- [X] Automatic fetching of news articles using web scraping.
+- [X] Fully functioning admin interface.
+
+## Hardware/Software requirements
+1. Hardware - Any Windows/Linux/Mac based system.
+2. Software -
+    * LAMP stack or XAMPP
+    * Python 3.6 or higher
+
 ## How to run the project
 * Clone the repository and extract the files to 'htdocs' folder in php localhost folder in your system.
 * Give read and write permission to all the files and folders using command "chmod 777 -R projectXYZ".
 * Start xampp server on your system.
+* Import the "cs699proj.sql" database file by going in phpmyadmin of your system.
+* Change credentials in config/db.php file to your phpmyadmin credentials (user,password).
 * Open the project on web browser by typing "localhost/projectXYZ".
 * You can also open the admin site uisng "localhost/projectXYZ/admin".
 * NOTE : For admin site, you need authorized credentials to log in.
 
+## How to operate the project
+### User site
+1. Once you've opened "localhost/projectXYZ" in web browser, you'll see the landing page of the News Portal.
+2. Landing Page - 
+    * Top banner has logo and navbar to sort the news articles based on categories.
+    * The main container has links to various news articles in cards format, it has the news headline along with a short description also it has a image thumbnail. Users can read the complete news article by clicking the *Read More* button in any card.
+    * Side bar has *Subscribe to updates* and *Search bar*. Users can enter their email to subscribe to a news letter which will update them whenever a news article is added to the portal. Users can also search for any news article by entering the *search term* in the search bar.
+3. News article webpage - 
+    * Individual news article webpage has the complete news article where reader can read the news also they can see the accompanying image. At the end of the news description, there is a hyperlink for accessing the orignal news article.
+    * *Next* & *Previous* buttons - Reader can go to next/previous news article by clicking it.
+    * Commenting - Below the news article, users can add commnents to by entering their name and the commnet in the comment box, also users can read comments left by others on the same article(if any).
+    * Side bar - Side bar is having links to top 10 latest added news articles. 
+### Admin Site
+1. Once you've opened "localhost/projectXYZ/admin" in the web browser, you'll see the admin login portal.
+2. After logging in (this requires valid credentials)
+    * Landing page(Dashboard) - This page has web scrapping mechanism to automatically add news articles. 
+    * Using News18/Economic Times/The Hindu/India.com Web scrapper -
+        * Paste the respective news url in the Article Url box, also select the category of the news article to be added from the dropdown. 
+        * Click on submit button, the news article will be fetched and added to the news database.
+        * If some error happens (this can be if the url entered is not valid for that web scrapper) - alert will be raised.  
+    * Using Google Web scrapper - 
+        * This web scrapper automatically fetches multiple news articles based on the keyword entered in the *Keyword* box.
+        * Admin can specify the number of news articles to fetch by typing in the number in the *Number of articles* box. Also the category should be selected from the dropdown.
+        * **NOTE** : This web scrapper uses Google News for fetching news articles related to passed keyword. This is a strong web scrapper as it fetches multiple news articles at once, but it returns only few characters in the news article body.
+3. Add admin page - This page can be used to add other news admins to the site.
+4. View admin page - This page can be used to update and view all the admins on the site. **NOTE**: Only the ROOT admin can change information of all the admins, NON ROOT admins can only change their own information.
+5. Add post page - This page is used to add news articles manually.
+6. View post page - This page is used to view and edit already added news artilces in the portal.
+7. View comment page - This page is used to view all the comments added by readers in the news articles, using this page, admin can Hide/Unhide or delete the comments.
+
+## Primary Stakeholders
+* All the readers of the news portal.
+* The developers of the project.
+* --- YET TO ADD ---
+
+## Team Details & Contribution
+* Team Name : **The_Wild_Bunch**
+* Team Members details :
+    1. Aniruddha Joshi (213050043) - Web Scrapping Implementaion, Documentation, Database incorporation in Python.
+    2. Kamal Kakadiya (213050001) - Admin Site, Database management, Email mechanism for newsletters.
+    3. Animesh (21Q050015) - User Site, Frontend UI.
 ## References
 1. [Sticky Divs](https://www.w3docs.com/snippets/css/how-to-make-a-div-stick-to-the-top-of-screen-when-scrolling-with-css-and-javascript.html)
 2. [Bootstrap Theme](https://bootswatch.com/5/lux/bootstrap.css)
