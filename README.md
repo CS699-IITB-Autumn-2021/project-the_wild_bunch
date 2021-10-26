@@ -43,3 +43,5 @@ There are following directories here:
 		* Requirements.txt: This lists the requirements i.e. the python packages for the program to work.
 
 	5. Webpage: This directory is hosted on my webpage. To just give an interface for the subset of development in this branch.
+
+	6.other_web_scraping_files: This directory contains the webscraping files specific for websites, Economic Times, India.com, News18 and The Hindu respectively. It also contains the whole webscraping documentation.
