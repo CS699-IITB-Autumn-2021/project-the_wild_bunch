@@ -140,3 +140,6 @@ docs/_build/html/index.html
 12. [python in php](https://stackoverflow.com/questions/166944/calling-python-in-php)
 13. [Function in php](https://www.php.net/manual/en/function.exec.php)
 14. [Bootstrap code](https://getbootstrap.com/)
+15. [Link Scraping](https://pythonprogramminglanguage.com/get-all-links-from-webpage/)
+16. [Image Type](https://docs.python.org/3/library/imghdr.html)
+17. [Google News Api](https://pypi.org/project/GoogleNews/)
