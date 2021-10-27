@@ -122,7 +122,7 @@ docs/_build/html/index.html
 ## Team Details & Contribution
 * Team Name : **The_Wild_Bunch**
 * Team Members details :
-    1. Aniruddha Joshi (213050043) - Web Scraping Implementation, Documentation, Database incorporation in Python, Implementing Python backend in PHP.
+    1. Aniruddha Joshi (213050043) - Web Scraping Implementation, Documentation, Database incorporation in Python, Implementing appropriate python scripts through PHP.
     2. Kamal Kakadiya (213050001) - Admin Site, Database management, Email mechanism for newsletters, Web Scraping Implementaion.
     3. Animesh (21Q050015) - User Site, fetching news articles to show on User Site.
 ## References
