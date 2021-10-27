@@ -1,7 +1,12 @@
+<!-- References :  -->
+<!-- Bootstrap theme : https://bootswatch.com/5/lux/bootstrap.css -->
+<!-- Bootstrap Elements : https://bootswatch.com/lux/ -->
 <?php
-    require('./config/db.php');
+    require('./config/db.php');     //Establishing database connection
     $category = mysqli_real_escape_string($conn, $_GET['category']);
-    require('./config/insert.php');
+    require('./config/insert.php');     //invoking logic to submit user email for newsletter subscriptions
+    
+    // For pagination:
     //get page number
     if (!isset ($_GET['page']) ) {  
         $page = 1;  
@@ -54,13 +59,15 @@
 <body>
     <div class="header">
         <div class="container-fluid">
+            <!-- Logo of Website -->
             <a href="index.php" id="banner">
                 <div class="text-center py-3">
                     <h1>XYZ News Portal</h1>
                     <h4 class="text-muted">For those who read</h4>
                 </div>
             </a>
-
+            
+            <!-- Dynamic Navbar : Having all the categories of news articles -->
             <div class="container-md">
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item">
@@ -82,6 +89,7 @@
             </div>
         </div>
     </div>
+    <!-- Main container -->
     <div class="main-content container-lg-12 mx-0">
         <h1 class="mx-2 pt-3">Latest <?php echo $category; ?> News articles</h1>
         <div class="container-lg-12 main-container mx-0">

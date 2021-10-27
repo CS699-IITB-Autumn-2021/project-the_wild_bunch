@@ -1,7 +1,10 @@
+<!-- References :  -->
+<!-- Bootstrap theme : https://bootswatch.com/5/lux/bootstrap.css -->
+<!-- Bootstrap Elements : https://bootswatch.com/lux/ -->
 <?php
-    require('./config/db.php');
+    require('./config/db.php');     //Establishing database connection
     $id = mysqli_real_escape_string($conn, $_GET['id']);
-    require('./config/insert_comments.php');
+    require('./config/insert_comments.php');        //Invoking logic for commenting
     //get id
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     //Create query
@@ -53,13 +56,14 @@
 <body>
     <div class="header">
         <div class="container-fluid">
+            <!-- Logo of website -->
             <a href="index.php" id="banner">
                 <div id="banner" class="text-center py-3">
                     <h1>XYZ News Portal</h1>
                     <h4 class="text-muted">For those who read</h4>
                 </div>
             </a>
-
+            <!-- Dynamic Navbar : Having all categories of news articles -->
             <div class="container-md">
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item">
@@ -74,6 +78,7 @@
             </div>
         </div>
     </div>
+    <!-- Main container -->
     <div class="main-content container-lg-12 mx-3">
         <h1 class="mx-2 pt-3"> <?php echo $post['article_title']; ?></h1>
         <div class="container-lg-12 main-container mx-0">
@@ -106,6 +111,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Next and previous articles Button -->
             <div class="row mx-0 my-3">
                 <div class="col-md-8">
                     <div class="row">
