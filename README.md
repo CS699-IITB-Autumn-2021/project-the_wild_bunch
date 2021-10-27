@@ -78,6 +78,7 @@ to users’ interests.
 * Start xampp server on your system.
 * Import the "cs699proj.sql" database file by going in phpmyadmin of your system.
 * Change credentials in config/db.php file to your phpmyadmin credentials (user,password).
+* Also credentials in webscraping files need to be changed.
 * Open the project on web browser by typing "localhost/projectXYZ".
 * You can also open the admin site uisng "localhost/projectXYZ/admin".
 * NOTE : For admin site, you need authorized credentials to log in.
@@ -105,7 +106,7 @@ to users’ interests.
     * Using Google Web scrapper - 
         * This web scrapper automatically fetches multiple news articles based on the keyword entered in the *Keyword* box.
         * Admin can specify the number of news articles to fetch by typing in the number in the *Number of articles* box. Also the category should be selected from the dropdown.
-        * **NOTE** : This web scrapper uses Google News for fetching news articles related to passed keyword. This is a strong web scrapper as it fetches multiple news articles at once, but it returns only few characters in the news article body.
+        * **NOTE** : This web scrapper uses Google News for fetching news articles related to passed keyword. This is a strong web scrapper as it fetches multiple news articles at once.
 3. Add admin page - This page can be used to add other news admins to the site.
 4. View admin page - This page can be used to update and view all the admins on the site. **NOTE**: Only the ROOT admin can change information of all the admins, NON ROOT admins can only change their own information.
 5. Add post page - This page is used to add news articles manually.
