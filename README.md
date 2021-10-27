@@ -138,7 +138,7 @@ docs/_build/html/index.html
 9. [Login card](https://codepen.io/eminqasimov/pen/zXJVzJ)
 10. [Bootstrap model](https://codepen.io/fadzrinmadu/pen/NWpvLwb)
 11. [PHP session managment](https://www.w3schools.com/php/php_sessions.asp)
-12. [python in php](https://stackoverflow.com/questions/166944/calling-python-in-php)
+12. [Python in php](https://stackoverflow.com/questions/166944/calling-python-in-php)
 13. [Function in php](https://www.php.net/manual/en/function.exec.php)
 14. [Bootstrap code](https://getbootstrap.com/)
 15. [Link Scraping](https://pythonprogramminglanguage.com/get-all-links-from-webpage/)
