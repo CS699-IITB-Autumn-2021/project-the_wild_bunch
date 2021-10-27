@@ -47,3 +47,5 @@ There are following directories here:
 	5. Webpage: This directory can be hosted directly (in some machines with appropriate libs), without running setup.sh.
 
 	6.other_web_scraping_files: This directory contains the webscraping files specific for websites, Economic Times, India.com, News18 and The Hindu respectively. It also contains the whole webscraping documentation.
+
+**Note**: This branch can work as it's own stand alone application for google news scraping as well.
