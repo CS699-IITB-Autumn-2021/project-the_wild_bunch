@@ -152,24 +152,18 @@ pointers to it&#8217;s children.</p>
 <dt id="parse_class.param_matcher.children">
 <code class="descname">children</code><span class="sig-paren">(</span><em>str_curr</em><span class="sig-paren">)</span><a class="headerlink" href="#parse_class.param_matcher.children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Populate the children of current
-node</p>
+node according to current string</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>str_curr</strong> (<em>String</em>) &#8211; </li>
-<li><strong>current string</strong> (<em>the</em>) &#8211; </li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str_curr</strong> (<em>String</em>) &#8211; The current string to make children</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>string</strong> (<em>the list of locations</em>)</li>
-<li><em>in the str_curr to have nested</em></li>
-<li><em>blocks</em></li>
-</ul>
-</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of locations
+in the str_curr to have nested
+blocks</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
@@ -187,18 +181,11 @@ Image URL respectively.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>(Optional)</strong> (<em>file_name</em>) &#8211; </li>
-<li><strong>file name is passed, then instead of stdout,</strong> (<em>If</em>) &#8211; </li>
-<li><strong>content in the file</strong> (<em>print</em>) &#8211; </li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>Optional, String</em>) &#8211; If file name is passed, then instead of stdout, print content in the file</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>
@@ -259,7 +246,7 @@ passed is 1</p>
 The articles added are minimum of articles fetched and num.</li>
 <li><strong>category</strong> (<em>String</em>) &#8211; This is category of the fetched articles in the SQL table.</li>
 <li><strong>author</strong> (<em>String</em>) &#8211; This is the name of the author who is adding the news articles.</li>
-<li><strong>(Optional)</strong> (<em>print_html</em>) &#8211; This value specifies whether to print the html table of new added articles.
+<li><strong>print_html</strong> (<em>Optional, Bool</em>) &#8211; This value specifies whether to print the html table of new added articles.
 If this argument is 1, then print the table, otherwise do not print the table.</li>
 </ul>
 </td>
@@ -283,18 +270,12 @@ as the brackets in nested order.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_name</strong> (<em>String</em>) &#8211; </li>
-<li><strong>file name to write the pretty values</strong> (<em>the</em>) &#8211; </li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>String</em>) &#8211; The file name to write the pretty values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>string</strong> (<em>the string which is the pretty print in</em>)</li>
-<li><em>the file</em></li>
-</ul>
-</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The string which is the pretty print in
+the file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>
@@ -309,18 +290,12 @@ brackets in nested order.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_name</strong> (<em>String</em>) &#8211; </li>
-<li><strong>file name to write the pretty values</strong> (<em>the</em>) &#8211; </li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>String</em>) &#8211; The file name to write the pretty values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>string</strong> (<em>the string which is the pretty print in</em>)</li>
-<li><em>the file</em></li>
-</ul>
-</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The string which is the pretty print in
+the file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
 </tr>
 </tbody>
 </table>

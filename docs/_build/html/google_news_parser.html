@@ -174,7 +174,7 @@ with special characters with the same mapping.</p>
 <dl class="function">
 <dt id="google_news_parser.main">
 <code class="descclassname">google_news_parser.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#google_news_parser.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the main
+<dd><p>This is the main.
 Get keyword to search,character mapping file name, category name
 result bound, author through command line.
 Defaults for keyword, character mapping file, category name,
@@ -187,11 +187,15 @@ from goole news, according to the keyword searched.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>(optional)</strong> (<em>category</em>) &#8211; </li>
-<li><strong>mapping file (optional)</strong> (<em>character</em>) &#8211; This file specifies the special character mapping in the URL.</li>
-<li><strong>(optional)</strong> &#8211; This the category to insert the news.</li>
-<li><strong>fetch_result_number</strong> (<em>Command line.</em>) &#8211; This is the maximum number of results.</li>
-<li><strong>author</strong> (<em>Command line.</em>) &#8211; This specifies the author name.</li>
+<li><strong>keyword</strong> (<em>optional, String</em>) &#8211; Command line.</li>
+<li><strong>character_mapping_file</strong> (<em>optional, String</em>) &#8211; Command line.
+This file specifies the special character mapping in the URL.</li>
+<li><strong>category</strong> (<em>optional, String</em>) &#8211; Commmand line.
+This the category to insert the news.</li>
+<li><strong>fetch_result_number</strong> (<em>optional, Integer</em>) &#8211; Command line.
+This is the maximum number of results.</li>
+<li><strong>author</strong> (<em>optional, String</em>) &#8211; Command line.
+This specifies the author name.</li>
 </ul>
 </td>
 </tr>
